@@ -1,13 +1,12 @@
 package com.wg.Model;
 
-import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
 
 public class User {
 	private String userId;
 	private String name;
-	private String dateOfBirth;
+	private LocalDate dob;
 	private String contactNumber;
 	private Role role;
 	private String password;
@@ -20,36 +19,6 @@ public class User {
 	private String rollNo;
 	private List<Integer> assignedToStandard;
 	private int mentorOf;
-
-	private Connection connection;
-	private Scanner scanner;
-
-	public User(String userId, String name, String dateOfBirth, String contactNumber, Role role, String password,
-			int standard, String address, int age, String email, String gender, String rollNo,
-			List<Integer> assignedToStandard, int mentorOf, Connection connection, Scanner scanner) {
-		super();
-		this.userId = userId;
-		this.name = name;
-		this.dateOfBirth = dateOfBirth;
-		this.contactNumber = contactNumber;
-		this.role = role;
-		this.password = password;
-		this.standard = standard;
-		this.address = address;
-		this.age = age;
-		this.email = email;
-		this.gender = gender;
-		this.rollNo = rollNo;
-		this.assignedToStandard = assignedToStandard;
-		this.mentorOf = mentorOf;
-		this.connection = connection;
-		this.scanner = scanner;
-	}
-
-	public User(Connection connection, Scanner scanner) {
-		this.connection = connection;
-		this.scanner = scanner;
-	}
 
 	// Constructors
 	public User() {
@@ -86,7 +55,6 @@ public class User {
 	}
 
 	public User(String userId, String username, String name, int age, String password, String email, Role role) {
-		// TODO Auto-generated constructor stub
 		this.userId = userId;
 		this.username = username;
 		this.name = name;
@@ -94,6 +62,23 @@ public class User {
 		this.age = age;
 		this.password = password;
 		this.role = role;
+	}
+
+	public User(String userId, String username, String name, int age, String password, String email, Role role,
+			LocalDate date, String contactNumber, int standard, String gender, String rollNo, int mentorOf) {
+		this.userId = userId;
+		this.username = username;
+		this.name = name;
+		this.age = age;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+		this.dob = date;
+		this.contactNumber = contactNumber;
+		this.standard = standard;
+		this.gender = gender;
+		this.rollNo = rollNo;
+		this.mentorOf = mentorOf;
 	}
 
 	// getter setters
@@ -129,12 +114,12 @@ public class User {
 		this.gender = gender;
 	}
 
-	public String getDateOfBirth() {
-		return dateOfBirth;
+	public LocalDate getDOB() {
+		return dob;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setDOB(LocalDate dateOfBirth) {
+		this.dob = dateOfBirth;
 	}
 
 	public String getContactNumber() {
@@ -219,7 +204,10 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User{" + "userId=" + userId + ", name='" + name + '\'' + ", email='" + email + '\'' + ", password='"
-				+ password + '\'' + '}';
+		return "User{" + "userId='" + userId + '\'' + ", name='" + name + '\'' + ", dateOfBirth='" + dob + '\''
+				+ ", contactNumber='" + contactNumber + '\'' + ", role=" + role + ", password='" + password + '\''
+				+ ", standard=" + standard + ", address='" + address + '\'' + ", username='" + username + '\''
+				+ ", age=" + age + ", email='" + email + '\'' + ", gender='" + gender + '\'' + ", rollNo='" + rollNo
+				+ '\'' + ", assignedToStandard=" + assignedToStandard + ", mentorOf=" + mentorOf + '}';
 	}
 }

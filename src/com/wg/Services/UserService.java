@@ -10,7 +10,6 @@ public class UserService {
 	private UserDAO userDAO;
 
 	public UserService() {
-
 	}
 
 	public UserService(UserDAO userDAO) {
@@ -74,6 +73,10 @@ public class UserService {
 		User user = null;
 		try {
 			user = userDAO.getUserByUsername(username);
+			if (user.getUserId() == null) {
+				System.out.println("User not found");
+				return false;
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,14 +89,17 @@ public class UserService {
 			return true;
 		} else if (checkName != username) {
 			System.out.println("Enter correct Username");
+			return false;
 		} else if (checkPass != password) {
 			System.out.println("Enter correct password");
+			return false;
 		} else if (role1 != role) {
 			System.out.println("Enter correct role");
+			return false;
 		} else {
 			System.out.println("Authentication Unsuccessful");
+			return false;
 		}
-		return false;
 	}
 
 	public List<User> getAllUser() {
@@ -116,9 +122,8 @@ public class UserService {
 		return user;
 	}
 
-	public void updateUser(User user, String columnToUpdate) {
+	public void updateUser(User user, String userId, String columnToUpdate) {
 		try {
-			String userId = user.getUserId();
 			userDAO.updateUser(user, userId, columnToUpdate);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

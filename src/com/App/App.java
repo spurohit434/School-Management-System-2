@@ -2,8 +2,23 @@ package com.App;
 
 import java.sql.SQLException;
 
+import com.wg.Controller.AttendanceController;
+import com.wg.Controller.CourseController;
+import com.wg.Controller.FeeController;
+import com.wg.Controller.LeavesController;
+import com.wg.Controller.NotificationController;
 import com.wg.Controller.UserController;
+import com.wg.DAO.AttendanceDAO;
+import com.wg.DAO.CourseDAO;
+import com.wg.DAO.FeeDAO;
+import com.wg.DAO.LeavesDAO;
+import com.wg.DAO.NotificationDAO;
 import com.wg.DAO.UserDAO;
+import com.wg.Services.AttendanceServices;
+import com.wg.Services.CourseService;
+import com.wg.Services.FeeService;
+import com.wg.Services.LeavesService;
+import com.wg.Services.NotificationService;
 import com.wg.Services.UserService;
 import com.wg.UI.StartMenu;
 
@@ -12,8 +27,24 @@ public class App {
 		UserDAO dao = new UserDAO();
 		UserService service = new UserService(dao);
 		UserController controller = new UserController(service);
-		StartMenu menu = new StartMenu(controller);
+		CourseDAO courseDAO = new CourseDAO();
+		CourseService courseService = new CourseService(courseDAO);
+		CourseController courseController = new CourseController(courseService);
+		AttendanceDAO attendanceDAO = new AttendanceDAO();
+		AttendanceServices attendanceService = new AttendanceServices(attendanceDAO);
+		AttendanceController attendanceController = new AttendanceController(attendanceService);
+		FeeDAO feeDAO = new FeeDAO();
+		FeeService feeService = new FeeService(feeDAO);
+		FeeController feeController = new FeeController(feeService);
+		NotificationDAO notificationDAO = new NotificationDAO();
+		NotificationService notificationService = new NotificationService(notificationDAO);
+		NotificationController notificationController = new NotificationController(notificationService);
+		LeavesDAO leavesDAO = new LeavesDAO();
+		LeavesService leavesService = new LeavesService(leavesDAO);
+		LeavesController leavesController = new LeavesController(leavesService);
 
+		StartMenu menu = new StartMenu(controller, feeController, courseController, attendanceController,
+				notificationController, leavesController);
 		menu.showStartMenu();
 	}
 }
