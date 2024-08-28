@@ -152,6 +152,7 @@ public class UserService {
 				String checkPass = user.getPassword();
 
 				if (checkName.equals(username) && PasswordUtil.checkPassword(password, checkPass)) {
+					logger.info("User Authentication Success!! \n Username: " + username);
 					System.out.println("Authentication successful");
 					return user;
 				} else if (checkPass != password) {

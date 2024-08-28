@@ -166,8 +166,9 @@ public class UserUI {
 				System.out.println("8. Pay fees");
 				System.out.println("9. Check Marks");
 				System.out.println("10. Read Notifications");
-				System.out.println("11. Logout");
-				System.out.println("12. Exit");
+				System.out.println("11. View Attendance");
+				System.out.println("12. Logout");
+				System.out.println("13. Exit");
 				System.out.println(" ");
 				System.out.println("Enter your choice: ");
 
@@ -207,9 +208,12 @@ public class UserUI {
 					readNotifications(user);
 					break;
 				case 11:
-					logout();
+					viewAttendance(user);
 					break;
 				case 12:
+					logout();
+					break;
+				case 13:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -284,6 +288,18 @@ public class UserUI {
 			}
 		} else {
 			System.out.println("Enter valid role!");
+		}
+	}
+
+	private void viewAttendance(User user) {
+		String userId = user.getUserId();
+		List<Attendance> attendance = attendanceController.viewAttendanceById(userId);
+		if (attendance.isEmpty()) {
+			System.out.println("No attendance records available");
+			return;
+		}
+		for (Attendance attendee : attendance) {
+			System.out.println(attendee);
 		}
 	}
 
@@ -416,10 +432,10 @@ public class UserUI {
 		User user = userController.getUserById(userId);
 		if (user != null) {
 			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
 			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
 			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
 
 		} else {
 			System.out.println("User not found.");
@@ -432,10 +448,10 @@ public class UserUI {
 		User user = userController.getUserByUsername(username);
 		if (user != null) {
 			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
 			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
 			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
 
 		} else {
 			System.out.println("User not found.");
@@ -451,13 +467,13 @@ public class UserUI {
 			System.out.println("Users not found!");
 		} else {
 			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
 
 			for (User user : users) {
 				System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
 			}
 			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
 
 		}
 	}
@@ -476,13 +492,13 @@ public class UserUI {
 	private void getAllUser() {
 		List<User> list = userController.getAllUser();
 		System.out.println(
-				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
 
 		for (User user : list) {
 			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
 		}
 		System.out.println(
-				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
 
 	}
 
@@ -565,13 +581,15 @@ public class UserUI {
 
 	public void manageCourse() {
 		while (true) {
+			System.out.println(" ");
 			System.out.println("Manage Courses");
 			System.out.println("1. Add Course");
 			System.out.println("2. Get Course");
 			System.out.println("3. Delete Course");
 			System.out.println("4. Update Course");
 			System.out.println("5. Get All Courses");
-			System.out.println("6. Logout and go back to Main Menu");
+			System.out.println("6. Go back to Main Menu");
+			System.out.println(" ");
 			System.out.println("Enter the Choice:");
 
 			int choice = scanner.nextInt();
@@ -647,11 +665,13 @@ public class UserUI {
 
 	private void manageAttendance() {
 		while (true) {
+			System.out.println(" ");
 			System.out.println("Manage Attendance");
 			System.out.println("1. Add Attendance");
 			System.out.println("2. View Attendance by Standard");
 			System.out.println("3. View Attendance by Student Id");
 			System.out.println("4. Logout and go back to Main Menu");
+			System.out.println(" ");
 			System.out.println("Enter the Choice:");
 
 			int choice = scanner.nextInt();
@@ -680,9 +700,20 @@ public class UserUI {
 		String studentId = scanner.nextLine();
 		System.out.println("Enter standard:");
 		int standard = scanner.nextInt();
-		System.out.println("Enter the date (YYYY-MM-DD):");
-		String dateString = scanner.next();
-		LocalDate date = LocalDate.parse(dateString);
+
+		LocalDate date = null;
+		boolean validateDate = false;
+		while (!validateDate) {
+			System.out.println("Enter the date (YYYY-MM-DD):");
+			try {
+				String dateString = scanner.next();
+				date = LocalDate.parse(dateString);
+				validateDate = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		System.out.println("Enter status (P for Present, A for Absent):");
 		String statusInput = scanner.next();
 		Status status = Status.valueOf(statusInput);
@@ -750,6 +781,10 @@ public class UserUI {
 
 	private void viewAllLeave() {
 		List<Leaves> leaves = leavesController.viewAllLeave();
+		if (leaves.isEmpty()) {
+			System.out.println("No Issues found");
+			return;
+		}
 		for (Leaves leave : leaves) {
 			System.out.println(leave);
 		}
@@ -822,6 +857,10 @@ public class UserUI {
 	public void checkIssueStatus(User user) {
 		String userId = user.getUserId();
 		List<Issue> issue = issueController.checkIssueStatus(userId);
+		if (issue.isEmpty()) {
+			System.out.println("No Issues found");
+			return;
+		}
 		for (Issue issues : issue) {
 			System.out.println(issues);
 		}
@@ -829,6 +868,10 @@ public class UserUI {
 
 	public void viewAllIssues() {
 		List<Issue> issue = issueController.viewAllIssues();
+		if (issue.isEmpty()) {
+			System.out.println("No Issues found");
+			return;
+		}
 		for (Issue issues : issue) {
 			System.out.println(issues);
 		}
@@ -837,6 +880,10 @@ public class UserUI {
 	private void checkMarks(User user) {
 		String userId = user.getUserId();
 		List<CourseMarks> coursesMarks = courseMarksController.checkMarks(userId);
+		if (coursesMarks.isEmpty()) {
+			System.out.println("No marks added");
+			return;
+		}
 		for (CourseMarks c : coursesMarks) {
 			Course course = courseController.getCourse(c.getCourseId());
 			System.out.println("Course Name: " + course.getCourseName() + "  CourseId: " + c.getCourseId() + "  Marks: "

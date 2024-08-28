@@ -93,6 +93,7 @@ public class IssueDAO {
 
 	public List<Issue> viewAllIssues() {
 		List<Issue> issueList = new ArrayList<>();
+		// List<Issue> issueList = null;
 		String query = "SELECT * FROM Issue";
 		try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(query)) {
 

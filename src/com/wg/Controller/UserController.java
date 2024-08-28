@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import com.wg.Helper.PasswordValidator;
+import com.wg.Helper.Validator;
 import com.wg.Model.Role;
 import com.wg.Model.User;
 import com.wg.Services.UserService;
@@ -135,7 +136,12 @@ public class UserController {
 					case 3:
 						columnToUpdate = "username";
 						System.out.print("Enter new username: ");
-						user.setUsername(scanner.nextLine());
+						String username = scanner.nextLine();
+						if (Validator.isValidUsername(username)) {
+							System.out.println("Enter valid username");
+							return;
+						}
+						user.setUsername(username);
 						break;
 					case 4:
 						columnToUpdate = "password";
@@ -144,8 +150,23 @@ public class UserController {
 						break;
 					case 5:
 						columnToUpdate = "age";
-						System.out.print("Enter new age: ");
-						user.setAge(scanner.nextInt());
+						int age = scanner.nextInt();
+						boolean validInput1 = false;
+						while (!validInput1) {
+							System.out.print("Enter new age: ");
+							try {
+								age = scanner.nextInt();
+								if (Validator.isValidAge(age)) {
+									validInput1 = true;
+								} else {
+									validInput1 = false; // If input is valid, exit loop
+								}
+							} catch (InputMismatchException e) {
+								System.out.println("Invalid input. Please enter a valid integer for age.");
+								scanner.next(); // Clear invalid input
+							}
+						}
+						user.setAge(age);
 						scanner.nextLine();
 						break;
 					case 6:
