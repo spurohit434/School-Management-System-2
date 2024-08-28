@@ -17,19 +17,24 @@ public class FeeService {
 
 	public void payFees(String userId) {
 		try {
-			feeDAO.checkFees(userId);
+			double fees = feeDAO.checkFees(userId);
+			double fine = feeDAO.calculateFine(userId);
+			System.out.println("The fine is " + fine);
+			double totalFees = fees + fine;
+			System.out.println("Total Payalbe amount is: " + totalFees);
 			feeDAO.payFees(userId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void checkFees(String userId) {
+	public double checkFees(String userId) {
 		try {
-			feeDAO.checkFees(userId);
+			return feeDAO.checkFees(userId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 
 	public void addFees(String userId, double feeAmount, LocalDate deadline, double fine) {
@@ -40,11 +45,12 @@ public class FeeService {
 		}
 	}
 
-	public void calculateFine(String userId) {
+	public double calculateFine(String userId) {
 		try {
-			feeDAO.calculateFine(userId);
+			return feeDAO.calculateFine(userId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 }

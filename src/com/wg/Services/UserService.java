@@ -62,7 +62,7 @@ public class UserService {
 			System.out.println("User not found");
 			return false;
 		}
-		if (user.getRole().toString().equals("Admin")) {
+		if (user.getRole().toString().equalsIgnoreCase("Admin")) {
 			System.out.println("Admin cannot be deleted");
 			return false;
 		}

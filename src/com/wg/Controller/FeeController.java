@@ -20,16 +20,16 @@ public class FeeController {
 		feeService.payFees(userId);
 	}
 
-	public void checkFees(String userId) {
-		feeService.checkFees(userId);
+	public double checkFees(String userId) {
+		return feeService.checkFees(userId);
 	}
 
 	public void addFees(String userId, double feeAmount, LocalDate deadline, double fine) {
 		feeService.addFees(userId, feeAmount, deadline, fine);
 	}
 
-	public void calculateFine(String userId) {
-		feeService.calculateFine(userId);
+	public double calculateFine(String userId) {
+		return feeService.calculateFine(userId);
 	}
 
 //	FeeDAO feeDAO = new FeeDAO();

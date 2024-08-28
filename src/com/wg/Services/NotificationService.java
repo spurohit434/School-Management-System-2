@@ -28,9 +28,10 @@ public class NotificationService {
 			// return false;
 		} else {
 			for (Notification notification : notificationList) {
+				System.out.println("------------------------");
 				System.out.println("Notification Id: " + notification.getNotificationId());
-				System.out.println("Notification: " + notification.getType());
-				System.out.println("Message: " + notification.getDescription());
+				System.out.println("Notification: " + notification.getDescription());
+				System.out.println("Message: " + notification.getType());
 				System.out.println("Date: " + Date.valueOf(notification.getDateIssued()));
 				System.out.println("------------------------");
 			}

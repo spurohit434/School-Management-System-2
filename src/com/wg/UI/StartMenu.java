@@ -43,13 +43,15 @@ public class StartMenu {
 	}
 
 	public void showStartMenu() {
-		System.out.println("School Management System");
+		System.out.println(" ");
+		System.out.println("======  Welcome to School Management System  ======");
 		System.out.println("1. Login to system");
 		System.out.println("2. Exit");
+		System.out.println(" ");
+
 		System.out.println("Enter your choice: ");
 
 		int choice = scanner.nextInt();
-
 		switch (choice) {
 		case 1:
 			login();
@@ -57,11 +59,13 @@ public class StartMenu {
 		case 2:
 			System.exit(0);
 			break;
+		default:
+			System.out.println("Enter Valid Choice");
+			return;
 		}
 	}
 
 	public void login() {
-		System.out.println("------Welcome to School Management System------");
 		System.out.println("Enter username: ");
 		String username = scanner.next();
 		System.out.println("Enter password: ");

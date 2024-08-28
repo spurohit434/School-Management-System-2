@@ -56,7 +56,7 @@ public class NotificationDAO {
 					notification.setNotificationId(resultSet.getString("notificationId"));
 					notification.setUserId(resultSet.getString("userId"));
 					notification.setType(resultSet.getString("type"));
-					notification.setDescription(resultSet.getString("message"));
+					notification.setDescription(resultSet.getString("description"));
 					notification.setDateIssued(resultSet.getDate("date").toLocalDate());
 
 					notificationList.add(notification);

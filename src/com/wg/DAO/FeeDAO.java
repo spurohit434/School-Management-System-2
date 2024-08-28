@@ -21,17 +21,16 @@ public class FeeDAO {
 		}
 	}
 
-	public void checkFees(String studentId) throws SQLException {
+	public double checkFees(String studentId) throws SQLException {
 		String selectSQL = "SELECT * FROM Fees WHERE studentId = ?";
+		double fees = 0;
 		try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
 			preparedStatement.setString(1, studentId);
 
 			try (ResultSet resultSet = preparedStatement.executeQuery()) {
 				if (resultSet.next()) {
-					// System.out.println("Record found for student ID: " + studentId);
-					System.out.println("Fee amount is : " + resultSet.getString("FeeAmount"));
-//					String amount = resultSet.getString("FeeAmount");
-//					return amount;
+					fees = resultSet.getDouble("FeeAmount");
+					return fees;
 				} else {
 					System.out.println("No record found for student ID: " + studentId);
 				}
@@ -40,17 +39,16 @@ public class FeeDAO {
 			e.printStackTrace();
 			throw new SQLException("Error querying fee record", e);
 		}
-		// return "";
+		return fees;
 	}
 
 	public void payFees(String studentId) throws SQLException {
-		String updateSQL = "UPDATE Fees SET feeAmount = 0 WHERE studentId = ?";
+		String updateSQL = "UPDATE Fees SET feeAmount = 0, fine = 0 WHERE studentId = ?";
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(updateSQL)) {
 			preparedStatement.setString(1, studentId);
 
 			int rowsAffected = preparedStatement.executeUpdate();
-
 			if (rowsAffected == 0) {
 				System.out.println("No records updated. Check if the student ID exists.");
 			} else {
@@ -62,33 +60,32 @@ public class FeeDAO {
 		}
 	}
 
-	public void addFees1(String studentId, double feeAmount, LocalDate deadline, double fine) throws SQLException {
-		String addSQL = "INSERT INTO Fees (studentId, feeAmount, deadline, fine) VALUES (?, ?, ?, ?)";
-
-		try (PreparedStatement preparedStatement = connection.prepareStatement(addSQL)) {
-			preparedStatement.setString(1, studentId);
-			preparedStatement.setDouble(2, feeAmount);
-			preparedStatement.setDate(3, java.sql.Date.valueOf(deadline));
-			preparedStatement.setDouble(4, fine);
-			System.out.println("Executing SQL: " + addSQL);
-			System.out.println("With parameters: studentId=" + studentId + ", feeAmount=" + feeAmount + ", deadline="
-					+ deadline + ", fine=" + fine);
-
-			int rowsAffected = preparedStatement.executeUpdate();
-
-			if (rowsAffected == 0) {
-				System.out.println("No records inserted. Check the input values.");
-			} else {
-				System.out.println("Fees successfully added for student ID: " + studentId);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new SQLException("Error adding fee record", e);
-		}
-	}
+//	public void addFees1(String studentId, double feeAmount, LocalDate deadline, double fine) throws SQLException {
+//		String addSQL = "INSERT INTO Fees (studentId, feeAmount, deadline, fine) VALUES (?, ?, ?, ?)";
+//
+//		try (PreparedStatement preparedStatement = connection.prepareStatement(addSQL)) {
+//			preparedStatement.setString(1, studentId);
+//			preparedStatement.setDouble(2, feeAmount);
+//			preparedStatement.setDate(3, java.sql.Date.valueOf(deadline));
+//			preparedStatement.setDouble(4, fine);
+//			System.out.println("Executing SQL: " + addSQL);
+//			System.out.println("With parameters: studentId=" + studentId + ", feeAmount=" + feeAmount + ", deadline="
+//					+ deadline + ", fine=" + fine);
+//
+//			int rowsAffected = preparedStatement.executeUpdate();
+//
+//			if (rowsAffected == 0) {
+//				System.out.println("No records inserted. Check the input values.");
+//			} else {
+//				System.out.println("Fees successfully added for student ID: " + studentId);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new SQLException("Error adding fee record", e);
+//		}
+//	}
 
 	public void addFees(String studentId, double feeAmount, LocalDate deadline, double fine) throws SQLException {
-		// Check if the record exists
 		String checkSQL = "SELECT COUNT(*) FROM Fees WHERE studentId = ?";
 
 		try (PreparedStatement checkStmt = connection.prepareStatement(checkSQL)) {
@@ -102,7 +99,7 @@ public class FeeDAO {
 					String updateSQL = "UPDATE Fees SET feeAmount = ?, deadline = ?, fine = ? WHERE studentId = ?";
 					try (PreparedStatement updateStmt = connection.prepareStatement(updateSQL)) {
 						updateStmt.setDouble(1, feeAmount);
-						updateStmt.setDate(2, java.sql.Date.valueOf(deadline)); // Convert LocalDate to java.sql.Date
+						updateStmt.setDate(2, java.sql.Date.valueOf(deadline));
 						updateStmt.setDouble(3, fine);
 						updateStmt.setString(4, studentId);
 
@@ -118,7 +115,7 @@ public class FeeDAO {
 					try (PreparedStatement addStmt = connection.prepareStatement(addSQL)) {
 						addStmt.setString(1, studentId);
 						addStmt.setDouble(2, feeAmount);
-						addStmt.setDate(3, java.sql.Date.valueOf(deadline)); // Convert LocalDate to java.sql.Date
+						addStmt.setDate(3, java.sql.Date.valueOf(deadline));
 						addStmt.setDouble(4, fine);
 
 						int rowsAffected = addStmt.executeUpdate();
@@ -139,21 +136,19 @@ public class FeeDAO {
 	public double calculateFine(String studentId) throws SQLException {
 		double fine = 0.0;
 		String selectSQL = "SELECT feeAmount, deadline FROM Fees WHERE studentId = ?";
-
 		try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
 			preparedStatement.setString(1, studentId);
 
 			try (ResultSet resultSet = preparedStatement.executeQuery()) {
 				if (resultSet.next()) {
 					double feeAmount = resultSet.getDouble("feeAmount");
-					LocalDate deadline = resultSet.getDate("deadline").toLocalDate(); // Convert java.sql.Date to
+					LocalDate deadline = resultSet.getDate("deadline").toLocalDate();
 					System.out.println("The feeAmount is " + feeAmount);
-					System.out.println("The deadline is " + deadline);// LocalDate
+					System.out.println("The deadline is " + deadline);
 					LocalDate currentDate = LocalDate.now();
 					if (currentDate.isAfter(deadline)) {
 						long overdueDays = ChronoUnit.DAYS.between(deadline, currentDate);
-						fine = overdueDays * 5.0; // Example fine calculation
-						System.out.println("The fine is " + fine);
+						fine = overdueDays * 5.0;
 					}
 				} else {
 					System.out.println("No record found for student ID: " + studentId);

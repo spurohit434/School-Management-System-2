@@ -22,6 +22,7 @@ import com.wg.Helper.PasswordValidator;
 import com.wg.Helper.Validator;
 import com.wg.Model.Attendance;
 import com.wg.Model.Course;
+import com.wg.Model.CourseMarks;
 import com.wg.Model.Issue;
 import com.wg.Model.IssuesStatus;
 import com.wg.Model.Leaves;
@@ -60,6 +61,7 @@ public class UserUI {
 		String role = user.getRole().toString();
 		if (role.equals("Admin")) {
 			while (true) {
+				System.out.println(" ");
 				System.out.println("----- ADMIN MENU -----");
 				System.out.println("1. Add User");
 				System.out.println("2. Get User by Id");
@@ -80,6 +82,8 @@ public class UserUI {
 				System.out.println("17. Manage Marksheets");
 				System.out.println("18. Logout");
 				System.out.println("19. Exit");
+				System.out.println(" ");
+
 				System.out.println("Enter your choice: ");
 
 				int choice = scanner.nextInt();
@@ -134,6 +138,7 @@ public class UserUI {
 					manageAttendance();
 					break;
 				case 17:
+					System.out.println("Functionality Not added yet [ Under Construction ]");
 					// manageMarksheet();
 					break;
 				case 18:
@@ -149,6 +154,7 @@ public class UserUI {
 			}
 		} else if (role.equals("Student")) {
 			while (true) {
+				System.out.println(" ");
 				System.out.println("----- STUDENT MENU -----");
 				System.out.println("1. Apply Leave");
 				System.out.println("2. Check Leave Status");
@@ -156,11 +162,13 @@ public class UserUI {
 				System.out.println("4. Check Issue Status");
 				System.out.println("5. View Marksheet");
 				System.out.println("6. Check fees");
-				System.out.println("7. Pay fees");
-				System.out.println("8. Check Marks");
-				System.out.println("9. Read Notifications");
-				System.out.println("10. Logout");
-				System.out.println("11. Exit");
+				System.out.println("7. Check fine");
+				System.out.println("8. Pay fees");
+				System.out.println("9. Check Marks");
+				System.out.println("10. Read Notifications");
+				System.out.println("11. Logout");
+				System.out.println("12. Exit");
+				System.out.println(" ");
 				System.out.println("Enter your choice: ");
 
 				int choice = scanner.nextInt();
@@ -187,19 +195,21 @@ public class UserUI {
 					checkFees(user);
 					break;
 				case 7:
-					payFees(user);
+					checkFine(user);
 					break;
 				case 8:
-					System.out.println("Functionality Not added yet [ Under Construction ]");
-					// checkMarks(user);
+					payFees(user);
 					break;
 				case 9:
-					readNotifications(user);
+					checkMarks(user);
 					break;
 				case 10:
-					logout();
+					readNotifications(user);
 					break;
 				case 11:
+					logout();
+					break;
+				case 12:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -209,6 +219,7 @@ public class UserUI {
 			}
 		} else if (role.equals("Faculty")) {
 			while (true) {
+				System.out.println(" ");
 				System.out.println("----- FACULTY MENU -----");
 				System.out.println("1. Manage Attendance");
 				System.out.println("2. View All Leave requests");
@@ -222,6 +233,7 @@ public class UserUI {
 				System.out.println("10. Read Notifications");
 				System.out.println("11. Logout");
 				System.out.println("12. Exit");
+				System.out.println(" ");
 				System.out.println("Enter your choice: ");
 
 				int choice = scanner.nextInt();
@@ -250,7 +262,6 @@ public class UserUI {
 					checkIssueStatus(user);
 					break;
 				case 8:
-					// System.out.println("Functionality Not added yet [ Under Construction ]");
 					addMarks();
 					break;
 				case 9:
@@ -274,42 +285,6 @@ public class UserUI {
 		} else {
 			System.out.println("Enter valid role!");
 		}
-	}
-
-	private void checkMarks(User user) {
-
-	}
-
-	private void addMarks() {
-		boolean validateUser = false;
-		String userId = "";
-		String courseId = "";
-		while (!validateUser) {
-			System.out.println("Enter user Id");
-			userId = scanner.next();
-			User user = userController.getUserById(userId);
-			if (user == null) {
-				System.out.println("Enter valid userId");
-				validateUser = false;
-			} else {
-				validateUser = true;
-			}
-		}
-		validateUser = false;
-		while (!validateUser) {
-			System.out.println("Enter course Id");
-			courseId = scanner.next();
-			Course course = courseController.getCourse(courseId);
-			if (course == null) {
-				System.out.println("Enter valid courseId");
-				validateUser = false;
-			} else {
-				validateUser = true;
-			}
-		}
-		System.out.println("Enter marks");
-		double marks = scanner.nextDouble();
-		courseMarksController.addMarks(userId, courseId, marks);
 	}
 
 	private void addUser() {
@@ -475,13 +450,15 @@ public class UserUI {
 		if (users == null) {
 			System.out.println("Users not found!");
 		} else {
+			System.out.println(
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+
 			for (User user : users) {
-				System.out.println(
-						"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
 				System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-				System.out.println(
-						"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
 			}
+			System.out.println(
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+
 		}
 	}
 
@@ -530,14 +507,34 @@ public class UserUI {
 
 	private void checkFees(User user) {
 		String userId = user.getUserId();
-		feeController.checkFees(userId);
+		double fees = feeController.checkFees(userId);
+		System.out.println("The fees Amount is: " + fees);
 	}
 
 	private void addFees() {
 		System.out.println("Enter the UserId:");
 		String userId = scanner.next();
+		User user = userController.getUserById(userId);
+
+		boolean validateUser = false;
+		while (!validateUser) {
+			if (!user.getRole().toString().equals("Student")) {
+				System.out.println("Enter valid Student UserId");
+				validateUser = false;
+			} else {
+				validateUser = true;
+			}
+		}
+
 		System.out.println("Enter the Fee Amount:");
-		double feeAmount = scanner.nextDouble();
+		double feeAmount = 0;
+		while (feeAmount <= 0) {
+			try {
+				feeAmount = scanner.nextDouble();
+			} catch (DateTimeParseException e) {
+				System.out.println("Negative fees Can not be added");
+			}
+		}
 		System.out.println("Enter the deadline (yyyy-mm-dd):");
 		LocalDate date = null;
 		while (date == null) {
@@ -550,14 +547,20 @@ public class UserUI {
 		}
 		System.out.println("Enter the fine:");
 		double fine = scanner.nextDouble();
-
 		feeController.addFees(userId, feeAmount, date, fine);
 	}
 
 	private void calculateFine() {
 		System.out.println("Enter the UserId:");
 		String userId = scanner.next();
-		feeController.calculateFine(userId);
+		double fine = feeController.calculateFine(userId);
+		System.out.println("The fine is: " + fine);
+	}
+
+	private void checkFine(User user) {
+		String userId = user.getUserId();
+		double fine = feeController.calculateFine(userId);
+		System.out.println("The fine is: " + fine);
 	}
 
 	public void manageCourse() {
@@ -769,8 +772,9 @@ public class UserUI {
 			String userId = scanner.next();
 			System.out.println("Enter title: ");
 			String type = scanner.next();
+			scanner.nextLine();
 			System.out.println("Enter message: ");
-			String description = scanner.next();
+			String description = scanner.nextLine();
 			String randomString = UUID.randomUUID().toString();
 			int desiredLength = 7;
 			if (desiredLength > randomString.length()) {
@@ -830,16 +834,54 @@ public class UserUI {
 		}
 	}
 
-//
+	private void checkMarks(User user) {
+		String userId = user.getUserId();
+		List<CourseMarks> coursesMarks = courseMarksController.checkMarks(userId);
+		for (CourseMarks c : coursesMarks) {
+			Course course = courseController.getCourse(c.getCourseId());
+			System.out.println("Course Name: " + course.getCourseName() + "  CourseId: " + c.getCourseId() + "  Marks: "
+					+ c.getMarks());
+		}
+	}
+
+	private void addMarks() {
+		boolean validateUser = false;
+		String userId = "";
+		String courseId = "";
+		while (!validateUser) {
+			System.out.println("Enter user Id");
+			userId = scanner.next();
+			User user = userController.getUserById(userId);
+			if (user == null) {
+				System.out.println("Enter valid userId");
+				validateUser = false;
+			} else if (user.getRole().toString().equals("Admin") || user.getRole().toString().equals("Faculty")) {
+				System.out.println("Marks can only be added to Student, Enter Student UserId");
+				validateUser = false;
+			} else {
+				validateUser = true;
+			}
+		}
+		validateUser = false;
+		while (!validateUser) {
+			System.out.println("Enter course Id");
+			courseId = scanner.next();
+			Course course = courseController.getCourse(courseId);
+			if (course == null) {
+				System.out.println("Enter valid courseId");
+				validateUser = false;
+			} else {
+				validateUser = true;
+			}
+		}
+		System.out.println("Enter marks");
+		double marks = scanner.nextDouble();
+		courseMarksController.addMarks(userId, courseId, marks);
+	}
 //	private void viewMarksheet() {
 //
 //	}
 //	private void generateMarksheet() {
 //
 //	}
-//
-//	private void addMarks() {
-//
-//	}
-
 }

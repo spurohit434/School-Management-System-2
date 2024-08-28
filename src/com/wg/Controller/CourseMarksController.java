@@ -1,7 +1,9 @@
 package com.wg.Controller;
 
+import java.util.List;
 import java.util.Scanner;
 
+import com.wg.Model.CourseMarks;
 import com.wg.Services.CourseMarksService;
 
 public class CourseMarksController {
@@ -21,5 +23,10 @@ public class CourseMarksController {
 			return;
 		}
 		courseMarksService.addMarks(userId, courseId, marks);
+	}
+
+	public List<CourseMarks> checkMarks(String userId) {
+		// TODO Auto-generated method stub
+		return courseMarksService.checkMarks(userId);
 	}
 }

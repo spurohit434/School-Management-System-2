@@ -12,6 +12,10 @@ public class CourseMarks {
 		this.marks = marks;
 	}
 
+	public CourseMarks() {
+
+	}
+
 	// Getters and Setters
 	public String getUserId() {
 		return userId;
