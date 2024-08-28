@@ -27,13 +27,10 @@ public class LeavesService {
 
 	public void applyLeave(Leaves leave) {
 		try {
-			// String leaves = leavesDAO.applyLeave(leave);
-			// return leaves;
 			leavesDAO.applyLeave(leave);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// return "null";
 	}
 
 	public List<Leaves> viewAllLeave() {

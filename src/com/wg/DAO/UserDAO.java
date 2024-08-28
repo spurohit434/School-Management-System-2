@@ -47,7 +47,7 @@ public class UserDAO {
 	}
 
 	public User getUserById(String userId) throws SQLException, ClassNotFoundException {
-		User user = new User(); // Create a new User instance
+		User user = null; // Create a new User instance
 		String query = "SELECT * FROM User WHERE UserId = ?";
 
 		try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -55,6 +55,7 @@ public class UserDAO {
 
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
+					user = new User();
 					// Set all fields using setters
 					user.setUserId(rs.getString("UserId"));
 					user.setUsername(rs.getString("username"));
@@ -89,7 +90,6 @@ public class UserDAO {
 
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
-					// Set all fields using setters
 					user.setUserId(rs.getString("UserId"));
 					user.setUsername(rs.getString("username"));
 					user.setName(rs.getString("name"));
@@ -104,7 +104,6 @@ public class UserDAO {
 					user.setContactNumber(rs.getString("contactNumber"));
 					user.setAddress(rs.getString("address"));
 					user.setMentorOf(rs.getInt("mentorOf"));
-
 				}
 			}
 		} catch (SQLException e) {
@@ -125,8 +124,6 @@ public class UserDAO {
 			try (ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
 					User user = new User(); // Create a new User instance
-
-					// Set all fields using setters
 					user.setUserId(rs.getString("UserId"));
 					user.setName(rs.getString("name"));
 					user.setUsername(rs.getString("username"));

@@ -3,10 +3,12 @@ package com.wg.Controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+import com.wg.Helper.PasswordValidator;
 import com.wg.Model.Role;
 import com.wg.Model.User;
 import com.wg.Services.UserService;
@@ -23,18 +25,31 @@ public class UserController {
 	public UserController() {
 	}
 
-	public boolean authenticateUser(String username, String password, String role) {
-		if (username == null || password == null || role == null) {
+//	public boolean authenticateUser(String username, String password, String role) {
+//		if (username == null || password == null || role == null) {
+//			System.out.println("Null values entered");
+//			return false;
+//		} else if (!role.equals("Admin") && !role.equals("Student") && !role.equals("Faculty")) {
+//			System.out.println("Invalid Role entered");
+//			return false;
+//		}
+//		return userService.authenticateUser(username, password, role);
+//	}
+
+	public User authenticateUser(String username, String password) {
+		if (username == null || password == null) {
 			System.out.println("Null values entered");
-			return false;
-		} else if (!role.equals("Admin") && !role.equals("Student") && !role.equals("Faculty")) {
-			System.out.println("Invalid Role entered");
-			return false;
+			return null;
 		}
-		return userService.authenticateUser(username, password, role);
+		PasswordValidator passwordValidator = new PasswordValidator();
+		boolean isValidPassword = passwordValidator.isValidPassword(password);
+		if (!isValidPassword) {
+			System.out.println("Enter valid password");
+			return null;
+		}
+		return userService.authenticateUser(username, password);
 	}
 
-//username, name, age, password, email, input, date, contactNumber,standard, gender, rollNo, mentorOf
 	public boolean addUser(String username, String name, int age, String password, String email, String input,
 			LocalDate date, String contactNumber, int standard, String gender, String rollNo, int mentorOf) {
 		Role role = null;
@@ -88,21 +103,6 @@ public class UserController {
 		return user;
 	}
 
-//	private String userId;
-//	private String name;
-//	private LocalDate dob;
-//	private String contactNumber;
-//	private Role role;
-//	private String password;
-//	private int standard;
-//	private String address;
-//	private String username;
-//	private int age;
-//	private String email;
-//	private String gender;
-//	private String rollNo;
-//	private List<Integer> assignedToStandard;
-//	private int mentorOf;
 	public void updateUser() {
 		try {
 			System.out.print("Enter user ID: ");
@@ -165,15 +165,35 @@ public class UserController {
 						break;
 					case 9:
 						columnToUpdate = "role";
-						System.out.print("Enter new role (Admin, Student, Faculty): ");
-						String roleInput = scanner.nextLine().trim(); // Read and trim the input
+						String roleInput = ""; // Read and trim the input
+
+						boolean validInput = false;
+						while (!validInput) {
+							System.out.print("Enter new role (Student, Faculty): ");
+							try {
+								roleInput = scanner.nextLine().trim();
+								if (roleInput.equals("Admin")) {
+									System.out.println("Role can not be Admin");
+									validInput = false;
+								} else {
+									validInput = true;
+								}
+							} catch (InputMismatchException e) {
+								System.out.println("Invalid input. Please enter a valid Role.");
+								scanner.next();
+							}
+						}
+
+//						if (roleInput.equals("Admin")) {
+//							System.out.println("Role can not be updated to Admin");
+//							break;
+//						}
 						try {
 							Role newRole = Role.valueOf(roleInput); // Convert input to Role enum
 							user.setRole(newRole); // Update the role in User object
 							System.out.println("Role updated successfully.");
 						} catch (IllegalArgumentException e) {
-							System.out.println(
-									"Invalid role. Please enter one of the following: Admin, Student, Faculty.");
+							System.out.println("Invalid role. Please enter one of the following: Student, Faculty.");
 						}
 						break;
 					case 10:

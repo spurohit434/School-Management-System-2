@@ -68,4 +68,12 @@ public class CourseService {
 		return false;
 	}
 
+	public void updateCourse(Course course, String courseId, String columnToUpdate) {
+		try {
+			courseDAO.updateCourse(course, courseId, columnToUpdate);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

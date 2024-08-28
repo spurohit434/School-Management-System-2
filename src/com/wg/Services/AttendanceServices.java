@@ -20,8 +20,13 @@ public class AttendanceServices {
 	public List<Attendance> viewAttendanceByStandard(int standard) {
 		List<Attendance> list = null;
 		try {
-			list = attendanceDAO.viewAttendanceByStandard(standard);
-		} catch (ClassNotFoundException | SQLException e) {
+			try {
+				list = attendanceDAO.viewAttendanceByStandard(standard);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;

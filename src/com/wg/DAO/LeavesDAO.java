@@ -45,108 +45,31 @@ public class LeavesDAO {
 		}
 	}
 
-//	public void applyLeave(Leaves leave) {
+//	public List<Leaves> getLeavesByUserIdAndStatus(String userId, LeavesStatus status) {
+//		List<Leaves> leavesList = new ArrayList<>();
+//		String query = "SELECT * FROM Leaves WHERE userId = ? AND status = ?";
 //
-//	}
-
-	public String applyLeave1(Leaves leave) throws SQLException {
-		// SQL query to insert a new leave request into the Leaves table
-		String insertSQL = "INSERT INTO Leaves (id, userId, content, startDate, endDate, status) VALUES (?, ?, ?, ?, ?, ?)";
-
-		try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
-			// Set the values in the prepared statement
-			preparedStatement.setString(1, leave.getLeaveId());
-			preparedStatement.setString(2, leave.getUserId());
-			preparedStatement.setString(3, leave.getContent());
-			preparedStatement.setDate(4, java.sql.Date.valueOf(leave.getStartDate()));
-			preparedStatement.setDate(5, java.sql.Date.valueOf(leave.getEndDate()));
-			preparedStatement.setString(6, leave.getStatus().name()); // Convert enum to string
-
-//			System.out.println("Executing SQL: " + insertSQL);
-//			System.out.println("With parameters: leaveId=" + leave.getLeaveId() + ", userId=" + leave.getUserId()
-//					+ ", content=" + leave.getContent() + ", startDate=" + leave.getStartDate() + ", endDate="
-//					+ leave.getEndDate() + ", status=" + leave.getStatus().name());
+//		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+//			preparedStatement.setString(1, userId);
+//			preparedStatement.setString(2, status.name()); // Convert enum to string
 //
-			int rowsAffected = preparedStatement.executeUpdate();
-			if (rowsAffected == 0) {
-				System.out.println("Leave request was not applied. Check the provided details.");
-			} else {
-				System.out.println("Leave request successfully applied.");
-				return leave.getLeaveId();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new SQLException("Error applying leave request", e);
-		}
-		return "";
-	}
-
-	public List<Leaves> getLeavesByUserIdAndStatus(String userId, LeavesStatus status) {
-		List<Leaves> leavesList = new ArrayList<>();
-		String query = "SELECT * FROM Leaves WHERE userId = ? AND status = ?";
-
-		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-			preparedStatement.setString(1, userId);
-			preparedStatement.setString(2, status.name()); // Convert enum to string
-
-			try (ResultSet resultSet = preparedStatement.executeQuery()) {
-				while (resultSet.next()) {
-					Leaves leave = new Leaves();
-					leave.setLeaveId(resultSet.getString("id"));
-					leave.setUserId(resultSet.getString("userId"));
-					leave.setContent(resultSet.getString("content"));
-					leave.setStartDate(resultSet.getDate("startDate").toLocalDate());
-					leave.setEndDate(resultSet.getDate("endDate").toLocalDate());
-					leave.setStatus(LeavesStatus.valueOf(resultSet.getString("status")));
-
-					leavesList.add(leave);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace(); // Log the exception for debugging
-		}
-
-		return leavesList;
-	}
-
-//	public void applyLeave(Leaves leave) throws SQLException {
-//		String input = "Pending";
-//		LeavesStatus status = LeavesStatus.valueOf(input);
-//		String query = "SELECT * FROM Leaves where userId = ? and status =  status";
+//			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+//				while (resultSet.next()) {
+//					Leaves leave = new Leaves();
+//					leave.setLeaveId(resultSet.getString("id"));
+//					leave.setUserId(resultSet.getString("userId"));
+//					leave.setContent(resultSet.getString("content"));
+//					leave.setStartDate(resultSet.getDate("startDate").toLocalDate());
+//					leave.setEndDate(resultSet.getDate("endDate").toLocalDate());
+//					leave.setStatus(LeavesStatus.valueOf(resultSet.getString("status")));
 //
-//		try (PreparedStatement preparedStatement1 = connection.prepareStatement(query)) {
-//			preparedStatement1.setString(1, leave.getUserId());
-//			int rowsAffected1 = preparedStatement1.executeUpdate();
-//			if (rowsAffected1 == 0) {
-//				System.out.println("Leave request already applied. Can not request again");
-//			} else {
-//				String insertSQL = "INSERT INTO Leaves (id, userId, content, startDate, endDate, status) VALUES (?, ?, ?, ?, ?, ?)";
-//				try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
-//					// Set the values in the prepared statement
-//					preparedStatement.setString(1, leave.getLeaveId());
-//					preparedStatement.setString(2, leave.getUserId());
-//					preparedStatement.setString(3, leave.getContent());
-//					preparedStatement.setDate(4, java.sql.Date.valueOf(leave.getStartDate()));
-//					preparedStatement.setDate(5, java.sql.Date.valueOf(leave.getEndDate()));
-//					preparedStatement.setString(6, leave.getStatus().name()); // Convert enum to string
-//
-//					int rowsAffected = preparedStatement.executeUpdate();
-//					if (rowsAffected == 0) {
-//						System.out.println("Leave request was not applied. Check the provided details.");
-//					} else {
-//						System.out.println("Leave request successfully applied.");
-//					}
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//					throw new SQLException("Error applying leave request", e);
+//					leavesList.add(leave);
 //				}
 //			}
 //		} catch (SQLException e) {
 //			e.printStackTrace(); // Log the exception for debugging
 //		}
-//
-//		// SQL query to insert a new leave request into the Leaves table
-//
+//		return leavesList;
 //	}
 
 	public void applyLeave(Leaves leave) throws SQLException {
@@ -197,7 +120,6 @@ public class LeavesDAO {
 		try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(query)) {
 
 			while (resultSet.next()) {
-				// Map result set to Leaves object
 				Leaves leave = new Leaves();
 				leave.setLeaveId(resultSet.getString("id"));
 				leave.setUserId(resultSet.getString("userId"));
@@ -205,13 +127,11 @@ public class LeavesDAO {
 				leave.setStartDate(resultSet.getDate("startDate").toLocalDate());
 				leave.setEndDate(resultSet.getDate("endDate").toLocalDate());
 				leave.setStatus(LeavesStatus.valueOf(resultSet.getString("status")));
-				// Add leave to the list
 				leavesList.add(leave);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // Log the exception for debugging
 		}
-
 		return leavesList;
 	}
 
@@ -233,9 +153,4 @@ public class LeavesDAO {
 		}
 		return status;
 	}
-
-//	public LeavesStatus checkLeaveStatus1(String userId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 }

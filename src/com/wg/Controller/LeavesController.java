@@ -22,8 +22,6 @@ public class LeavesController {
 	}
 
 	public void applyLeave(Leaves leave) {
-//		String leaves = leavesService.applyLeave(leave);
-//		return leaves;
 		leavesService.applyLeave(leave);
 	}
 

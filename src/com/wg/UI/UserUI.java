@@ -11,12 +11,19 @@ import java.util.UUID;
 import com.App.App;
 import com.wg.Controller.AttendanceController;
 import com.wg.Controller.CourseController;
+import com.wg.Controller.CourseMarksController;
 import com.wg.Controller.FeeController;
+import com.wg.Controller.IssueController;
 import com.wg.Controller.LeavesController;
 import com.wg.Controller.NotificationController;
 import com.wg.Controller.UserController;
+import com.wg.Helper.PasswordUtil;
+import com.wg.Helper.PasswordValidator;
+import com.wg.Helper.Validator;
 import com.wg.Model.Attendance;
 import com.wg.Model.Course;
+import com.wg.Model.Issue;
+import com.wg.Model.IssuesStatus;
 import com.wg.Model.Leaves;
 import com.wg.Model.LeavesStatus;
 import com.wg.Model.Notification;
@@ -30,23 +37,30 @@ public class UserUI {
 	private AttendanceController attendanceController;
 	private NotificationController notificationController;
 	private LeavesController leavesController;
+	private IssueController issueController;
+	private CourseMarksController courseMarksController;
 	Scanner scanner = new Scanner(System.in);
 	StartMenu startMenu = new StartMenu();
 
 	public UserUI(UserController controller, FeeController feeController, CourseController courseController,
 			AttendanceController attendanceController, NotificationController notificationController,
-			LeavesController leavesController) {
+			LeavesController leavesController, IssueController issueController,
+			CourseMarksController courseMarksController) {
 		this.userController = controller;
 		this.feeController = feeController;
 		this.courseController = courseController;
 		this.attendanceController = attendanceController;
 		this.notificationController = notificationController;
 		this.leavesController = leavesController;
+		this.issueController = issueController;
+		this.courseMarksController = courseMarksController;
 	}
 
-	public void displayMenu(String role, User user) {
+	public void displayMenu(User user) {
+		String role = user.getRole().toString();
 		if (role.equals("Admin")) {
 			while (true) {
+				System.out.println("----- ADMIN MENU -----");
 				System.out.println("1. Add User");
 				System.out.println("2. Get User by Id");
 				System.out.println("3. Get User by Username");
@@ -55,23 +69,24 @@ public class UserUI {
 				System.out.println("6. Get All Users");
 				System.out.println("7. Update User");
 				System.out.println("8. Send Notification");
-				System.out.println("9. Delete Notification");
-				System.out.println("10. Add Fees");
-				System.out.println("11. Calculate Fine");
-				System.out.println("12. View All Leave Requests");
-				System.out.println("13. Approve Leave");
-				System.out.println("14. Manage Course");
-				System.out.println("15. Manage Marksheets");
+				System.out.println("9. Add Fees");
+				System.out.println("10. Calculate Fine");
+				System.out.println("11. View All Leave Requests");
+				System.out.println("12. Approve Leave");
+				System.out.println("13. View All Issues");
+				System.out.println("14. Resolve Issue");
+				System.out.println("15. Manage Course");
 				System.out.println("16. Manage Attendance");
-				System.out.println("17. Logout");
-				System.out.println("18. Exit");
+				System.out.println("17. Manage Marksheets");
+				System.out.println("18. Logout");
+				System.out.println("19. Exit");
 				System.out.println("Enter your choice: ");
 
 				int choice = scanner.nextInt();
 
 				switch (choice) {
 				case 1:
-					addStudent();
+					addUser();
 					break;
 				case 2:
 					getUserById();
@@ -95,33 +110,36 @@ public class UserUI {
 					sendNotification();
 					break;
 				case 9:
-					deleteNotification();
-					break;
-				case 10:
 					addFees();
 					break;
-				case 11:
+				case 10:
 					calculateFine();
 					break;
-				case 12:
+				case 11:
 					viewAllLeave();
 					break;
-				case 13:
+				case 12:
 					approveLeave(role);
 					break;
+				case 13:
+					viewAllIssues();
+					break;
 				case 14:
-					manageCourse();
+					resolveIssue();
 					break;
 				case 15:
-					// manageMarksheet();
+					manageCourse();
 					break;
 				case 16:
 					manageAttendance();
 					break;
 				case 17:
-					logout();
+					// manageMarksheet();
 					break;
 				case 18:
+					logout();
+					break;
+				case 19:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -131,14 +149,18 @@ public class UserUI {
 			}
 		} else if (role.equals("Student")) {
 			while (true) {
+				System.out.println("----- STUDENT MENU -----");
 				System.out.println("1. Apply Leave");
 				System.out.println("2. Check Leave Status");
-				System.out.println("3. View Marksheet");
-				System.out.println("4. Check fees");
-				System.out.println("5. Pay fees");
-				System.out.println("6. Read Notifications");
-				System.out.println("7. Logout");
-				System.out.println("8. Exit");
+				System.out.println("3. Raise Issue");
+				System.out.println("4. Check Issue Status");
+				System.out.println("5. View Marksheet");
+				System.out.println("6. Check fees");
+				System.out.println("7. Pay fees");
+				System.out.println("8. Check Marks");
+				System.out.println("9. Read Notifications");
+				System.out.println("10. Logout");
+				System.out.println("11. Exit");
 				System.out.println("Enter your choice: ");
 
 				int choice = scanner.nextInt();
@@ -152,21 +174,32 @@ public class UserUI {
 					checkLeaveStatus(user);
 					break;
 				case 3:
-					// viewMarksheet();
+					raiseIssue(user);
 					break;
 				case 4:
-					checkFees(user);
+					checkIssueStatus(user);
 					break;
 				case 5:
-					payFees(user);
+					System.out.println("Functionality Not added yet [ Under Construction ]");
+					// viewMarksheet();
 					break;
 				case 6:
-					readNotifications(user);
+					checkFees(user);
 					break;
 				case 7:
-					logout();
+					payFees(user);
 					break;
 				case 8:
+					System.out.println("Functionality Not added yet [ Under Construction ]");
+					// checkMarks(user);
+					break;
+				case 9:
+					readNotifications(user);
+					break;
+				case 10:
+					logout();
+					break;
+				case 11:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -176,15 +209,19 @@ public class UserUI {
 			}
 		} else if (role.equals("Faculty")) {
 			while (true) {
+				System.out.println("----- FACULTY MENU -----");
 				System.out.println("1. Manage Attendance");
 				System.out.println("2. View All Leave requests");
 				System.out.println("3. Apply Leave");
 				System.out.println("4. Approve Leave");
 				System.out.println("5. Check Leave Status");
-				System.out.println("6. Generate Marksheet");
-				System.out.println("7. Read Notifications");
-				System.out.println("8. Logout");
-				System.out.println("9. Exit");
+				System.out.println("6. Raise Issue");
+				System.out.println("7. Check Issue Status");
+				System.out.println("8. Add Marks");
+				System.out.println("9. Generate Marksheet");
+				System.out.println("10. Read Notifications");
+				System.out.println("11. Logout");
+				System.out.println("12. Exit");
 				System.out.println("Enter your choice: ");
 
 				int choice = scanner.nextInt();
@@ -194,9 +231,6 @@ public class UserUI {
 				case 1:
 					manageAttendance();
 					break;
-//				case 2:
-//					// addMarks();
-//					break;
 				case 2:
 					viewAllLeave();
 					break;
@@ -210,15 +244,26 @@ public class UserUI {
 					checkLeaveStatus(user);
 					break;
 				case 6:
-					// generateMarksheet();
+					raiseIssue(user);
 					break;
 				case 7:
-					readNotifications(user);
+					checkIssueStatus(user);
 					break;
 				case 8:
-					logout();
+					// System.out.println("Functionality Not added yet [ Under Construction ]");
+					addMarks();
 					break;
 				case 9:
+					System.out.println("Functionality Not added yet [ Under Construction ]");
+					// generateMarksheet();
+					break;
+				case 10:
+					readNotifications(user);
+					break;
+				case 11:
+					logout();
+					break;
+				case 12:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -231,7 +276,43 @@ public class UserUI {
 		}
 	}
 
-	private void addStudent() {
+	private void checkMarks(User user) {
+
+	}
+
+	private void addMarks() {
+		boolean validateUser = false;
+		String userId = "";
+		String courseId = "";
+		while (!validateUser) {
+			System.out.println("Enter user Id");
+			userId = scanner.next();
+			User user = userController.getUserById(userId);
+			if (user == null) {
+				System.out.println("Enter valid userId");
+				validateUser = false;
+			} else {
+				validateUser = true;
+			}
+		}
+		validateUser = false;
+		while (!validateUser) {
+			System.out.println("Enter course Id");
+			courseId = scanner.next();
+			Course course = courseController.getCourse(courseId);
+			if (course == null) {
+				System.out.println("Enter valid courseId");
+				validateUser = false;
+			} else {
+				validateUser = true;
+			}
+		}
+		System.out.println("Enter marks");
+		double marks = scanner.nextDouble();
+		courseMarksController.addMarks(userId, courseId, marks);
+	}
+
+	private void addUser() {
 		System.out.print("Enter Username: ");
 		String username = scanner.next();
 		System.out.print("Enter name: ");
@@ -242,18 +323,61 @@ public class UserUI {
 			System.out.print("Enter age: ");
 			try {
 				age = scanner.nextInt();
-				validInput = true; // If input is valid, exit loop
+				if (Validator.isValidAge(age)) {
+					validInput = true;
+				} else {
+					validInput = false; // If input is valid, exit loop
+				}
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid input. Please enter a valid integer for age.");
 				scanner.next(); // Clear invalid input
 			}
 		}
-		System.out.print("Enter password: ");
+
+		System.out.print("Enter password: (Atleast one UpperCase character, one Special character, one Integer digit)");
 		String password = scanner.next();
-		System.out.print("Enter email: ");
-		String email = scanner.next();
-		System.out.print("Enter role: ");
-		String input = scanner.next().trim();
+		PasswordValidator passwordValidator = new PasswordValidator();
+		boolean isValidPassword = passwordValidator.isValidPassword(password);
+		if (!isValidPassword) {
+			System.out.println("Enter valid password");
+			return;
+		}
+		String hashedPassword = PasswordUtil.hashPassword(password);
+
+		validInput = false;
+		String email = null;
+		while (!validInput) {
+			System.out.print("Enter email: ");
+			try {
+				email = scanner.next();
+				if (Validator.isValid(email)) {
+					validInput = true;
+				} else {
+					validInput = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid input. Please enter a valid Email");
+				scanner.next(); // Clear invalid input
+			}
+		}
+
+		String input = "";
+		boolean validInput1 = false;
+		while (!validInput1) {
+			System.out.print("Enter role: ");
+			try {
+				input = scanner.next().trim();
+				if (input.equals("Admin")) {
+					System.out.println("Role can not be Admin");
+					validInput1 = false;
+				} else {
+					validInput1 = true;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid input. Please enter a valid Role.");
+				scanner.next();
+			}
+		}
 		LocalDate date = null;
 		while (date == null) {
 			System.out.println("Enter the date of birth (yyyy-mm-dd):");
@@ -267,32 +391,42 @@ public class UserUI {
 		System.out.println("Enter contact number:");
 		String contactNumber = scanner.next();
 		int standard = 0;
-		while (true) {
-			System.out.println("Enter the standard (student only):");
-			try {
-				standard = scanner.nextInt();
-				break; // If input is valid, exit loop
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid input. Please enter a valid integer for standard.");
-				scanner.next(); // Clear invalid input
+		if (input.equals("Student")) {
+			while (true) {
+				System.out.println("Enter the standard:");
+				try {
+					standard = scanner.nextInt();
+					break; // If input is valid, exit loop
+				} catch (InputMismatchException e) {
+					System.out.println("Invalid input. Please enter a valid integer for standard.");
+					scanner.next(); // Clear invalid input
+				}
 			}
 		}
 		System.out.println("Enter the gender:");
 		String gender = scanner.next();
-		System.out.println("Enter the roll number (student only):");
-		String rollNo = scanner.next();
+
+		String rollNo = null;
+		if (input.equals("Student")) {
+			System.out.println("Enter the roll number:");
+			rollNo = scanner.next();
+		}
+
 		int mentorOf = 0;
-		while (true) {
-			System.out.println("Enter the mentor of field (faculty only):");
-			try {
-				mentorOf = scanner.nextInt();
-				break; // If input is valid, exit loop
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid input. Please enter a valid integer for mentorOf.");
-				scanner.next(); // Clear invalid input
+		if (input.equals("Faculty")) {
+			while (true) {
+				System.out.println("Enter the mentor of field:");
+				try {
+					mentorOf = scanner.nextInt();
+					break; // If input is valid, exit loop
+				} catch (InputMismatchException e) {
+					System.out.println("Invalid input. Please enter a valid integer for mentorOf.");
+					scanner.next(); // Clear invalid input
+				}
 			}
 		}
-		boolean flag = userController.addUser(username, name, age, password, email, input, date, contactNumber,
+
+		boolean flag = userController.addUser(username, name, age, hashedPassword, email, input, date, contactNumber,
 				standard, gender, rollNo, mentorOf);
 		if (flag) {
 			System.out.println("User added successfully.");
@@ -305,24 +439,16 @@ public class UserUI {
 		System.out.print("Enter user ID: ");
 		String userId = scanner.next();
 		User user = userController.getUserById(userId);
-//		if (user != null) {
-//			System.out.println(user);
-//		} else {
-//			System.out.println("User not found.");
-//		}
-//		
-//		
-//		User user = new User("u1", "John Doe", "1990-01-01", "1234567890", Role.STUDENT, "password", Standard.TENTH, "123 Main St", "johndoe", 25, "johndoe@example.com", "Male", "R1", true, "Mentor1");
+		if (user != null) {
+			System.out.println(
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+			System.out.println(
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
 
-		System.out.println(
-				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+");
-		System.out.println(
-				"|   User ID    |  Name   | Date of Birth | Contact Number |  Role  | Password | Standard | Address | Username | Age | Email | Gender | Roll No | Assigned To | Mentor Of |");
-		System.out.println(
-				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+");
-		System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-		System.out.println(
-				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+");
+		} else {
+			System.out.println("User not found.");
+		}
 	}
 
 	private void getUserByUsername() {
@@ -330,7 +456,12 @@ public class UserUI {
 		String username = scanner.next();
 		User user = userController.getUserByUsername(username);
 		if (user != null) {
-			System.out.println(user);
+			System.out.println(
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+			System.out.println(
+					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+
 		} else {
 			System.out.println("User not found.");
 		}
@@ -345,7 +476,11 @@ public class UserUI {
 			System.out.println("Users not found!");
 		} else {
 			for (User user : users) {
-				System.out.println(user);
+				System.out.println(
+						"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+				System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+				System.out.println(
+						"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
 			}
 		}
 	}
@@ -363,9 +498,15 @@ public class UserUI {
 
 	private void getAllUser() {
 		List<User> list = userController.getAllUser();
+		System.out.println(
+				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+
 		for (User user : list) {
-			System.out.println(user);
+			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
 		}
+		System.out.println(
+				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+");
+
 	}
 
 	private void logout() {
@@ -419,15 +560,16 @@ public class UserUI {
 		feeController.calculateFine(userId);
 	}
 
-	private void manageCourse() {
+	public void manageCourse() {
 		while (true) {
-			System.out.println("Enter the Choice:");
+			System.out.println("Manage Courses");
 			System.out.println("1. Add Course");
 			System.out.println("2. Get Course");
 			System.out.println("3. Delete Course");
 			System.out.println("4. Update Course");
 			System.out.println("5. Get All Courses");
 			System.out.println("6. Logout and go back to Main Menu");
+			System.out.println("Enter the Choice:");
 
 			int choice = scanner.nextInt();
 			scanner.nextLine();
@@ -449,8 +591,7 @@ public class UserUI {
 				getAllCourses();
 				break;
 			case 6:
-				startMenu.showStartMenu();
-				break;
+				return;
 			default:
 				System.out.println("Enter valid choice!");
 			}
@@ -465,9 +606,7 @@ public class UserUI {
 	}
 
 	private void updateCourse() {
-		System.out.println("Enter Course Id");
-		String courseId = scanner.next();
-		courseController.updateCourse(courseId);
+		courseController.updateCourse();
 	}
 
 	private void deleteCourse() {
@@ -505,11 +644,12 @@ public class UserUI {
 
 	private void manageAttendance() {
 		while (true) {
-			System.out.println("Enter the Choice:");
+			System.out.println("Manage Attendance");
 			System.out.println("1. Add Attendance");
 			System.out.println("2. View Attendance by Standard");
 			System.out.println("3. View Attendance by Student Id");
 			System.out.println("4. Logout and go back to Main Menu");
+			System.out.println("Enter the Choice:");
 
 			int choice = scanner.nextInt();
 			scanner.nextLine();
@@ -525,8 +665,7 @@ public class UserUI {
 				viewAttendanceById();
 				break;
 			case 4:
-				logout();
-				break;
+				return;
 			default:
 				System.out.println("Enter valid choice!");
 			}
@@ -597,14 +736,12 @@ public class UserUI {
 			desiredLength = randomString.length();
 		}
 		String leaveId = randomString.substring(0, desiredLength);
-		leaveId = 'N' + leaveId;
+		leaveId = 'L' + leaveId;
 		LocalDate startDate = LocalDate.now();
 		System.out.println("Enter Leave till date (YYYY-MM-DD):");
 		String dateString = scanner.next();
 		LocalDate endDate = LocalDate.parse(dateString);
 		Leaves leave = new Leaves(leaveId, userId, content, startDate, endDate, status);
-//		String leaveID = leavesController.applyLeave(leave);
-//		System.out.println("Your leave Id is: " + leaveID);
 		leavesController.applyLeave(leave);
 	}
 
@@ -624,10 +761,6 @@ public class UserUI {
 	private void readNotifications(User user) {
 		String userId = user.getUserId();
 		notificationController.readNotifications(userId);
-	}
-
-	private void deleteNotification() {
-
 	}
 
 	private void sendNotification() {
@@ -658,19 +791,49 @@ public class UserUI {
 			e.printStackTrace(); // For debugging, logs stack trace
 		}
 	}
-//
-//	private void raiseIssue() {
-//
-//	}
+
+	private void raiseIssue(User user) {
+		String userId = user.getUserId();
+		System.out.println("Enter Issue Content:");
+		String message = scanner.nextLine();
+		String input = "PENDING";
+		IssuesStatus status = IssuesStatus.valueOf(input);
+		String randomString = UUID.randomUUID().toString();
+		int desiredLength = 7;
+		if (desiredLength > randomString.length()) {
+			desiredLength = randomString.length();
+		}
+		String issueID = randomString.substring(0, desiredLength);
+		issueID = 'I' + issueID;
+		Issue issue = new Issue(issueID, message, userId, status);
+		issueController.raiseIssue(issue);
+	}
+
+	public void resolveIssue() {
+		System.out.println("Enter the User Id to Resolve Issue");
+		String userId = scanner.next();
+		issueController.resolveIssue(userId);
+	}
+
+	public void checkIssueStatus(User user) {
+		String userId = user.getUserId();
+		List<Issue> issue = issueController.checkIssueStatus(userId);
+		for (Issue issues : issue) {
+			System.out.println(issues);
+		}
+	}
+
+	public void viewAllIssues() {
+		List<Issue> issue = issueController.viewAllIssues();
+		for (Issue issues : issue) {
+			System.out.println(issues);
+		}
+	}
+
 //
 //	private void viewMarksheet() {
 //
 //	}
-//
-//	private void applyLeave() {
-//
-//	}
-//
 //	private void generateMarksheet() {
 //
 //	}
@@ -678,8 +841,5 @@ public class UserUI {
 //	private void addMarks() {
 //
 //	}
-//
-//	private void addAttendance() {
-//
-//	}
+
 }
