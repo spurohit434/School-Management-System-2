@@ -107,7 +107,7 @@ public class FeeDAO {
 						if (rowsAffected == 0) {
 							System.out.println("No records updated.");
 						} else {
-							System.out.println("Fees successfully updated for student ID: " + studentId);
+							System.out.println("Fees successfully updated");
 						}
 					}
 				} else {
@@ -122,7 +122,7 @@ public class FeeDAO {
 						if (rowsAffected == 0) {
 							System.out.println("No records inserted.");
 						} else {
-							System.out.println("Fees successfully added for student ID: " + studentId);
+							System.out.println("Fees successfully added");
 						}
 					}
 				}

@@ -69,6 +69,7 @@ public class UserService {
 		try {
 			try {
 				userDAO.deleteUser(id);
+				return true;
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -76,25 +77,6 @@ public class UserService {
 			e.printStackTrace();
 		}
 		return false;
-//		if (user != null) {
-//			if (!user.getRole().toString().equals("Admin")) {
-//				try {
-//					userDAO.deleteUser(id);
-//				} catch (ClassNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//				return true;
-//			} else if (user.getRole().toString().equals("Admin")) {
-//				System.out.println("Admin can not be deleted");
-//				return false;
-//			}
-//		} else if (user == null) {
-//			System.out.println("User does not exist");
-//			return false;
-//		}
-//		return false;
 	}
 
 //	public boolean authenticateUser1(String username, String password, String role) {

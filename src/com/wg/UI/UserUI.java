@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import com.App.App;
+import com.wg.Constants.StringConstants;
 import com.wg.Controller.AttendanceController;
 import com.wg.Controller.CourseController;
 import com.wg.Controller.CourseMarksController;
@@ -61,90 +62,42 @@ public class UserUI {
 		String role = user.getRole().toString();
 		if (role.equals("Admin")) {
 			while (true) {
-				System.out.println(" ");
-				System.out.println("----- ADMIN MENU -----");
-				System.out.println("1. Add User");
-				System.out.println("2. Get User by Id");
-				System.out.println("3. Get User by Username");
-				System.out.println("4. View Class Details");
-				System.out.println("5. Delete User");
-				System.out.println("6. Get All Users");
-				System.out.println("7. Update User");
-				System.out.println("8. Send Notification");
-				System.out.println("9. Add Fees");
-				System.out.println("10. Calculate Fine");
-				System.out.println("11. View All Leave Requests");
-				System.out.println("12. Approve Leave");
-				System.out.println("13. View All Issues");
-				System.out.println("14. Resolve Issue");
-				System.out.println("15. Manage Course");
-				System.out.println("16. Manage Attendance");
-				System.out.println("17. Manage Marksheets");
-				System.out.println("18. Logout");
-				System.out.println("19. Exit");
-				System.out.println(" ");
-
+				System.out.println(StringConstants.adminMenu);
 				System.out.println("Enter your choice: ");
-
 				int choice = scanner.nextInt();
-
 				switch (choice) {
 				case 1:
-					addUser();
+					manageUser();
 					break;
 				case 2:
-					getUserById();
-					break;
-				case 3:
-					getUserByUsername();
-					break;
-				case 4:
 					getClassDetails();
 					break;
-				case 5:
-					deleteUser();
-					break;
-				case 6:
-					getAllUser();
-					break;
-				case 7:
-					updateUser();
-					break;
-				case 8:
+				case 3:
 					sendNotification();
 					break;
-				case 9:
-					addFees();
+				case 4:
+					manageFees();
 					break;
-				case 10:
-					calculateFine();
+				case 5:
+					manageLeaves(role);
 					break;
-				case 11:
-					viewAllLeave();
+				case 6:
+					manageIssues();
 					break;
-				case 12:
-					approveLeave(role);
-					break;
-				case 13:
-					viewAllIssues();
-					break;
-				case 14:
-					resolveIssue();
-					break;
-				case 15:
+				case 7:
 					manageCourse();
 					break;
-				case 16:
+				case 8:
 					manageAttendance();
 					break;
-				case 17:
+				case 9:
 					System.out.println("Functionality Not added yet [ Under Construction ]");
 					// manageMarksheet();
 					break;
-				case 18:
+				case 10:
 					logout();
 					break;
-				case 19:
+				case 11:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -154,66 +107,37 @@ public class UserUI {
 			}
 		} else if (role.equals("Student")) {
 			while (true) {
-				System.out.println(" ");
-				System.out.println("----- STUDENT MENU -----");
-				System.out.println("1. Apply Leave");
-				System.out.println("2. Check Leave Status");
-				System.out.println("3. Raise Issue");
-				System.out.println("4. Check Issue Status");
-				System.out.println("5. View Marksheet");
-				System.out.println("6. Check fees");
-				System.out.println("7. Check fine");
-				System.out.println("8. Pay fees");
-				System.out.println("9. Check Marks");
-				System.out.println("10. Read Notifications");
-				System.out.println("11. View Attendance");
-				System.out.println("12. Logout");
-				System.out.println("13. Exit");
-				System.out.println(" ");
+				System.out.println(StringConstants.STUDENT_MENU);
 				System.out.println("Enter your choice: ");
-
 				int choice = scanner.nextInt();
 				scanner.nextLine();
-
 				switch (choice) {
 				case 1:
-					applyLeave(user);
+					manageLeavesStudent(user);
 					break;
 				case 2:
-					checkLeaveStatus(user);
+					manageIssueStudent(user);
 					break;
 				case 3:
-					raiseIssue(user);
+					manageFeesStudent(user);
 					break;
 				case 4:
-					checkIssueStatus(user);
+					checkMarks(user);
 					break;
 				case 5:
+					readNotifications(user);
+					break;
+				case 6:
+					viewAttendance(user);
+					break;
+				case 7:
 					System.out.println("Functionality Not added yet [ Under Construction ]");
 					// viewMarksheet();
 					break;
-				case 6:
-					checkFees(user);
-					break;
-				case 7:
-					checkFine(user);
-					break;
 				case 8:
-					payFees(user);
-					break;
-				case 9:
-					checkMarks(user);
-					break;
-				case 10:
-					readNotifications(user);
-					break;
-				case 11:
-					viewAttendance(user);
-					break;
-				case 12:
 					logout();
 					break;
-				case 13:
+				case 9:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -223,26 +147,10 @@ public class UserUI {
 			}
 		} else if (role.equals("Faculty")) {
 			while (true) {
-				System.out.println(" ");
-				System.out.println("----- FACULTY MENU -----");
-				System.out.println("1. Manage Attendance");
-				System.out.println("2. View All Leave requests");
-				System.out.println("3. Apply Leave");
-				System.out.println("4. Approve Leave");
-				System.out.println("5. Check Leave Status");
-				System.out.println("6. Raise Issue");
-				System.out.println("7. Check Issue Status");
-				System.out.println("8. Add Marks");
-				System.out.println("9. Generate Marksheet");
-				System.out.println("10. Read Notifications");
-				System.out.println("11. Logout");
-				System.out.println("12. Exit");
-				System.out.println(" ");
+				System.out.println(StringConstants.FACULTY_MENU);
 				System.out.println("Enter your choice: ");
-
 				int choice = scanner.nextInt();
 				scanner.nextLine();
-
 				switch (choice) {
 				case 1:
 					manageAttendance();
@@ -288,6 +196,223 @@ public class UserUI {
 			}
 		} else {
 			System.out.println("Enter valid role!");
+		}
+	}
+
+	private void manageFeesStudent(User user) {
+		while (true) {
+			System.out.println(" ");
+			System.out.println("Manage Fees");
+			System.out.println("1. Check Fees");
+			System.out.println("2. Check Fine");
+			System.out.println("3. Pay Fees");
+			System.out.println("4. Go back to Main Menu");
+			System.out.println(" ");
+			System.out.println("Enter the Choice:");
+
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choice) {
+			case 1:
+				checkFees(user);
+				break;
+			case 2:
+				checkFine(user);
+				break;
+			case 3:
+				payFees(user);
+				break;
+			case 4:
+				return;
+			default:
+				System.out.println("Enter valid choice!");
+			}
+		}
+
+	}
+
+	private void manageIssueStudent(User user) {
+		while (true) {
+			System.out.println(" ");
+			System.out.println("Manage Issues");
+			System.out.println("1. Raise Issue");
+			System.out.println("2. Check Issue Status");
+			System.out.println("3. Go back to Main Menu");
+			System.out.println(" ");
+			System.out.println("Enter the Choice:");
+
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choice) {
+			case 1:
+				raiseIssue(user);
+				break;
+			case 2:
+				checkIssueStatus(user);
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Enter valid choice!");
+			}
+		}
+
+	}
+
+	private void manageUser() {
+		while (true) {
+			System.out.println(" ");
+			System.out.println("Manage User");
+			System.out.println("1. Add User");
+			System.out.println("2. Get User");
+			System.out.println("3. Get User by Username");
+			System.out.println("4. Get All Users");
+			System.out.println("5. Delete User");
+			System.out.println("6. Update User");
+			System.out.println("7. Go back to Main Menu");
+			System.out.println(" ");
+			System.out.println("Enter the Choice:");
+
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choice) {
+			case 1:
+				addUser();
+				break;
+			case 2:
+				getUserById();
+				break;
+			case 3:
+				getUserByUsername();
+				break;
+			case 4:
+				getAllUser();
+				break;
+			case 5:
+				deleteUser();
+				break;
+			case 6:
+				updateUser();
+				break;
+			case 7:
+				return;
+			default:
+				System.out.println("Enter valid choice!");
+			}
+		}
+	}
+
+	private void manageFees() {
+		while (true) {
+			System.out.println(" ");
+			System.out.println("Manage Fees");
+			System.out.println("1. Add Fees");
+			System.out.println("2. Calculate Fine");
+			System.out.println("3. Go back to Main Menu");
+			System.out.println(" ");
+			System.out.println("Enter the Choice:");
+
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choice) {
+			case 1:
+				addFees();
+				break;
+			case 2:
+				calculateFine();
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Enter valid choice!");
+			}
+		}
+	}
+
+	private void manageLeaves(String role) {
+		while (true) {
+			System.out.println(" ");
+			System.out.println("Manage Leaves");
+			System.out.println("1. View All Leave Requests");
+			System.out.println("2. Approve Leave");
+			System.out.println("3. Go back to Main Menu");
+			System.out.println(" ");
+			System.out.println("Enter the Choice:");
+
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choice) {
+			case 1:
+				viewAllLeave();
+				break;
+			case 2:
+				approveLeave(role);
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Enter valid choice!");
+			}
+		}
+	}
+
+	private void manageIssues() {
+		while (true) {
+			System.out.println(" ");
+			System.out.println("Manage Issues");
+			System.out.println("1. View All Issues");
+			System.out.println("2. Resolve Issue");
+			System.out.println("3. Go back to Main Menu");
+			System.out.println(" ");
+			System.out.println("Enter the Choice:");
+
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choice) {
+			case 1:
+				viewAllIssues();
+				break;
+			case 2:
+				resolveIssue();
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Enter valid choice!");
+			}
+		}
+	}
+
+	private void manageLeavesStudent(User user) {
+		while (true) {
+			System.out.println(" ");
+			System.out.println("Manage Leaves");
+			System.out.println("1. Apply Leave");
+			System.out.println("2. Check Leaves Status");
+			System.out.println("3. Go back to Main Menu");
+			System.out.println(" ");
+			System.out.println("Enter the Choice:");
+
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+			switch (choice) {
+			case 1:
+				applyLeave(user);
+				break;
+			case 2:
+				checkLeaveStatus(user);
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Enter valid choice!");
+			}
 		}
 	}
 
@@ -431,11 +556,9 @@ public class UserUI {
 		String userId = scanner.next();
 		User user = userController.getUserById(userId);
 		if (user != null) {
-			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
+			System.out.println(StringConstants.BorderLine);
 			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
+			System.out.println(StringConstants.BorderLine);
 
 		} else {
 			System.out.println("User not found.");
@@ -447,11 +570,9 @@ public class UserUI {
 		String username = scanner.next();
 		User user = userController.getUserByUsername(username);
 		if (user != null) {
-			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
+			System.out.println(StringConstants.BorderLine);
 			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
+			System.out.println(StringConstants.BorderLine);
 
 		} else {
 			System.out.println("User not found.");
@@ -466,22 +587,30 @@ public class UserUI {
 		if (users == null) {
 			System.out.println("Users not found!");
 		} else {
-			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
-
+			System.out.println(StringConstants.BorderLine);
 			for (User user : users) {
 				System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
 			}
-			System.out.println(
-					"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
+			System.out.println(StringConstants.BorderLine);
 
 		}
 	}
 
 	private void deleteUser() {
-		System.out.println("Enter the User Id");
-		String UserId = scanner.next();
-		boolean flag = userController.deleteUser(UserId);
+		List<User> users = userController.getAllUser();
+		System.out.println("List of all Users");
+		System.out.println(StringConstants.BorderLine);
+		int index = 0;
+		for (User user : users) {
+			System.out
+					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+			index++;
+		}
+		System.out.println(StringConstants.BorderLine);
+
+		System.out.println("Enter the User Index to delete");
+		index = scanner.nextInt();
+		boolean flag = userController.deleteUser(users.get(index).getUserId());
 		if (flag == true) {
 			System.out.println("User Deleted Successfully!");
 		} else {
@@ -490,16 +619,17 @@ public class UserUI {
 	}
 
 	private void getAllUser() {
+		System.out.println("List of all Users");
+
 		List<User> list = userController.getAllUser();
-		System.out.println(
-				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
-
+		System.out.println(StringConstants.BorderLine);
+		int index = 0;
 		for (User user : list) {
-			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+			System.out
+					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+			index++;
 		}
-		System.out.println(
-				"+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------------+---------------+---------------+----------+------------+---------------+--------+----------+---------+---------+------+---------+---------+---------+---------+------+---------+---------+");
-
+		System.out.println(StringConstants.BorderLine);
 	}
 
 	private void logout() {
@@ -528,10 +658,19 @@ public class UserUI {
 	}
 
 	private void addFees() {
-		System.out.println("Enter the UserId:");
-		String userId = scanner.next();
+		List<User> users = userController.getAllUser();
+		System.out.println(StringConstants.BorderLine);
+		int index = 0;
+		for (User user : users) {
+			System.out
+					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+			index++;
+		}
+		System.out.println(StringConstants.BorderLine);
+		System.out.println("Enter the User Index to delete");
+		index = scanner.nextInt();
+		String userId = users.get(index).getUserId();
 		User user = userController.getUserById(userId);
-
 		boolean validateUser = false;
 		while (!validateUser) {
 			if (!user.getRole().toString().equals("Student")) {
@@ -567,8 +706,18 @@ public class UserUI {
 	}
 
 	private void calculateFine() {
-		System.out.println("Enter the UserId:");
-		String userId = scanner.next();
+		List<User> users = userController.getAllUser();
+		System.out.println(StringConstants.BorderLine);
+		int index = 0;
+		for (User user : users) {
+			System.out
+					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+			index++;
+		}
+		System.out.println(StringConstants.BorderLine);
+		System.out.println("Enter the User Index to Calculate Fine");
+		index = scanner.nextInt();
+		String userId = users.get(index).getUserId();
 		double fine = feeController.calculateFine(userId);
 		System.out.println("The fine is: " + fine);
 	}
@@ -803,8 +952,24 @@ public class UserUI {
 
 	private void sendNotification() {
 		try {
-			System.out.println("Enter user id to send notification: ");
-			String userId = scanner.next();
+
+			List<User> users = userController.getAllUser();
+			System.out.println("List of all Users");
+			System.out.println(StringConstants.BorderLine);
+			int index = 0;
+			for (User user : users) {
+				System.out.println(
+						index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+				index++;
+			}
+			System.out.println(StringConstants.BorderLine);
+
+			System.out.println("Enter the User Index to delete");
+			index = scanner.nextInt();
+			String userId = users.get(index).getUserId();
+			// boolean flag = userController.deleteUser();
+//			System.out.println("Enter user id to send notification: ");
+//			String userId = scanner.next();
 			System.out.println("Enter title: ");
 			String type = scanner.next();
 			scanner.nextLine();
@@ -849,8 +1014,22 @@ public class UserUI {
 	}
 
 	public void resolveIssue() {
-		System.out.println("Enter the User Id to Resolve Issue");
-		String userId = scanner.next();
+		List<Issue> issue = issueController.viewAllIssues();
+		System.out.println("List of all Issues");
+		System.out.println(StringConstants.BorderLine);
+		int index = 0;
+		for (Issue user : issue) {
+			System.out
+					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+			index++;
+		}
+		System.out.println(StringConstants.BorderLine);
+
+		System.out.println("Enter the Issue index");
+		index = scanner.nextInt();
+		// boolean flag = userController.deleteUser(users.get(index).getUserId());
+		// System.out.println("Enter the User Id to Resolve Issue");
+		String userId = issue.get(index).getUserId();
 		issueController.resolveIssue(userId);
 	}
 
@@ -896,6 +1075,7 @@ public class UserUI {
 		String userId = "";
 		String courseId = "";
 		while (!validateUser) {
+
 			System.out.println("Enter user Id");
 			userId = scanner.next();
 			User user = userController.getUserById(userId);

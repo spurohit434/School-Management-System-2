@@ -204,10 +204,9 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User{" + "userId='" + userId + '\'' + ", name='" + name + '\'' + ", dateOfBirth='" + dob + '\''
+		return "User{" + "name='" + name + '\'' + ", username='" + username + '\'' + ", dateOfBirth='" + dob + '\''
 				+ ", contactNumber='" + contactNumber + '\'' + ", role=" + role + ", password='" + password + '\''
-				+ ", standard=" + standard + ", address='" + address + '\'' + ", username='" + username + '\''
-				+ ", age=" + age + ", email='" + email + '\'' + ", gender='" + gender + '\'' + ", rollNo='" + rollNo
-				+ '\'' + ", assignedToStandard=" + assignedToStandard + ", mentorOf=" + mentorOf + '}';
+				+ ", standard=" + standard + ", age=" + age + ", email='" + email + '\'' + ", gender='" + gender + '\''
+				+ ", rollNo='" + rollNo + '\'' + ", mentorOf=" + mentorOf + ", address='" + address + '\'' + '}';
 	}
 }
