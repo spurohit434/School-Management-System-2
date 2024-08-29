@@ -1,5 +1,6 @@
 package com.wg.Helper;
 
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,5 +51,14 @@ public class Validator {
 			return false;
 		}
 		return role.equalsIgnoreCase("Admin") || role.equalsIgnoreCase("Student") || role.equalsIgnoreCase("Faculty");
+	}
+
+	public static int getUserChoice(Scanner scanner) {
+		while (!scanner.hasNextInt()) {
+			System.out.println("Invalid input. Please enter a Valid Input");
+			scanner.next();
+			System.out.print("Enter your choice: ");
+		}
+		return scanner.nextInt();
 	}
 }

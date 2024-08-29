@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import com.wg.DAO.UserDAO;
 import com.wg.Helper.LoggingUtil;
 import com.wg.Helper.PasswordUtil;
+import com.wg.Helper.UnauthenticatedException;
 import com.wg.Model.User;
 
 public class UserService {
@@ -79,45 +80,6 @@ public class UserService {
 		return false;
 	}
 
-//	public boolean authenticateUser1(String username, String password, String role) {
-//		User user = null;
-//		Logger logger = LoggingUtil.getLogger(UserService.class);
-//
-//		try {
-//			user = userDAO.getUserByUsername(username);
-//			if (user.getUserId() == null) {
-//				System.out.println("User not found");
-//				logger.info("User Authentication Failed!! \n Username: " + username + "\n Password: " + password);
-//				// throw new UnauthenticatedException("Invalid Credentials!");
-//				return false;
-//			} else {
-//				String checkName = user.getUsername();
-//				String checkPass = user.getPassword();
-//				String role1 = user.getRole().name();
-//
-//				if (checkName.equals(username) && checkPass.equals(password) && role1.equals(role)) {
-//					System.out.println("Authentication successful");
-//					return true;
-//				} else if (checkName != username) {
-//					System.out.println("Enter correct Username");
-//					return false;
-//				} else if (checkPass != password) {
-//					System.out.println("Enter correct password");
-//					return false;
-//				} else if (role1 != role) {
-//					System.out.println("Enter correct role");
-//					return false;
-//				} else {
-//					System.out.println("Authentication Unsuccessful");
-//					return false;
-//				}
-//			}
-//		} catch (ClassNotFoundException | SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
-
 	public User authenticateUser(String username, String password) {
 		User user = null;
 		Logger logger = LoggingUtil.getLogger(UserService.class);
@@ -126,9 +88,8 @@ public class UserService {
 			user = userDAO.getUserByUsername(username);
 			if (user.getUserId() == null) {
 				System.out.println("User not found");
-				logger.info("User Authentication Failed!! \n Username: " + username + "\n Password: " + password);
-				// throw new UnauthenticatedException("Invalid Credentials!");
-				return null;
+				logger.info("User Authentication Failed!! \n Username: " + username);
+				throw new UnauthenticatedException("Invalid Credentials!");
 			} else {
 				String checkName = user.getUsername();
 				String checkPass = user.getPassword();
@@ -145,7 +106,7 @@ public class UserService {
 					return null;
 				}
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException | UnauthenticatedException e) {
 			e.printStackTrace();
 		}
 		return null;

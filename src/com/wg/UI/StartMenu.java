@@ -1,18 +1,10 @@
 package com.wg.UI;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import com.App.App;
 import com.wg.Constants.StringConstants;
@@ -55,25 +47,26 @@ public class StartMenu {
 	}
 
 	public void showStartMenu() {
-		System.out.println(" ");
-		System.out.println(StringConstants.Welcome);
-		System.out.println("1. Login to system");
-		System.out.println("2. Exit");
-		System.out.println(" ");
+		while (true) {
+			System.out.println(StringConstants.Welcome);
+			System.out.println("Enter username: ");
+			String username = scanner.next();
 
-		System.out.println("Enter your choice: ");
+			JPasswordField passwordField = new JPasswordField(20);
+			JOptionPane.showConfirmDialog(null, passwordField, "Enter your password", JOptionPane.OK_CANCEL_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
+			char[] passwordChars = passwordField.getPassword();
+			String password = new String(passwordChars);
 
-		int choice = scanner.nextInt();
-		switch (choice) {
-		case 1:
-			login();
-			break;
-		case 2:
-			System.exit(0);
-			break;
-		default:
-			System.out.println("Enter Valid Choice");
-			return;
+			User user = userController.authenticateUser(username, password);
+			if (user == null) {
+				System.out.println("Invalid credentials");
+			} else {
+				System.out.println("User Authenticated Successfully");
+				UserUI userUI = new UserUI(userController, feeController, courseController, attendanceController,
+						notificationController, leavesController, issueController, courseMarksController);
+				userUI.displayMenu(user);
+			}
 		}
 	}
 
@@ -81,7 +74,6 @@ public class StartMenu {
 		System.out.println("Enter username: ");
 		String username = scanner.next();
 		System.out.println("Enter password: ");
-		// String password = SecureInput.getSecureInput("password");
 		String password = scanner.next();
 
 		User user = userController.authenticateUser(username, password);
@@ -89,6 +81,7 @@ public class StartMenu {
 			System.out.println("Enter valid Credentials!");
 			try {
 				App.main(null);
+				return;
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -101,52 +94,24 @@ public class StartMenu {
 	}
 
 	public void login1() {
-		// Create a JFrame to contain the login dialog
-		JFrame frame = new JFrame("Login");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 150);
-		frame.setLocationRelativeTo(null);
+		System.out.print("Enter username: ");
+		String username = scanner.next();
 
-		// Create a JPanel to hold the input components
-		JPanel panel = new JPanel(new GridLayout(3, 2));
+		JPasswordField passwordField = new JPasswordField(20);
+		JOptionPane.showConfirmDialog(null, passwordField, "Enter your password", JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.PLAIN_MESSAGE);
+		char[] passwordChars = passwordField.getPassword();
+		String password = new String(passwordChars);
 
-		// Add Username label and field
-		JLabel userLabel = new JLabel("Username:");
-		JTextField userField = new JTextField();
-		panel.add(userLabel);
-		panel.add(userField);
-
-		// Add Password label and field
-		JLabel passLabel = new JLabel("Password:");
-		JPasswordField passField = new JPasswordField();
-		panel.add(passLabel);
-		panel.add(passField);
-
-		// Add Login button
-		JButton loginButton = new JButton("Login");
-		panel.add(loginButton);
-
-		// Set up the action listener for the login button
-		loginButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String username = userField.getText();
-				String password = new String(passField.getPassword());
-
-				User user = userController.authenticateUser(username, password);
-				if (user == null) {
-					JOptionPane.showMessageDialog(frame, "Enter valid credentials!", "Login Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					frame.dispose(); // Close the login frame
-					UserUI userUI = new UserUI(userController, feeController, courseController, attendanceController,
-							notificationController, leavesController, issueController, courseMarksController);
-					userUI.displayMenu(user);
-				}
-			}
-		});
-
-		frame.add(panel);
-		frame.setVisible(true);
+		User user = userController.authenticateUser(username, password);
+		if (user != null) {
+			System.out.println("Login successful.");
+			UserUI userUI = new UserUI(userController, feeController, courseController, attendanceController,
+					notificationController, leavesController, issueController, courseMarksController);
+			userUI.displayMenu(user);
+		} else {
+			System.out.println("Invalid username or password.");
+			return;
+		}
 	}
 }

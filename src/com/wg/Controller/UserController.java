@@ -116,8 +116,8 @@ public class UserController {
 				while (continueUpdating) {
 					displayUpdateMenu();
 
-					System.out.print("Select an option (1-10): ");
-					int choice = scanner.nextInt();
+					System.out.print("Select an option ");
+					int choice = Validator.getUserChoice(scanner);
 					scanner.nextLine();
 
 					String columnToUpdate = "";
@@ -205,10 +205,6 @@ public class UserController {
 							}
 						}
 
-//						if (roleInput.equals("Admin")) {
-//							System.out.println("Role can not be updated to Admin");
-//							break;
-//						}
 						try {
 							Role newRole = Role.valueOf(roleInput); // Convert input to Role enum
 							user.setRole(newRole); // Update the role in User object
