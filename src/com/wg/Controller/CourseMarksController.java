@@ -22,7 +22,8 @@ public class CourseMarksController {
 			System.out.println("Enter valid marks");
 			return;
 		}
-		courseMarksService.addMarks(userId, courseId, marks);
+		CourseMarks courseMarks = new CourseMarks(userId, courseId, marks);
+		courseMarksService.addMarks(courseMarks);
 	}
 
 	public List<CourseMarks> checkMarks(String userId) {

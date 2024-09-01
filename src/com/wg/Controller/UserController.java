@@ -26,17 +26,6 @@ public class UserController {
 	public UserController() {
 	}
 
-//	public boolean authenticateUser(String username, String password, String role) {
-//		if (username == null || password == null || role == null) {
-//			System.out.println("Null values entered");
-//			return false;
-//		} else if (!role.equals("Admin") && !role.equals("Student") && !role.equals("Faculty")) {
-//			System.out.println("Invalid Role entered");
-//			return false;
-//		}
-//		return userService.authenticateUser(username, password, role);
-//	}
-
 	public User authenticateUser(String username, String password) {
 		if (username == null || password == null) {
 			System.out.println("Null values entered");

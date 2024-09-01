@@ -51,10 +51,15 @@ public class Attendance {
 		this.status = status;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Attendance{" + "studentId='" + studentId + '\'' + ", standard=" + standard + ", date=" + date
+//				+ ", status=" + status + '}';
+//	}
+
 	@Override
 	public String toString() {
-		return "Attendance{" + "studentId='" + studentId + '\'' + ", standard=" + standard + ", date=" + date
-				+ ", status=" + status + '}';
+		return "standard=" + standard + ", date=" + date + ", status=" + status + '}';
 	}
 
 }

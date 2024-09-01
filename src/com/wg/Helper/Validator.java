@@ -1,5 +1,6 @@
 package com.wg.Helper;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,4 +62,10 @@ public class Validator {
 		}
 		return scanner.nextInt();
 	}
+
+	public static boolean isValidDate(LocalDate endDate) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

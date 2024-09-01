@@ -60,31 +60,6 @@ public class FeeDAO {
 		}
 	}
 
-//	public void addFees1(String studentId, double feeAmount, LocalDate deadline, double fine) throws SQLException {
-//		String addSQL = "INSERT INTO Fees (studentId, feeAmount, deadline, fine) VALUES (?, ?, ?, ?)";
-//
-//		try (PreparedStatement preparedStatement = connection.prepareStatement(addSQL)) {
-//			preparedStatement.setString(1, studentId);
-//			preparedStatement.setDouble(2, feeAmount);
-//			preparedStatement.setDate(3, java.sql.Date.valueOf(deadline));
-//			preparedStatement.setDouble(4, fine);
-//			System.out.println("Executing SQL: " + addSQL);
-//			System.out.println("With parameters: studentId=" + studentId + ", feeAmount=" + feeAmount + ", deadline="
-//					+ deadline + ", fine=" + fine);
-//
-//			int rowsAffected = preparedStatement.executeUpdate();
-//
-//			if (rowsAffected == 0) {
-//				System.out.println("No records inserted. Check the input values.");
-//			} else {
-//				System.out.println("Fees successfully added for student ID: " + studentId);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			throw new SQLException("Error adding fee record", e);
-//		}
-//	}
-
 	public void addFees(String studentId, double feeAmount, LocalDate deadline, double fine) throws SQLException {
 		String checkSQL = "SELECT COUNT(*) FROM Fees WHERE studentId = ?";
 

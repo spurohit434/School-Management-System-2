@@ -49,10 +49,15 @@ public class Issue {
 		this.status = status;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Issue{" + "issueID='" + issueID + '\'' + ", message='" + message + '\'' + ", userId='" + userId + '\''
+//				+ ", status=" + status + '}';
+//	}
+
 	@Override
 	public String toString() {
-		return "Issue{" + "issueID='" + issueID + '\'' + ", message='" + message + '\'' + ", userId='" + userId + '\''
-				+ ", status=" + status + '}';
+		return "Issue{" + "message='" + message + '\'' + ", userId='" + userId + '\'' + ", status=" + status + '}';
 	}
 
 }

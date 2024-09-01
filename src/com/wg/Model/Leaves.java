@@ -74,7 +74,7 @@ public class Leaves {
 
 	@Override
 	public String toString() {
-		return "Leaves{" + "leaveId='" + leaveId + '\'' + ", userId='" + userId + '\'' + ", content='" + content + '\''
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", status=" + status + '}';
+		return "Leaves{" + "leaveId='" + leaveId + '\'' + ", content='" + content + '\'' + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", status=" + status + '}';
 	}
 }

@@ -39,10 +39,15 @@ public class Course {
 		this.standard = standard;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Course{" + "courseId='" + courseId + '\'' + ", courseName='" + CourseName + '\'' + ", standard="
+//				+ standard + '}';
+//	}
+
 	@Override
 	public String toString() {
-		return "Course{" + "courseId='" + courseId + '\'' + ", courseName='" + CourseName + '\'' + ", standard="
-				+ standard + '}';
+		return "courseName='" + CourseName + '\'' + ", standard=" + standard;
 	}
 
 }

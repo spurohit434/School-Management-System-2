@@ -23,11 +23,6 @@ public class IssueDAO {
 		}
 	}
 
-//	private String issueID;
-//	private String message;
-//	private String userId;
-//	private IssuesStatus status;
-
 	public void raiseIssue(Issue issue) {
 		String insertSQL = "INSERT INTO Issue (issueID, message, userId, status) VALUES (?, ?, ?, ?)";
 		try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
@@ -55,13 +50,13 @@ public class IssueDAO {
 			preparedStatement.setString(1, "RESOLVED");
 			preparedStatement.setString(2, userId);
 
-			System.out.println("Executing SQL: " + updateSQL);
-			System.out.println("With parameters: status='Approved', userId=" + userId);
+//			System.out.println("Executing SQL: " + updateSQL);
+//			System.out.println("With parameters: status='Approved', userId=" + userId);
 			int rowsAffected = preparedStatement.executeUpdate();
 			if (rowsAffected == 0) {
 				System.out.println("No records update.");
 			} else {
-				System.out.println("Issue successfully resolved for user ID: " + userId);
+				System.out.println("Issue successfully resolved ");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

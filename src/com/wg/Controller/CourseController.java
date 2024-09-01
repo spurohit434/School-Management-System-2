@@ -2,6 +2,7 @@ package com.wg.Controller;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 import com.wg.Model.Course;
 import com.wg.Services.CourseService;
@@ -24,10 +25,10 @@ public class CourseController {
 		return course;
 	}
 
-	public void updateCourse() {
+	public void updateCourse(String courseId) {
 		try {
-			System.out.print("Enter course ID: ");
-			String courseId = scanner.nextLine();
+//			System.out.print("Enter course ID: ");
+//			String courseId = scanner.nextLine();
 
 			Course course = courseService.getCourse(courseId);
 			if (course != null) {
@@ -86,7 +87,13 @@ public class CourseController {
 		return flag;
 	}
 
-	public boolean addCourse(String courseId, String courseName, int standard) {
+	public boolean addCourse(String courseName, int standard) {
+		String randomString = UUID.randomUUID().toString();
+		int desiredLength = 8;
+		if (desiredLength > randomString.length()) {
+			desiredLength = randomString.length();
+		}
+		String courseId = randomString.substring(0, desiredLength);
 		if (courseId == null || courseName == null || standard > 12) {
 			System.out.println("Enter valid credentials");
 			return false;
@@ -101,7 +108,7 @@ public class CourseController {
 		Course course = null;
 		course = courseService.getCourse(courseId);
 		if (course == null) {
-			System.out.println("Course null from dao:");
+			System.out.println("Course Not Found");
 		}
 		return course;
 	}

@@ -1,50 +1,17 @@
 package com.wg.UI;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
-import com.App.App;
 import com.wg.Constants.StringConstants;
-import com.wg.Controller.AttendanceController;
-import com.wg.Controller.CourseController;
-import com.wg.Controller.CourseMarksController;
-import com.wg.Controller.FeeController;
-import com.wg.Controller.IssueController;
-import com.wg.Controller.LeavesController;
-import com.wg.Controller.NotificationController;
-import com.wg.Controller.UserController;
+import com.wg.Helper.Validator;
 import com.wg.Model.User;
 
 public class StartMenu {
-	Scanner scanner = new Scanner(System.in);
-	FeeController feeController = new FeeController();
-	UserController userController = new UserController();
-	CourseController courseController = new CourseController();
-	AttendanceController attendanceController = new AttendanceController();
-	NotificationController notificationController = new NotificationController();
-	LeavesController leavesController = new LeavesController();
-	IssueController issueController = new IssueController();
-	CourseMarksController courseMarksController = new CourseMarksController();
-
-	public StartMenu(UserController controller, FeeController feeController, CourseController courseController,
-			AttendanceController attendanceController, NotificationController notificationController,
-			LeavesController leavesController, IssueController issueController,
-			CourseMarksController courseMarksController) {
-		this.userController = controller;
-		this.feeController = feeController;
-		this.courseController = courseController;
-		this.attendanceController = attendanceController;
-		this.notificationController = notificationController;
-		this.leavesController = leavesController;
-		this.issueController = issueController;
-		this.courseMarksController = courseMarksController;
-	}
-
-	public StartMenu() {
-	}
+	private final Scanner scanner = new Scanner(System.in);
+	UserUI userUI = new UserUI();
 
 	public void showStartMenu() {
 		while (true) {
@@ -58,60 +25,165 @@ public class StartMenu {
 			char[] passwordChars = passwordField.getPassword();
 			String password = new String(passwordChars);
 
-			User user = userController.authenticateUser(username, password);
+			User user = userUI.authenticateUser(username, password);
 			if (user == null) {
 				System.out.println("Invalid credentials");
+				System.out.println(" ");
 			} else {
-				System.out.println("User Authenticated Successfully");
-				UserUI userUI = new UserUI(userController, feeController, courseController, attendanceController,
-						notificationController, leavesController, issueController, courseMarksController);
-				userUI.displayMenu(user);
+				displayMenu(user);
 			}
 		}
 	}
 
-	public void login() {
-		System.out.println("Enter username: ");
-		String username = scanner.next();
-		System.out.println("Enter password: ");
-		String password = scanner.next();
+//	public void login() {
+//		System.out.println("Enter username: ");
+//		String username = scanner.next();
+//		System.out.println("Enter password: ");
+//		String password = scanner.next();
+//
+//		User user = userUI.authenticateUser(username, password);
+//		if (user == null) {
+//			System.out.println("Enter valid Credentials!");
+//			try {
+//				App.main(null);
+//				return;
+//			} catch (ClassNotFoundException | SQLException e) {
+//				e.printStackTrace();
+//			}
+//			return;
+//		} else {
+//			userUI.displayMenu(user);
+//		}
+//	}
 
-		User user = userController.authenticateUser(username, password);
-		if (user == null) {
-			System.out.println("Enter valid Credentials!");
-			try {
-				App.main(null);
-				return;
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+	public void displayMenu(User user) {
+		String role = user.getRole().toString();
+		if (role.equals("Admin")) {
+			while (true) {
+				System.out.println(StringConstants.ADMIN_MENU);
+				System.out.println("Enter your choice: ");
+				int choice = Validator.getUserChoice(scanner);
+
+				switch (choice) {
+				case 1:
+					userUI.manageUser();
+					break;
+				case 2:
+					userUI.getClassDetails();
+					break;
+				case 3:
+					userUI.sendNotification();
+					break;
+				case 4:
+					userUI.manageFees();
+					break;
+				case 5:
+					userUI.manageLeaves(role);
+					break;
+				case 6:
+					userUI.manageIssues();
+					break;
+				case 7:
+					userUI.manageCourse();
+					break;
+				case 8:
+					userUI.manageAttendance();
+					break;
+				case 9:
+					userUI.logout();
+					break;
+				case 10:
+					System.out.println("Exiting...");
+					System.exit(0);
+					return;
+				default:
+					System.out.println("Invalid choice. Please try again.");
+				}
 			}
-			return;
+		} else if (role.equals("Student")) {
+			while (true) {
+				System.out.println(StringConstants.STUDENT_MENU);
+				System.out.println("Enter your choice: ");
+				int choice = scanner.nextInt();
+				scanner.nextLine();
+				switch (choice) {
+				case 1:
+					userUI.manageLeavesStudent(user);
+					break;
+				case 2:
+					userUI.manageIssueStudent(user);
+					break;
+				case 3:
+					userUI.manageFeesStudent(user);
+					break;
+				case 4:
+					userUI.checkMarks(user);
+					break;
+				case 5:
+					userUI.readNotifications(user);
+					break;
+				case 6:
+					userUI.viewAttendance(user);
+					break;
+				case 7:
+					userUI.logout();
+					break;
+				case 8:
+					System.out.println("Exiting...");
+					System.exit(0);
+					return;
+				default:
+					System.out.println("Invalid choice. Please try again.");
+				}
+			}
+		} else if (role.equals("Faculty")) {
+			while (true) {
+				System.out.println(StringConstants.FACULTY_MENU);
+				System.out.println("Enter your choice: ");
+				int choice = scanner.nextInt();
+				scanner.nextLine();
+				switch (choice) {
+				case 1:
+					userUI.manageAttendance();
+					break;
+				case 2:
+					userUI.viewAllLeave();
+					break;
+				case 3:
+					userUI.applyLeave(user);
+					break;
+				case 4:
+					userUI.approveLeave(role);
+					break;
+				case 5:
+					userUI.checkLeaveStatus(user);
+					break;
+				case 6:
+					userUI.raiseIssue(user);
+					break;
+				case 7:
+					userUI.checkIssueStatus(user);
+					break;
+				case 8:
+					userUI.addMarks();
+					break;
+				case 9:
+					userUI.readNotifications(user);
+					break;
+				case 10:
+					userUI.logout();
+					break;
+				case 11:
+					System.out.println("Exiting...");
+					System.exit(0);
+					return;
+				default:
+					System.out.println("Invalid choice. Please try again.");
+				}
+			}
 		} else {
-			UserUI userUI = new UserUI(userController, feeController, courseController, attendanceController,
-					notificationController, leavesController, issueController, courseMarksController);
-			userUI.displayMenu(user);
+			System.out.println("Enter valid role!");
 		}
 	}
 
-	public void login1() {
-		System.out.print("Enter username: ");
-		String username = scanner.next();
-
-		JPasswordField passwordField = new JPasswordField(20);
-		JOptionPane.showConfirmDialog(null, passwordField, "Enter your password", JOptionPane.OK_CANCEL_OPTION,
-				JOptionPane.PLAIN_MESSAGE);
-		char[] passwordChars = passwordField.getPassword();
-		String password = new String(passwordChars);
-
-		User user = userController.authenticateUser(username, password);
-		if (user != null) {
-			System.out.println("Login successful.");
-			UserUI userUI = new UserUI(userController, feeController, courseController, attendanceController,
-					notificationController, leavesController, issueController, courseMarksController);
-			userUI.displayMenu(user);
-		} else {
-			System.out.println("Invalid username or password.");
-			return;
-		}
-	}
 }

@@ -30,47 +30,20 @@ public class LeavesDAO {
 			preparedStatement.setString(1, "Approved");
 			preparedStatement.setString(2, userId);
 
-			System.out.println("Executing SQL: " + updateSQL);
-			System.out.println("With parameters: status='Approved', userId=" + userId);
+//			System.out.println("Executing SQL: " + updateSQL);
+//			System.out.println("With parameters: status='Approved', userId=" + userId);
 			int rowsAffected = preparedStatement.executeUpdate();
 
 			if (rowsAffected == 0) {
 				System.out.println("No records updated. Check if the leave ID exists.");
 			} else {
-				System.out.println("Leave request successfully approved for user ID: " + userId);
+				System.out.println("Leave request successfully approved ");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException("Error updating leave request status", e);
 		}
 	}
-
-//	public List<Leaves> getLeavesByUserIdAndStatus(String userId, LeavesStatus status) {
-//		List<Leaves> leavesList = new ArrayList<>();
-//		String query = "SELECT * FROM Leaves WHERE userId = ? AND status = ?";
-//
-//		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-//			preparedStatement.setString(1, userId);
-//			preparedStatement.setString(2, status.name()); // Convert enum to string
-//
-//			try (ResultSet resultSet = preparedStatement.executeQuery()) {
-//				while (resultSet.next()) {
-//					Leaves leave = new Leaves();
-//					leave.setLeaveId(resultSet.getString("id"));
-//					leave.setUserId(resultSet.getString("userId"));
-//					leave.setContent(resultSet.getString("content"));
-//					leave.setStartDate(resultSet.getDate("startDate").toLocalDate());
-//					leave.setEndDate(resultSet.getDate("endDate").toLocalDate());
-//					leave.setStatus(LeavesStatus.valueOf(resultSet.getString("status")));
-//
-//					leavesList.add(leave);
-//				}
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace(); // Log the exception for debugging
-//		}
-//		return leavesList;
-//	}
 
 	public void applyLeave(Leaves leave) throws SQLException {
 		String input = "Pending";

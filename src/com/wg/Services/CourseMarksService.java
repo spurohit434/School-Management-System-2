@@ -16,8 +16,8 @@ public class CourseMarksService {
 		this.courseMarksDAO = courseMarksDAO;
 	}
 
-	public void addMarks(String userId, String courseId, double marks) {
-		courseMarksDAO.addMarks(userId, courseId, marks);
+	public void addMarks(CourseMarks courseMarks) {
+		courseMarksDAO.addMarks(courseMarks);
 	}
 
 	public List<CourseMarks> checkMarks(String userId) {
