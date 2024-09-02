@@ -93,11 +93,8 @@ public class UserController {
 		return user;
 	}
 
-	public void updateUser() {
+	public void updateUser(String userId) {
 		try {
-			System.out.print("Enter user ID: ");
-			String userId = scanner.nextLine();
-
 			User user = userService.getUserById(userId);
 			if (user != null) {
 				boolean continueUpdating = true;
@@ -107,7 +104,7 @@ public class UserController {
 
 					System.out.print("Select an option ");
 					int choice = Validator.getUserChoice(scanner);
-					scanner.nextLine();
+					// scanner.nextLine();
 
 					String columnToUpdate = "";
 

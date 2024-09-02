@@ -3,7 +3,6 @@ package com.wg.Controller;
 import java.util.List;
 
 import com.wg.Model.Leaves;
-import com.wg.Model.LeavesStatus;
 import com.wg.Services.LeavesService;
 
 public class LeavesController {
@@ -30,7 +29,7 @@ public class LeavesController {
 		return leaves;
 	}
 
-	public LeavesStatus checkLeaveStatus(String userId) {
+	public List<Leaves> checkLeaveStatus(String userId) {
 		return leavesService.checkLeaveStatus(userId);
 	}
 

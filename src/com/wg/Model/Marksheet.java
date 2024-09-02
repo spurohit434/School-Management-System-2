@@ -1,24 +1,17 @@
 package com.wg.Model;
 
-import java.util.List;
-
 public class Marksheet {
 	String userId;
 	Result result; // enumvals
 	double percentage;
-	double marks;
 	int standard;
-	List<Course> courseName;
 
-	public Marksheet(String userId, Result result, double percentage, double marks, int standard,
-			List<Course> courseName) {
+	public Marksheet(String userId, Result result, double percentage, int standard) {
 		super();
 		this.userId = userId;
 		this.result = result;
 		this.percentage = percentage;
-		this.marks = marks;
 		this.standard = standard;
-		this.courseName = courseName;
 	}
 
 	public String getUserId() {
@@ -45,14 +38,6 @@ public class Marksheet {
 		this.percentage = percentage;
 	}
 
-	public double getMarks() {
-		return marks;
-	}
-
-	public void setMarks(double marks) {
-		this.marks = marks;
-	}
-
 	public int getStandard() {
 		return standard;
 	}
@@ -61,18 +46,9 @@ public class Marksheet {
 		this.standard = standard;
 	}
 
-	public List<Course> getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(List<Course> courseName) {
-		this.courseName = courseName;
-	}
-
 	@Override
 	public String toString() {
-		return "User{" + "userId='" + userId + '\'' + ", result=" + result + ", percentage=" + percentage + ", marks="
-				+ marks + ", standard=" + standard + ", courseName=" + courseName + '}';
+		return "MyClass{" + "userId='" + userId + '\'' + ", result=" + result + ", percentage=" + percentage
+				+ ", standard=" + standard + '}';
 	}
-
 }

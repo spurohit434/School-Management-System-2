@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.wg.DAO.LeavesDAO;
 import com.wg.Model.Leaves;
-import com.wg.Model.LeavesStatus;
 
 public class LeavesService {
 	private LeavesDAO leavesDAO;
@@ -22,6 +21,8 @@ public class LeavesService {
 			leavesDAO.approveLeave(userId);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -30,16 +31,29 @@ public class LeavesService {
 			leavesDAO.applyLeave(leave);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public List<Leaves> viewAllLeave() {
-		List<Leaves> leaves = leavesDAO.viewAllLeave();
+		List<Leaves> leaves = null;
+		try {
+			leaves = leavesDAO.viewAllLeave();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return leaves;
 	}
 
-	public LeavesStatus checkLeaveStatus(String userId) {
-		LeavesStatus status = leavesDAO.checkLeaveStatus(userId);
+	public List<Leaves> checkLeaveStatus(String userId) {
+		List<Leaves> status = null;
+		try {
+			status = leavesDAO.checkLeaveStatus(userId);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 		return status;
 	}
 

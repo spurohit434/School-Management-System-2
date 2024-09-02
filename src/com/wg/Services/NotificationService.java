@@ -1,6 +1,7 @@
 package com.wg.Services;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.wg.DAO.NotificationDAO;
@@ -17,12 +18,24 @@ public class NotificationService {
 	}
 
 	public boolean sendNotification(Notification notification) {
-		boolean sendStatus = notificationDAO.sendNotification(notification);
+		boolean sendStatus = false;
+		;
+		try {
+			sendStatus = notificationDAO.sendNotification(notification);
+			return sendStatus;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 		return sendStatus;
 	}
 
 	public void readNotifications(String userId) {
-		List<Notification> notificationList = notificationDAO.readNotifications(userId);
+		List<Notification> notificationList = null;
+		try {
+			notificationList = notificationDAO.readNotifications(userId);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 		if (notificationList.isEmpty()) {
 			System.out.println("No notifications");
 			// return false;

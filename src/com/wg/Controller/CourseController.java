@@ -45,12 +45,12 @@ public class CourseController {
 
 					switch (choice) {
 					case 1:
-						columnToUpdate = "courseName";
+						columnToUpdate = "CourseName";
 						System.out.print("Enter new Course name: ");
 						course.setCourseName(scanner.nextLine());
 						break;
 					case 2:
-						columnToUpdate = "standard";
+						columnToUpdate = "Standard";
 						System.out.print("Enter new standard: ");
 						course.setStandard(scanner.nextInt());
 						break;
@@ -63,8 +63,12 @@ public class CourseController {
 					if (!continueUpdating) {
 						break;
 					}
-					courseService.updateCourse(course, courseId, columnToUpdate);
-					System.out.println("Course updated successfully.");
+					boolean flag = courseService.updateCourse(course, columnToUpdate);
+					if (flag == true) {
+						System.out.println("Course updated successfully.");
+					} else {
+						System.out.println("Course can not be updated");
+					}
 				}
 			} else {
 				System.out.println("Course Not found");

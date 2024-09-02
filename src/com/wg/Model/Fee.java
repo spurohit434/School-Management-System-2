@@ -19,6 +19,9 @@ public class Fee {
 		this.fine = fine;
 	}
 
+	public Fee() {
+	}
+
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}

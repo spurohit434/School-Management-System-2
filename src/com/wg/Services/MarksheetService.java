@@ -1,5 +1,11 @@
 package com.wg.Services;
 
-public class MarksheetService {
+import com.wg.DAO.MarkSheetDAO;
+
+public class MarkSheetService {
+
+	public MarkSheetService(MarkSheetDAO markSheetDAO) {
+		// TODO Auto-generated constructor stub
+	}
 
 }

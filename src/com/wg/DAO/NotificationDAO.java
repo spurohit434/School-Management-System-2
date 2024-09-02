@@ -1,102 +1,51 @@
 package com.wg.DAO;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.wg.Constants.NotificationConstants;
 import com.wg.Model.Notification;
-import com.wg.config.DatabaseConnection;
 
-public class NotificationDAO {
-
-	private Connection connection;
+public class NotificationDAO extends GenericDAO<Notification> {
 
 	public NotificationDAO() {
-		try {
-			this.connection = DatabaseConnection.getConnection();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
-	public boolean sendNotification(Notification notification) {
-		String query = "INSERT INTO Notification (notificationId, userId, type ,description,dateIssued) VALUES (?,?,?,?,?)";
-		try (PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setString(1, notification.getNotificationId());
-			stmt.setString(2, notification.getUserId());
-			stmt.setString(3, notification.getType());
-			stmt.setString(4, notification.getDescription());
-			stmt.setDate(5, Date.valueOf(notification.getDateIssued()));
-
-			return stmt.executeUpdate() > 0;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
+	@Override
+	protected Notification mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+		Notification notification = new Notification();
+		notification.setNotificationId(resultSet.getString(NotificationConstants.NOTIFICATION_ID_COLUMN));
+		notification.setUserId(resultSet.getString(NotificationConstants.USER_ID_COLUMN));
+		notification.setType(resultSet.getString(NotificationConstants.TITLE_COLUMN));
+		notification.setDescription(resultSet.getString(NotificationConstants.MESSAGE_COLUMN));
+		notification.setDateIssued(resultSet.getDate(NotificationConstants.DATE_COLUMN).toLocalDate());
+		return notification;
 	}
 
-//	String notificationId;
-//	String userId;
-//	String description;
-//	String type;
-//	LocalDate dateIssued;
-
-	public List<Notification> readNotifications1(String userId) {
-		String query = "SELECT * FROM Notification WHERE userId = ?";
-		List<Notification> notificationList = new ArrayList<>();
-		try (PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setString(1, userId);
-			try (ResultSet resultSet = stmt.executeQuery()) {
-				while (resultSet.next()) {
-					Notification notification = new Notification();
-					notification.setNotificationId(resultSet.getString("notificationId"));
-					notification.setUserId(resultSet.getString("userId"));
-					notification.setType(resultSet.getString("type"));
-					notification.setDescription(resultSet.getString("description"));
-					notification.setDateIssued(resultSet.getDate("date").toLocalDate());
-
-					notificationList.add(notification);
-				}
-			}
-		} catch (SQLException e) {
-			System.out.println("Cannot fetch notications");
-		}
-		return notificationList;
+	public boolean sendNotification(Notification notification) throws ClassNotFoundException, SQLException {
+		String sendNotificationQuery = String.format(
+				"Insert into Notification (notificationId, userId, type ,description,dateIssued) values ('%s','%s','%s','%s','%s')",
+				notification.getNotificationId(), notification.getUserId(), notification.getType(),
+				notification.getDescription(), Date.valueOf(notification.getDateIssued()));
+		return executeQuery(sendNotificationQuery);
 	}
 
-	public List<Notification> readNotifications(String userId) {
-		String query = "SELECT * FROM Notification WHERE userId = ?";
-		List<Notification> notificationList = new ArrayList<>();
+	public List<Notification> readNotifications(String userId) throws ClassNotFoundException, SQLException {
+		String readNotificationQuery = String.format("SELECT * FROM Notification WHERE userId = '%s'", userId);
+		return executeGetAllQuery(readNotificationQuery);
+	}
 
-		try (PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setString(1, userId);
+	public List<Notification> getAllNotifications() throws ClassNotFoundException, SQLException {
+		String query = "SELECT * FROM " + NotificationConstants.NOTIFICATION_TABLE_NAME;
+		return executeGetAllQuery(query);
+	}
 
-			try (ResultSet resultSet = stmt.executeQuery()) {
-				while (resultSet.next()) {
-					Notification notification = new Notification();
-
-					// Make sure these column names match exactly with those in the Notification
-					// table
-					notification.setNotificationId(resultSet.getString("notificationId"));
-					notification.setUserId(resultSet.getString("userId"));
-					notification.setType(resultSet.getString("type"));
-					notification.setDescription(resultSet.getString("description"));
-					notification.setDateIssued(resultSet.getDate("dateIssued").toLocalDate());
-
-					notificationList.add(notification);
-				}
-			}
-		} catch (SQLException e) {
-			// Improved error handling
-			e.printStackTrace();
-			System.out.println("Cannot fetch notifications: " + e.getMessage());
-		}
-
-		return notificationList;
+	public Notification getNotificationById(String notificationId) throws ClassNotFoundException, SQLException {
+		String query = String.format("SELECT * FROM %s WHERE %s = '%s'", NotificationConstants.NOTIFICATION_TABLE_NAME,
+				NotificationConstants.NOTIFICATION_ID_COLUMN, notificationId);
+		return executeGetQuery(query);
 	}
 
 }

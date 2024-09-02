@@ -23,7 +23,6 @@ public class AttendanceServices {
 			try {
 				list = attendanceDAO.viewAttendanceByStandard(standard);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {

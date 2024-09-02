@@ -30,8 +30,9 @@ public class StringConstants {
 			4. Check Marks
 			5. Read Notifications
 			6. View Attendance
-			7. Logout
-			8. Exit
+			7. View Marksheet
+			8. Logout
+			9. Exit
 			-----------------------
 			\s
 			""";
@@ -47,9 +48,10 @@ public class StringConstants {
 			6. Raise Issue
 			7. Check Issue Status
 			8. Add Marks
-			9. Read Notifications
-			10. Logout
-			11. Exit
+			9. Generate Marksheet
+			10. Read Notifications
+			11. Logout
+			12. Exit
 			--------------------------
 			\s
 			""";

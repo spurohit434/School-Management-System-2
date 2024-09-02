@@ -92,7 +92,7 @@ public class StartMenu {
 				case 9:
 					userUI.logout();
 					break;
-				case 10:
+				case 11:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -126,9 +126,11 @@ public class StartMenu {
 					userUI.viewAttendance(user);
 					break;
 				case 7:
+					userUI.viewMarksheet(user);
+				case 8:
 					userUI.logout();
 					break;
-				case 8:
+				case 9:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -168,12 +170,15 @@ public class StartMenu {
 					userUI.addMarks();
 					break;
 				case 9:
-					userUI.readNotifications(user);
+					userUI.generateMarksheet();
 					break;
 				case 10:
-					userUI.logout();
+					userUI.readNotifications(user);
 					break;
 				case 11:
+					userUI.logout();
+					break;
+				case 12:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;

@@ -22,8 +22,9 @@ public class CourseService {
 		try {
 			course = courseDAO.getCourse(courseId);
 			if (course == null) {
-				System.out.println("course null from dao:");
+				System.out.println("No course found");
 			}
+			return course;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,8 +42,14 @@ public class CourseService {
 	}
 
 	public void addCourse(Course course) {
+		boolean flag = false;
 		try {
-			courseDAO.addCourse(course);
+			flag = courseDAO.addCourse(course);
+			if (flag == true) {
+				System.out.println("Course Added successfully");
+			} else {
+				System.out.println("Course not added");
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -63,17 +70,20 @@ public class CourseService {
 			}
 			return true;
 		} else {
-			System.out.println("Course not found Exception");
+			System.out.println("Course not found");
 		}
 		return false;
 	}
 
-	public void updateCourse(Course course, String courseId, String columnToUpdate) {
+	public boolean updateCourse(Course course, String columnToUpdate) {
+		boolean flag = false;
 		try {
-			courseDAO.updateCourse(course, courseId, columnToUpdate);
+			flag = courseDAO.updateCourse(course, columnToUpdate);
+			return flag;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		return flag;
 	}
 
 }
