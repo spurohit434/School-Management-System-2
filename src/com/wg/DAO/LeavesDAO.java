@@ -41,7 +41,6 @@ public class LeavesDAO extends GenericDAO<Leaves> {
 	public void applyLeave(Leaves leave) throws SQLException, ClassNotFoundException {
 		String query = String.format("SELECT * FROM %s where userId = '%s' and status = '%s'",
 				LeavesConstants.LEAVES_TABLE_NAME, leave.getUserId(), LeavesStatus.Pending.toString());
-		System.out.println(query);
 		List<Leaves> leaves = executeGetAllQuery(query);
 		if (!leaves.isEmpty()) {
 			System.out.println("Leave request already applied. Can not request again");

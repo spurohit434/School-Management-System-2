@@ -31,6 +31,14 @@ import com.wg.Helper.InvalidFeeAmountException;
 import com.wg.Helper.PasswordUtil;
 import com.wg.Helper.PasswordValidator;
 import com.wg.Helper.Validator;
+import com.wg.Helper.printer.AttendancePrinter;
+import com.wg.Helper.printer.CourseMarksPrinter;
+import com.wg.Helper.printer.CoursePrinter;
+import com.wg.Helper.printer.IssuePrinter;
+import com.wg.Helper.printer.LeavesPrinter;
+import com.wg.Helper.printer.MarksheetPrinter;
+import com.wg.Helper.printer.NotificationPrinter;
+import com.wg.Helper.printer.UserPrinter;
 import com.wg.Model.Attendance;
 import com.wg.Model.Course;
 import com.wg.Model.CourseMarks;
@@ -84,8 +92,8 @@ public class UserUI {
 			System.out.println(StringConstants.MANAGE_FEES_STUDENT);
 			System.out.println(" ");
 			System.out.println("Enter your choice: ");
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
+			int choice = Validator.getUserChoice();
+			// scanner.nextLine();
 
 			switch (choice) {
 			case 1:
@@ -111,8 +119,8 @@ public class UserUI {
 			System.out.println(StringConstants.MANAGE_ISSUES_MENU_STUDENT);
 			System.out.println(" ");
 			System.out.println("Enter your choice: ");
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
+			int choice = Validator.getUserChoice();
+			// scanner.nextLine();
 
 			switch (choice) {
 			case 1:
@@ -136,8 +144,9 @@ public class UserUI {
 			System.out.println(StringConstants.MANAGE_USER);
 			System.out.println(" ");
 			System.out.println("Enter your choice: ");
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
+			int choice = Validator.getUserChoice();
+			// int choice = scanner.nextInt();
+			// scanner.nextLine();
 
 			switch (choice) {
 			case 1:
@@ -172,8 +181,8 @@ public class UserUI {
 			System.out.println(StringConstants.MANAGE_FEES);
 			System.out.println(" ");
 			System.out.println("Enter your choice: ");
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
+			int choice = Validator.getUserChoice();
+			// scanner.nextLine();
 
 			switch (choice) {
 			case 1:
@@ -196,9 +205,9 @@ public class UserUI {
 			System.out.println(StringConstants.MANAGE_LEAVES_MENU);
 			System.out.println(" ");
 			System.out.println("Enter your choice: ");
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
-
+			int choice = Validator.getUserChoice();
+			// int choice = scanner.nextInt();
+			// scanner.nextLine();
 			switch (choice) {
 			case 1:
 				viewAllLeave();
@@ -207,6 +216,9 @@ public class UserUI {
 				approveLeave(role);
 				break;
 			case 3:
+				rejectLeave(role);
+				break;
+			case 4:
 				return;
 			default:
 				System.out.println("Enter valid choice!");
@@ -220,8 +232,8 @@ public class UserUI {
 			System.out.println(StringConstants.MANAGE_ISSUES_MENU);
 			System.out.println(" ");
 			System.out.println("Enter your choice: ");
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
+			int choice = Validator.getUserChoice();
+			// scanner.nextLine();
 
 			switch (choice) {
 			case 1:
@@ -244,8 +256,9 @@ public class UserUI {
 			System.out.println(StringConstants.MANAGE_LEAVES_MENU_STUDENT);
 			System.out.println(" ");
 			System.out.println("Enter your choice: ");
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
+			int choice = Validator.getUserChoice();
+			// int choice = scanner.nextInt();
+			// scanner.nextLine();
 			switch (choice) {
 			case 1:
 				applyLeave(user);
@@ -264,8 +277,8 @@ public class UserUI {
 	public void manageCourse() {
 		while (true) {
 			System.out.println(StringConstants.MANAGE_COURSES_MENU);
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
+			int choice = Validator.getUserChoice();
+			// scanner.nextLine();
 
 			switch (choice) {
 			case 1:
@@ -295,8 +308,8 @@ public class UserUI {
 		while (true) {
 			System.out.println(StringConstants.MANAGE_ATTENDANCE_MENU);
 			System.out.println("Enter your choice: ");
-			int choice = Validator.getUserChoice(scanner);
-			scanner.nextLine();
+			int choice = Validator.getUserChoice();
+			// scanner.nextLine();
 
 			switch (choice) {
 			case 1:
@@ -327,9 +340,7 @@ public class UserUI {
 			System.out.println("No attendance records available");
 			return;
 		}
-		for (Attendance attendee : attendance) {
-			System.out.println(attendee);
-		}
+		AttendancePrinter.printAttendanceDetails(attendance);
 	}
 
 	public void addUser() {
@@ -455,7 +466,6 @@ public class UserUI {
 				}
 			}
 		}
-
 		boolean flag = userController.addUser(username, name, age, hashedPassword, email, input, date, contactNumber,
 				standard, gender, rollNo, mentorOf);
 		if (flag) {
@@ -468,40 +478,42 @@ public class UserUI {
 	public void getUserById() {
 		System.out.println("List of all Users");
 		List<User> list = userController.getAllUser();
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (User user : list) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		UserPrinter.printUsers(list);
+		boolean validateIndex = false;
+		int limit = list.size();
 		System.out.println("Enter the User Index:");
-		index = scanner.nextInt();
-		String userId = list.get(index).getUserId();
-		User user = userController.getUserById(userId);
-		if (user != null) {
-			System.out.println(StringConstants.BorderLine);
-			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			System.out.println(StringConstants.BorderLine);
-
-		} else {
-			System.out.println("User not found.");
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
 		}
+		String userId = list.get(index - 1).getUserId();
+		User user = userController.getUserById(userId);
+		if (user == null) {
+			System.out.println("User not found");
+			return;
+		}
+		List<User> singleUser = new ArrayList<User>();
+		singleUser.add(user);
+		UserPrinter.printUsers(singleUser);
 	}
 
 	public void getUserByUsername() {
 		System.out.print("Enter user Username: ");
 		String username = scanner.next();
 		User user = userController.getUserByUsername(username);
-		if (user != null) {
-			System.out.println(StringConstants.BorderLine);
-			System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			System.out.println(StringConstants.BorderLine);
-
-		} else {
-			System.out.println("User not found.");
+		if (user == null) {
+			System.out.println("User not found");
+			return;
 		}
+		List<User> singleUser = new ArrayList<User>();
+		singleUser.add(user);
+		UserPrinter.printUsers(singleUser);
 	}
 
 	public void getClassDetails() {
@@ -511,13 +523,8 @@ public class UserUI {
 		List<User> users = userController.getClassDetails(standard);
 		if (users == null) {
 			System.out.println("Users not found!");
-		} else {
-			System.out.println(StringConstants.BorderLine);
-			for (User user : users) {
-				System.out.println(user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			}
-			System.out.println(StringConstants.BorderLine);
 		}
+		UserPrinter.printUsers(users);
 	}
 
 	public void deleteUser() {
@@ -527,17 +534,21 @@ public class UserUI {
 			return;
 		}
 		System.out.println("List of all Users");
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (User user : users) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		UserPrinter.printUsers(users);
 		System.out.println("Enter the User Index:");
-		index = scanner.nextInt();
-		boolean flag = userController.deleteUser(users.get(index).getUserId());
+		boolean validateIndex = false;
+		int limit = users.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
+		}
+		boolean flag = userController.deleteUser(users.get(index - 1).getUserId());
 		if (flag == true) {
 			System.out.println("User Deleted Successfully!");
 		} else {
@@ -548,18 +559,11 @@ public class UserUI {
 	public void getAllUser() {
 		System.out.println("List of all Users");
 		List<User> list = userController.getAllUser();
-		System.out.println(StringConstants.BorderLine);
-		int index = 0;
 		if (list == null) {
 			System.out.println("No users found");
 			return;
 		}
-		for (User user : list) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		UserPrinter.printUsers(list);
 	}
 
 	public void logout() {
@@ -569,21 +573,25 @@ public class UserUI {
 	public void updateUser() {
 		System.out.println("List of all Users");
 		List<User> list = userController.getAllUser();
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
 		if (list == null) {
 			System.out.println("No users found");
 			return;
 		}
-		for (User user : list) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
+		UserPrinter.printUsers(list);
+		boolean validateIndex = false;
+		int limit = list.size();
+		System.out.println("Enter the User Index:");
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
 		}
-		System.out.println(StringConstants.BorderLine);
-		System.out.print("Enter user index: ");
-		index = scanner.nextInt();
-		userController.updateUser(list.get(index).getUserId());
+		userController.updateUser(list.get(index - 1).getUserId());
 	}
 
 	public void payFees(User user) {
@@ -603,17 +611,21 @@ public class UserUI {
 			System.out.println("No users found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (User user : users) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		UserPrinter.printUsers(users);
 		System.out.println("Enter the User Index:");
-		index = scanner.nextInt();
-		String userId = users.get(index).getUserId();
+		boolean validateIndex = false;
+		int limit = users.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
+		}
+		String userId = users.get(index - 1).getUserId();
 		User user = userController.getUserById(userId);
 		boolean validateUser = false;
 		while (!validateUser) {
@@ -655,18 +667,22 @@ public class UserUI {
 			System.out.println("No users Found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (User user : users) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		UserPrinter.printUsers(users);
 		System.out.println("Enter the User Index:");
-		index = scanner.nextInt();
-		String userId = users.get(index).getUserId();
-		String role = users.get(index).getRole().toString();
+		boolean validateIndex = false;
+		int limit = users.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
+		}
+		String userId = users.get(index - 1).getUserId();
+		String role = users.get(index - 1).getRole().toString();
 		if (role.equals("Admin") || role.equals("Faculty")) {
 			System.out.println("Enter Valid Id for Student");
 			return;
@@ -687,14 +703,7 @@ public class UserUI {
 			System.out.println("No courses found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
-		int index = 0;
-		for (Course user : list) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		CoursePrinter.printCourseDetails(list);
 	}
 
 	public void updateCourse() {
@@ -703,17 +712,21 @@ public class UserUI {
 			System.out.println("No courses found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (Course user : course) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		CoursePrinter.printCourseDetails(course);
 		System.out.println("Enter the User Index:");
-		index = scanner.nextInt();
-		String courseId = course.get(index).getCourseId();
+		boolean validateIndex = false;
+		int limit = course.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
+		}
+		String courseId = course.get(index - 1).getCourseId();
 		courseController.updateCourse(courseId);
 	}
 
@@ -723,17 +736,21 @@ public class UserUI {
 			System.out.println("No courses found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (Course user : list) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		CoursePrinter.printCourseDetails(list);
 		System.out.println("Enter the User Index:");
-		index = scanner.nextInt();
-		String courseId = list.get(index).getCourseId();
+		boolean validateIndex = false;
+		int limit = list.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
+		}
+		String courseId = list.get(index - 1).getCourseId();
 		boolean flag = courseController.deleteCourse(courseId);
 		if (flag == true) {
 			System.out.println("Course Deleted Successfully!");
@@ -757,17 +774,21 @@ public class UserUI {
 			System.out.println("No courses found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (Course user : list) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		CoursePrinter.printCourseDetails(list);
 		System.out.println("Enter the Course Index:");
-		index = scanner.nextInt();
-		String courseId = list.get(index).getCourseId();
+		boolean validateIndex = false;
+		int limit = list.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid Course Index:");
+				validateIndex = false;
+			}
+		}
+		String courseId = list.get(index - 1).getCourseId();
 		Course course = courseController.getCourse(courseId);
 		System.out.println(course);
 	}
@@ -778,18 +799,22 @@ public class UserUI {
 			System.out.println("No Users found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (User user : list) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		UserPrinter.printUsers(list);
 		System.out.println("Enter the User Index:");
-		index = scanner.nextInt();
-		String studentId = list.get(index).getUserId();
-		String role = list.get(index).getRole().toString();
+		boolean validateIndex = false;
+		int limit = list.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
+		}
+		String studentId = list.get(index - 1).getUserId();
+		String role = list.get(index - 1).getRole().toString();
 		if (role.equals("Admin") || role.equals("Faculty")) {
 			System.out.println("Enter Valid Id for Student");
 			return;
@@ -829,36 +854,39 @@ public class UserUI {
 			System.out.println("No attendance Record found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
-		int index = 0;
+		int index = 1;
+		AttendancePrinter.extractedHeader();
 		for (Attendance user : list) {
+			List<Attendance> userList = new ArrayList<Attendance>();
 			String studentId = user.getStudentId();
 			User userr = userController.getUserById(studentId);
+			userList.add(user);
 			String name = userr.getName();
-			String username = userr.getUsername();
-			System.out.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", "")
-					+ "| Name = " + name + "| Username = " + username);
+			AttendancePrinter.printAttendanceDetails1(userList, name, index);
 			index++;
 		}
-		System.out.println(StringConstants.BorderLine);
+		AttendancePrinter.extractedFooter();
 	}
 
 	public void viewAttendanceById() {
 		List<User> users = userController.getAllUser();
 		System.out.println("List of all Users");
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (User user : users) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
+		UserPrinter.printUsers(users);
+		System.out.println("Enter the User Index:");
+		boolean validateIndex = false;
+		int limit = users.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid User Index:");
+				validateIndex = false;
+			}
 		}
-		System.out.println(StringConstants.BorderLine);
-
-		System.out.println("Enter the Student Index:");
-		index = scanner.nextInt();
-		String userId = users.get(index).getUserId();
-		String role = users.get(index).getRole().toString();
+		String userId = users.get(index - 1).getUserId();
+		String role = users.get(index - 1).getRole().toString();
 		if (role.equals("Admin") || role.equals("Faculty")) {
 			System.out.println("Enter Valid Id for Student");
 			return;
@@ -867,11 +895,7 @@ public class UserUI {
 		if (list.isEmpty()) {
 			System.out.println("No attendance records available");
 		}
-		System.out.println(StringConstants.BorderLine);
-		for (Attendance ls : list) {
-			System.out.println(ls);
-		}
-		System.out.println(StringConstants.BorderLine);
+		AttendancePrinter.printAttendanceDetails(list);
 	}
 
 	public void approveLeave(String role) {
@@ -880,18 +904,22 @@ public class UserUI {
 			System.out.println("No Leaves found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (Leaves user : leaves) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		LeavesPrinter.printLeaves(leaves);
 		System.out.println("Enter the Leave Index");
-		index = scanner.nextInt();
-		String userId = leaves.get(index).getUserId();
-		String Status = leaves.get(index).getStatus().toString();
+		boolean validateIndex = false;
+		int limit = leaves.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid Leave Index:");
+				validateIndex = false;
+			}
+		}
+		String userId = leaves.get(index - 1).getUserId();
+		String Status = leaves.get(index - 1).getStatus().toString();
 		if (Status.equals("Approved")) {
 			System.out.println("Leave already approved");
 			return;
@@ -899,11 +927,39 @@ public class UserUI {
 		leavesController.approveLeave(userId);
 	}
 
+	public void rejectLeave(String role) {
+		List<Leaves> leaves = leavesController.viewAllLeave();
+		if (leaves.isEmpty()) {
+			System.out.println("No Leaves found");
+			return;
+		}
+		int index = 0;
+		LeavesPrinter.printLeaves(leaves);
+		System.out.println("Enter the Leave Index");
+		boolean validateIndex = false;
+		int limit = leaves.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid Leave Index:");
+				validateIndex = false;
+			}
+		}
+		String userId = leaves.get(index - 1).getUserId();
+		String Status = leaves.get(index - 1).getStatus().toString();
+		if (Status.equals("Rejected")) {
+			System.out.println("Leave already rejected");
+			return;
+		}
+		leavesController.rejectLeave(userId);
+	}
+
 	public void applyLeave(User user) {
 		String userId = user.getUserId();
 		System.out.println("Enter Leave Content:");
 		String content = scanner.nextLine();
-		scanner.nextLine();
 		String input = "Pending";
 		LeavesStatus status = LeavesStatus.valueOf(input);
 		String randomString = UUID.randomUUID().toString();
@@ -913,13 +969,9 @@ public class UserUI {
 		}
 		String leaveId = randomString.substring(0, desiredLength);
 		leaveId = 'L' + leaveId;
+
 		LocalDate startDate = LocalDate.now();
-		System.out.println("Enter Leave till date (YYYY-MM-DD):");
-		String dateString = scanner.next();
-		LocalDate endDate = LocalDate.parse(dateString);
-//		while(!Validator.isValidDate(endDate)) {
-//			System.out.println("Enter valid date");
-//		}
+		LocalDate endDate = Validator.ValidateDate();
 		Leaves leave = new Leaves(leaveId, userId, content, startDate, endDate, status);
 		leavesController.applyLeave(leave);
 	}
@@ -930,52 +982,45 @@ public class UserUI {
 			System.out.println("No Leaves found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
-		int index = 0;
-		for (Leaves user : leaves) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		LeavesPrinter.printLeaves(leaves);
 	}
 
 	public void checkLeaveStatus(User user) {
 		String userId = user.getUserId();
 		List<Leaves> leaves = leavesController.checkLeaveStatus(userId);
-		if (leaves == null) {
+		if (leaves.isEmpty()) {
 			System.out.println("First Apply for Leave");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
-		for (Leaves leave : leaves) {
-			System.out.println(leave);
-		}
-		System.out.println(StringConstants.BorderLine);
-
+		LeavesPrinter.printLeaves(leaves);
 	}
 
 	public void readNotifications(User user) {
 		String userId = user.getUserId();
-		notificationController.readNotifications(userId);
+		List<Notification> notifications = notificationController.readNotifications(userId);
+		NotificationPrinter.printNotifications(notifications);
 	}
 
 	public void sendNotification() {
 		try {
 			List<User> users = userController.getAllUser();
 			System.out.println("List of all Users");
-			System.out.println(StringConstants.BorderLine);
 			int index = 0;
-			for (User user : users) {
-				System.out.println(
-						index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-				index++;
-			}
-			System.out.println(StringConstants.BorderLine);
+			UserPrinter.printUsers(users);
 
 			System.out.println("Enter the User Index");
-			index = scanner.nextInt();
-			String userId = users.get(index).getUserId();
+			boolean validateIndex = false;
+			int limit = users.size();
+			while (!validateIndex) {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println("Enter valid User Index:");
+					validateIndex = false;
+				}
+			}
+			String userId = users.get(index - 1).getUserId();
 			System.out.println("Enter title: ");
 			String type = scanner.next();
 			scanner.nextLine();
@@ -1023,18 +1068,22 @@ public class UserUI {
 	public void resolveIssue() {
 		List<Issue> issue = issueController.viewAllIssues();
 		System.out.println("List of all Issues");
-		System.out.println(StringConstants.BorderLine);
 		int index = 0;
-		for (Issue user : issue) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-			index++;
-		}
-		System.out.println(StringConstants.BorderLine);
+		IssuePrinter.printIssues(issue);
 		System.out.println("Enter the Issue index");
-		index = scanner.nextInt();
-		String userId = issue.get(index).getUserId();
-		String Status = issue.get(index).getStatus().toString();
+		boolean validateIndex = false;
+		int limit = issue.size();
+		while (!validateIndex) {
+			index = scanner.nextInt();
+			if (Validator.isValidIndex(index, limit)) {
+				validateIndex = true;
+			} else {
+				System.out.println("Enter valid Issue Index:");
+				validateIndex = false;
+			}
+		}
+		String userId = issue.get(index - 1).getUserId();
+		String Status = issue.get(index - 1).getStatus().toString();
 		if (Status.equals("RESOLVED")) {
 			System.out.println("Issue already resolved");
 			return;
@@ -1049,9 +1098,7 @@ public class UserUI {
 			System.out.println("No Issues found");
 			return;
 		}
-		for (Issue issues : issue) {
-			System.out.println(issues);
-		}
+		IssuePrinter.printIssues(issue);
 	}
 
 	public void viewAllIssues() {
@@ -1060,14 +1107,19 @@ public class UserUI {
 			System.out.println("No Issues found");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
-		int index = 0;
-		for (Issue user : issue) {
-			System.out
-					.println(index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
+		int index = 1;
+		IssuePrinter.extractedHeader();
+		for (Issue i : issue) {
+			List<Issue> issueList = new ArrayList<Issue>();
+			String userId = i.getUserId();
+			User user = userController.getUserById(userId);
+			String name = user.getName();
+			String username = user.getUsername();
+			issueList.add(i);
+			IssuePrinter.printIssues1(issueList, name, username, index);
 			index++;
 		}
-		System.out.println(StringConstants.BorderLine);
+		IssuePrinter.extractedFooter();
 	}
 
 	public void checkMarks(User user) {
@@ -1077,11 +1129,17 @@ public class UserUI {
 			System.out.println("No marks added");
 			return;
 		}
-		for (CourseMarks c : coursesMarks) {
-			Course course = courseController.getCourse(c.getCourseId());
-			System.out.println("Course Name: " + course.getCourseName() + "  CourseId: " + c.getCourseId() + "  Marks: "
-					+ c.getMarks());
+		int index = 1;
+		CourseMarksPrinter.extractedHeader();
+		for (CourseMarks course : coursesMarks) {
+			List<CourseMarks> userList = new ArrayList<CourseMarks>();
+			Course course1 = courseController.getCourse(course.getCourseId());
+			userList.add(course);
+			String courseName = course1.getCourseName();
+			CourseMarksPrinter.printCourseMarksDetails(userList, courseName, index);
+			index++;
 		}
+		CourseMarksPrinter.extractedFooter();
 	}
 
 	public void addMarks() {
@@ -1093,17 +1151,21 @@ public class UserUI {
 		while (!validateUser) {
 			List<User> users = userController.getAllUser();
 			System.out.println("List of all Users");
-			System.out.println(StringConstants.BorderLine);
 			int index = 0;
-			for (User user : users) {
-				System.out.println(
-						index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-				index++;
-			}
-			System.out.println(StringConstants.BorderLine);
+			UserPrinter.printUsers(users);
 			System.out.println("Enter the User Index:");
-			index = scanner.nextInt();
-			user1 = users.get(index);
+			boolean validateIndex = false;
+			int limit = users.size();
+			while (!validateIndex) {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println("Enter valid User Index:");
+					validateIndex = false;
+				}
+			}
+			user1 = users.get(index - 1);
 			userId = user1.getUserId();
 
 			if (user1.getRole().toString().equals("Admin") || user1.getRole().toString().equals("Faculty")) {
@@ -1116,34 +1178,35 @@ public class UserUI {
 		}
 		validateUser = false;
 		while (!validateUser) {
-
 			List<Course> list = courseController.getAllCourses();
 			User user2 = storeUser.get(0);
 			int standard = user2.getStandard();
 			List<Course> filteredCourses = list.stream().filter(course -> course.getStandard() == standard)
 					.collect(Collectors.toList());
-
-			System.out.println(StringConstants.BorderLine);
-			int index = 0;
-			for (Course course : filteredCourses) {
-				if (storeUser.isEmpty()) {
-					System.out.println("No course added for this standard");
-					// manageStudent();
-					return;
-				} else {
-					System.out.println(
-							index + " | " + course.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-					index++;
-				}
-			}
-			if (index == 0) {
+			if (filteredCourses.isEmpty()) {
 				System.out.println("No courses added for this standard");
 				return;
 			}
-			System.out.println(StringConstants.BorderLine);
+			int index = 0;
+			if (storeUser.isEmpty()) {
+				System.out.println("No course added for this standard");
+				return;
+			} else {
+				CoursePrinter.printCourseDetails(filteredCourses);
+			}
+			boolean validateIndex = false;
+			int limit = filteredCourses.size();
 			System.out.println("Enter the Course Index:");
-			index = scanner.nextInt();
-			courseId = filteredCourses.get(index).getCourseId();
+			while (!validateIndex) {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println("Enter valid Course Index:");
+					validateIndex = false;
+				}
+			}
+			courseId = filteredCourses.get(index - 1).getCourseId();
 			Course course = courseController.getCourse(courseId);
 			if (course == null) {
 				System.out.println("Enter valid courseId");
@@ -1165,19 +1228,22 @@ public class UserUI {
 		while (!validateUser1) {
 			List<User> users = userController.getAllUser();
 			System.out.println("List of all Users");
-			System.out.println(StringConstants.BorderLine);
 			int index = 0;
-			for (User user : users) {
-				System.out.println(
-						index + " | " + user.toString().replace(",", " |").replace("User{", "").replace("}", ""));
-				index++;
-			}
-			System.out.println(StringConstants.BorderLine);
+			UserPrinter.printUsers(users);
+			boolean validateIndex = false;
+			int limit = users.size();
 			System.out.println("Enter the User Index:");
-			index = scanner.nextInt();
-			user11 = users.get(index);
+			while (!validateIndex) {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println("Enter valid User Index:");
+					validateIndex = false;
+				}
+			}
+			user11 = users.get(index - 1);
 			userId1 = user11.getUserId();
-
 			if (user11.getRole().toString().equals("Admin") || user11.getRole().toString().equals("Faculty")) {
 				System.out.println("Marksheets can only be added to Student, Enter Student UserId");
 				validateUser1 = false;
@@ -1199,7 +1265,6 @@ public class UserUI {
 		int noOfCourses = list.size();
 		double percentage = Totalmarks / noOfCourses;
 		System.out.println("Total marks: " + Totalmarks + " Percentage: " + percentage);
-
 		if (percentage > 45) {
 			System.out.println("PASS");
 		} else {
@@ -1214,25 +1279,28 @@ public class UserUI {
 			System.out.println("No marks added");
 			return;
 		}
-		System.out.println(StringConstants.BorderLine);
+		int index = 1;
+		final String ROW_FORMAT = "%5d | %-15s | %5s";
+		MarksheetPrinter.extractedHeader();
 		for (CourseMarks c : list) {
 			Course course = courseController.getCourse(c.getCourseId());
-			System.out.println("Course Name: " + course.getCourseName() + "  CourseId: " + c.getCourseId() + "  Marks: "
-					+ c.getMarks() + " Standard: " + user.getStandard());
+			System.out.printf(ROW_FORMAT, index, course.getCourseName(), c.getMarks());
+			System.out.println();
+			index++;
 		}
-		System.out.println(StringConstants.BorderLine);
+		MarksheetPrinter.extractedFooter();
 		double Totalmarks = 0;
 		for (CourseMarks course : list) {
 			Totalmarks += course.getMarks();
 		}
 		int noOfCourses = list.size();
 		double percentage = Totalmarks / noOfCourses;
-		System.out.println("Total marks: " + Totalmarks + " Percentage: " + percentage);
+		System.out.println("Total marks: " + Totalmarks);
+		System.out.println(" Percentage: " + percentage);
 		if (percentage > 45) {
 			System.out.println("Result : PASS");
 		} else {
 			System.out.println("Result: FAIL");
 		}
-
 	}
 }

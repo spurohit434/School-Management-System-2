@@ -2,11 +2,14 @@ package com.wg.Services;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Logger;
 
 import com.wg.DAO.FeeDAO;
+import com.wg.Helper.LoggingUtil;
 
 public class FeeService {
 	private FeeDAO feeDAO;
+	Logger logger = LoggingUtil.getLogger(FeeService.class);
 
 	public FeeService() {
 	}
@@ -36,8 +39,11 @@ public class FeeService {
 				boolean flag = feeDAO.payFees(userId);
 				if (flag == true) {
 					System.out.println("Fees paid successfully");
+					logger.info("Fees paid successfully!!");
+
 				} else {
 					System.out.println("Fees not paid");
+					logger.info("Fees payment unsuccessful!!");
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();

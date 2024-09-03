@@ -2,12 +2,17 @@ package com.wg.Services;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.wg.DAO.CourseDAO;
+import com.wg.Helper.LoggingUtil;
 import com.wg.Model.Course;
 
 public class CourseService {
 	private CourseDAO courseDAO;
+
+	Logger logger = LoggingUtil.getLogger(CourseService.class);
+//	logger.severe(e.getMessage());
 
 	public CourseService() {
 
@@ -26,6 +31,7 @@ public class CourseService {
 			}
 			return course;
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return course;
@@ -36,6 +42,7 @@ public class CourseService {
 		try {
 			list = courseDAO.getAllCourses();
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return list;
@@ -51,6 +58,7 @@ public class CourseService {
 				System.out.println("Course not added");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -60,12 +68,14 @@ public class CourseService {
 		try {
 			course = courseDAO.getCourse(id);
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		if (course != null) {
 			try {
 				courseDAO.deleteCourse(id);
 			} catch (ClassNotFoundException | SQLException e) {
+				logger.severe(e.getMessage());
 				e.printStackTrace();
 			}
 			return true;
@@ -81,6 +91,7 @@ public class CourseService {
 			flag = courseDAO.updateCourse(course, columnToUpdate);
 			return flag;
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return flag;

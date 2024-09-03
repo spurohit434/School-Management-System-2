@@ -62,8 +62,8 @@ public class StartMenu {
 			while (true) {
 				System.out.println(StringConstants.ADMIN_MENU);
 				System.out.println("Enter your choice: ");
-				int choice = Validator.getUserChoice(scanner);
-
+				int choice = Validator.getUserChoice();
+				// scanner.nextLine();
 				switch (choice) {
 				case 1:
 					userUI.manageUser();
@@ -92,7 +92,7 @@ public class StartMenu {
 				case 9:
 					userUI.logout();
 					break;
-				case 11:
+				case 10:
 					System.out.println("Exiting...");
 					System.exit(0);
 					return;
@@ -104,8 +104,9 @@ public class StartMenu {
 			while (true) {
 				System.out.println(StringConstants.STUDENT_MENU);
 				System.out.println("Enter your choice: ");
-				int choice = scanner.nextInt();
-				scanner.nextLine();
+				// int choice = scanner.nextInt();
+				int choice = Validator.getUserChoice();
+				// scanner.nextLine();
 				switch (choice) {
 				case 1:
 					userUI.manageLeavesStudent(user);
@@ -142,8 +143,8 @@ public class StartMenu {
 			while (true) {
 				System.out.println(StringConstants.FACULTY_MENU);
 				System.out.println("Enter your choice: ");
-				int choice = scanner.nextInt();
-				scanner.nextLine();
+				int choice = Validator.getUserChoice();
+				// scanner.nextLine();
 				switch (choice) {
 				case 1:
 					userUI.manageAttendance();

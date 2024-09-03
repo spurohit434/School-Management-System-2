@@ -1,5 +1,7 @@
 package com.wg.Controller;
 
+import java.util.List;
+
 import com.wg.Model.Notification;
 import com.wg.Services.NotificationService;
 
@@ -18,7 +20,7 @@ public class NotificationController {
 		return notificationService.sendNotification(notification);
 	}
 
-	public void readNotifications(String userId) {
-		notificationService.readNotifications(userId);
+	public List<Notification> readNotifications(String userId) {
+		return notificationService.readNotifications(userId);
 	}
 }

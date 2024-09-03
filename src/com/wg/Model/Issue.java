@@ -1,11 +1,22 @@
 package com.wg.Model;
 
+import java.time.LocalDate;
+
 public class Issue {
 
 	private String issueID;
 	private String message;
 	private String userId;
 	private IssuesStatus status;
+	private LocalDate createdAt;
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
 
 	public Issue() {
 	}

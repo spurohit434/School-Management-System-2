@@ -21,8 +21,7 @@ public class AttendanceController {
 
 	public boolean addAttendance(String studentId, int standard, LocalDate date, Status status) {
 		Attendance attendance = new Attendance(studentId, standard, date, status);
-		attendanceService.addAttendance(attendance);
-		return true;
+		return attendanceService.addAttendance(attendance);
 	}
 
 	public List<Attendance> viewAttendanceByStandard(int standard) {

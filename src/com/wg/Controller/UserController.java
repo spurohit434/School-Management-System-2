@@ -103,8 +103,8 @@ public class UserController {
 					displayUpdateMenu();
 
 					System.out.print("Select an option ");
-					int choice = Validator.getUserChoice(scanner);
-					// scanner.nextLine();
+					int choice = Validator.getUserChoice();
+					scanner.nextLine();
 
 					String columnToUpdate = "";
 

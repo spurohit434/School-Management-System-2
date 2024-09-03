@@ -1,6 +1,5 @@
 package com.wg.Services;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,27 +28,29 @@ public class NotificationService {
 		return sendStatus;
 	}
 
-	public void readNotifications(String userId) {
+	public List<Notification> readNotifications(String userId) {
 		List<Notification> notificationList = null;
 		try {
 			notificationList = notificationDAO.readNotifications(userId);
+			return notificationList;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		if (notificationList.isEmpty()) {
 			System.out.println("No notifications");
-			// return false;
-		} else {
-			for (Notification notification : notificationList) {
-				System.out.println("------------------------");
-				System.out.println("Notification Id: " + notification.getNotificationId());
-				System.out.println("Notification: " + notification.getDescription());
-				System.out.println("Message: " + notification.getType());
-				System.out.println("Date: " + Date.valueOf(notification.getDateIssued()));
-				System.out.println("------------------------");
-			}
-			// return true;
+			return notificationList;
 		}
+		return notificationList;
+		// else {
+////			for (Notification notification : notificationList) {
+////				System.out.println("------------------------");
+////				System.out.println("Notification Id: " + notification.getNotificationId());
+////				System.out.println("Notification: " + notification.getDescription());
+////				System.out.println("Message: " + notification.getType());
+////				System.out.println("Date: " + Date.valueOf(notification.getDateIssued()));
+////				System.out.println("------------------------");
+////			}
+//			// return true;
+//		}
 	}
-
 }

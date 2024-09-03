@@ -2,12 +2,16 @@ package com.wg.Services;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.wg.DAO.LeavesDAO;
+import com.wg.Helper.LoggingUtil;
 import com.wg.Model.Leaves;
 
 public class LeavesService {
 	private LeavesDAO leavesDAO;
+	Logger logger = LoggingUtil.getLogger(LeavesService.class);
+	// logger.severe(e.getMessage());
 
 	public LeavesService() {
 	}
@@ -20,8 +24,22 @@ public class LeavesService {
 		try {
 			leavesDAO.approveLeave(userId);
 		} catch (SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			logger.severe(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void rejectLeave(String userId) {
+		try {
+			leavesDAO.rejectLeave(userId);
+		} catch (SQLException e) {
+			logger.severe(e.getMessage());
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -30,8 +48,10 @@ public class LeavesService {
 		try {
 			leavesDAO.applyLeave(leave);
 		} catch (SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -41,7 +61,7 @@ public class LeavesService {
 		try {
 			leaves = leavesDAO.viewAllLeave();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return leaves;
@@ -52,6 +72,7 @@ public class LeavesService {
 		try {
 			status = leavesDAO.checkLeaveStatus(userId);
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return status;

@@ -1,37 +1,46 @@
 package com.wg.Helper;
 
-import java.util.logging.ConsoleHandler;
+import java.io.IOException;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-//public class LoggingUtil {
-//	private static Logger logger = Logger.getLogger(LoggingUtil.class.getName());
-//
-//	static {
-//		ConsoleHandler consoleHandler = new ConsoleHandler();
-//		consoleHandler.setFormatter(new SimpleFormatter());
-//		consoleHandler.setLevel(Level.ALL);
-//
-//		logger.addHandler(consoleHandler);
-//		logger.setLevel(Level.ALL);
-//	}
-//
-//	public static Logger getLogger(Class<?> clazz) {
-//		return Logger.getLogger(clazz.getName());
-//	}
-//}
-
 public class LoggingUtil {
+	private static final String LOG_FILE_NAME = "C:\\Users\\spurohit\\OneDrive - WatchGuard Technologies Inc\\Documents\\eclipse-workspace\\SchoolManagementSystem\\logsFile\\app.log";
 	private static final Logger logger = Logger.getLogger(LoggingUtil.class.getName());
 
 	static {
-		ConsoleHandler consoleHandler = new ConsoleHandler();
-		consoleHandler.setFormatter(new SimpleFormatter());
-		consoleHandler.setLevel(Level.ALL);
+		try {
+			configureInternalLoggers();
 
-		logger.addHandler(consoleHandler);
-		logger.setLevel(Level.ALL);
+			FileHandler fileHandler = new FileHandler(LOG_FILE_NAME, true);
+			fileHandler.setFormatter(new SimpleFormatter());
+			fileHandler.setLevel(Level.ALL);
+
+//			ConsoleHandler consoleHandler = new ConsoleHandler();
+//			consoleHandler.setFormatter(new SimpleFormatter());
+//			consoleHandler.setLevel(Level.INFO);
+
+			Logger rootLogger = Logger.getLogger("");
+			for (java.util.logging.Handler handler : rootLogger.getHandlers()) {
+				rootLogger.removeHandler(handler);
+			}
+
+			rootLogger.addHandler(fileHandler);
+			// rootLogger.addHandler(consoleHandler);
+
+			rootLogger.setLevel(Level.INFO);
+
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Failed to initialize file handler", e);
+		}
+	}
+
+	private static void configureInternalLoggers() {
+		Logger.getLogger("sun.security").setLevel(Level.WARNING);
+		Logger.getLogger("javax.net.ssl").setLevel(Level.WARNING);
+		Logger.getLogger("jdk.internal.event").setLevel(Level.WARNING);
 	}
 
 	public static Logger getLogger(Class<?> clazz) {

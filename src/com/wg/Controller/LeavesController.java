@@ -20,6 +20,10 @@ public class LeavesController {
 		leavesService.approveLeave(userId);
 	}
 
+	public void rejectLeave(String userId) {
+		leavesService.rejectLeave(userId);
+	}
+
 	public void applyLeave(Leaves leave) {
 		leavesService.applyLeave(leave);
 	}

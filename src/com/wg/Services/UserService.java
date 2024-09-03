@@ -12,6 +12,7 @@ import com.wg.Model.User;
 
 public class UserService {
 	private UserDAO userDAO;
+	Logger logger = LoggingUtil.getLogger(UserService.class);
 
 	public UserService() {
 	}
@@ -24,6 +25,7 @@ public class UserService {
 		try {
 			userDAO.addUser(user);
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return;
@@ -37,6 +39,7 @@ public class UserService {
 				System.out.println("User not found");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return user;
@@ -47,6 +50,7 @@ public class UserService {
 		try {
 			list = userDAO.getClassDetails(standard);
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return list;
@@ -57,6 +61,7 @@ public class UserService {
 		try {
 			user = userDAO.getUserById(id);
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		if (user == null) {
@@ -72,9 +77,11 @@ public class UserService {
 				userDAO.deleteUser(id);
 				return true;
 			} catch (ClassNotFoundException e) {
+				logger.severe(e.getMessage());
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return false;
@@ -106,7 +113,11 @@ public class UserService {
 					return null;
 				}
 			}
-		} catch (ClassNotFoundException | SQLException | UnauthenticatedException e) {
+		} catch (ClassNotFoundException | SQLException | UnauthenticatedException | NullPointerException e) {
+			logger.severe(e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return null;
@@ -117,6 +128,7 @@ public class UserService {
 		try {
 			users = userDAO.getAllUser();
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return users;
@@ -127,6 +139,7 @@ public class UserService {
 		try {
 			user = userDAO.getUserByUsername(username);
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return user;
@@ -136,6 +149,7 @@ public class UserService {
 		try {
 			userDAO.updateUser(user, userId, columnToUpdate);
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 	}

@@ -21,6 +21,7 @@ public class IssueDAO extends GenericDAO<Issue> {
 		issue.setMessage(resultSet.getString(IssueConstants.MESSAGE_COLUMN));
 		issue.setUserId(resultSet.getString(IssueConstants.USER_ID_COLUMN));
 		issue.setStatus(IssuesStatus.valueOf(resultSet.getString("status")));
+		issue.setCreatedAt(resultSet.getDate("createdAt").toLocalDate());
 		return issue;
 	}
 
@@ -44,7 +45,7 @@ public class IssueDAO extends GenericDAO<Issue> {
 	public boolean resolveIssue(String userId) throws ClassNotFoundException, SQLException {
 		String query = String.format("UPDATE Issue SET Status = '%s' WHERE userId = '%s'",
 				IssuesStatus.RESOLVED.toString(), userId);
-		System.out.println(query);
+		// System.out.println(query);
 		return executeQuery(query);
 	}
 

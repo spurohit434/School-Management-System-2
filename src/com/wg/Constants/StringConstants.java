@@ -99,7 +99,8 @@ public class StringConstants {
 			Manage Leaves
 			1. View All Leave Requests
 			2. Approve Leave
-			3. Go back to Main Menu
+			3. Reject Leave
+			4. Go back to Main Menu
 			---------------------------
 			""";
 
