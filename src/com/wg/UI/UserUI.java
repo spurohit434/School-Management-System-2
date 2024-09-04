@@ -650,8 +650,17 @@ public class UserUI {
 		LocalDate date = null;
 		while (date == null) {
 			try {
-				String input = scanner.next().trim();
-				date = LocalDate.parse(input);
+				boolean validDate = false;
+				while (!validDate) {
+					String input = scanner.next().trim();
+					date = LocalDate.parse(input);
+					if (date.isAfter(LocalDate.now())) {
+						validDate = true;
+					} else {
+						validDate = false;
+						System.out.println("Please Enter valid DeadLine Date");
+					}
+				}
 			} catch (DateTimeParseException e) {
 				System.out.println("Invalid date format. Please enter the date in yyyy-mm-dd format:");
 			}
@@ -790,7 +799,9 @@ public class UserUI {
 		}
 		String courseId = list.get(index - 1).getCourseId();
 		Course course = courseController.getCourse(courseId);
-		System.out.println(course);
+		List<Course> singleCourse = new ArrayList<Course>();
+		singleCourse.add(course);
+		CoursePrinter.printCourseDetails(singleCourse);
 	}
 
 	public void addAttendance() {

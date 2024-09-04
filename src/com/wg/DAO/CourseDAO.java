@@ -53,7 +53,7 @@ public class CourseDAO extends GenericDAO<Course> {
 			Object value = fieldMap.get(columnToUpdate);
 			String sqlQuery = String.format("UPDATE Course SET %s = '%s' WHERE courseId = '%s'", columnToUpdate, value,
 					course.getCourseId());
-			System.out.println(sqlQuery);
+			// System.out.println(sqlQuery);
 			return executeQuery(sqlQuery);
 		}
 		return false;

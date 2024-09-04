@@ -33,7 +33,7 @@ public class FeeDAO extends GenericDAO<Fee> {
 
 	public boolean payFees(String studentId) throws SQLException, ClassNotFoundException {
 		String updateSQL = String.format("UPDATE Fees SET feeAmount = 0, fine = 0 WHERE studentId = '%s'", studentId);
-		System.out.println(updateSQL);
+		// System.out.println(updateSQL);
 		return executeQuery(updateSQL);
 	}
 
@@ -41,7 +41,7 @@ public class FeeDAO extends GenericDAO<Fee> {
 			throws SQLException, ClassNotFoundException {
 		Fee fee = null;
 		String checkSQL = String.format("SELECT * FROM Fees WHERE studentId = '%s'", studentId);
-		System.out.println(checkSQL);
+		// System.out.println(checkSQL);
 		fee = executeGetQuery(checkSQL);
 		if (fee == null) {
 			String addSQL = String.format(
@@ -70,7 +70,7 @@ public class FeeDAO extends GenericDAO<Fee> {
 	public double calculateFine(String studentId) throws SQLException, ClassNotFoundException {
 		double fine = 0.0;
 		String selectSQL = String.format("SELECT * FROM Fees WHERE studentId = '%s'", studentId);
-		System.out.println(selectSQL);
+		// System.out.println(selectSQL);
 		Fee fee = executeGetQuery(selectSQL);
 		if (fee == null) {
 			System.out.println("No records found");

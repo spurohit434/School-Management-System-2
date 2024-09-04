@@ -20,22 +20,6 @@ public class UserPrinter {
 		System.out.println(centerTextInBox("USER DETAILS"));
 		System.out.println(BOX_BORDER);
 
-//		private String userId;
-//		private String name;
-//		private LocalDate dob;
-//		private String contactNumber;
-//		private Role role;
-//		private String password;
-//		private int standard;
-//		private String address;
-//		private String username;
-//		private int age;
-//		private String email;
-//		private String gender;
-//		private String rollNo;
-//		private List<Integer> assignedToStandard;
-//		private int mentorOf;
-
 		System.out.printf(HEADER_FORMAT, "S.No.", "Name", "Username", "Age", "Email", "Gender", "Contact Number",
 				"Role", "Standard", "mentorOf");
 		System.out.println();

@@ -21,8 +21,14 @@ public class LeavesService {
 	}
 
 	public void approveLeave(String userId) {
+		boolean flag = false;
 		try {
-			leavesDAO.approveLeave(userId);
+			flag = leavesDAO.approveLeave(userId);
+			if (flag == true) {
+				System.out.println("Leave Approved Successfully");
+			} else {
+				System.out.println("Leave Not approved");
+			}
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());
 			e.printStackTrace();
@@ -33,8 +39,14 @@ public class LeavesService {
 	}
 
 	public void rejectLeave(String userId) {
+		boolean flag = false;
 		try {
-			leavesDAO.rejectLeave(userId);
+			flag = leavesDAO.rejectLeave(userId);
+			if (flag == true) {
+				System.out.println("Leave Rejected Successfully");
+			} else {
+				System.out.println("Leave Not rejected");
+			}
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());
 			e.printStackTrace();
