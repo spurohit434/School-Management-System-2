@@ -23,9 +23,9 @@ public class CourseMarksDAO extends GenericDAO<CourseMarks> {
 	}
 
 	public boolean addMarks(CourseMarks courseMarks) throws ClassNotFoundException, SQLException {
-		String sql = String.format("INSERT INTO CourseMarks (UserId, courseId, marks) VALUES ('%s', '%s', '%s')",
-				courseMarks.getUserId(), courseMarks.getCourseId(), courseMarks.getMarks());
-		// System.out.println(sql);
+		String sql = String.format(
+				"INSERT INTO CourseMarks (UserId, courseId, marks, standard) VALUES ('%s', '%s', '%s', '%s')",
+				courseMarks.getUserId(), courseMarks.getCourseId(), courseMarks.getMarks(), courseMarks.getStandard());
 		return executeQuery(sql);
 	}
 

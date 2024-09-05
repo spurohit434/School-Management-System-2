@@ -18,7 +18,6 @@ public class NotificationService {
 
 	public boolean sendNotification(Notification notification) {
 		boolean sendStatus = false;
-		;
 		try {
 			sendStatus = notificationDAO.sendNotification(notification);
 			return sendStatus;
@@ -36,21 +35,6 @@ public class NotificationService {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		if (notificationList.isEmpty()) {
-			System.out.println("No notifications");
-			return notificationList;
-		}
 		return notificationList;
-		// else {
-////			for (Notification notification : notificationList) {
-////				System.out.println("------------------------");
-////				System.out.println("Notification Id: " + notification.getNotificationId());
-////				System.out.println("Notification: " + notification.getDescription());
-////				System.out.println("Message: " + notification.getType());
-////				System.out.println("Date: " + Date.valueOf(notification.getDateIssued()));
-////				System.out.println("------------------------");
-////			}
-//			// return true;
-//		}
 	}
 }

@@ -5,11 +5,21 @@ public class CourseMarks {
 	private String userId;
 	private String courseId;
 	private double marks;
+	private int standard;
 
-	public CourseMarks(String userId, String courseId, double marks) {
+	public int getStandard() {
+		return standard;
+	}
+
+	public void setStandard(int standard) {
+		this.standard = standard;
+	}
+
+	public CourseMarks(String userId, String courseId, double marks, int standard) {
 		this.userId = userId;
 		this.courseId = courseId;
 		this.marks = marks;
+		this.standard = standard;
 	}
 
 	public CourseMarks() {

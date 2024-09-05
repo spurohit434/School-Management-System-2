@@ -26,7 +26,7 @@ public class UserService {
 			userDAO.addUser(user);
 		} catch (ClassNotFoundException | SQLException e) {
 			logger.severe(e.getMessage());
-			e.printStackTrace();
+			System.out.println("Error adding user: " + e.getMessage());
 		}
 		return;
 	}
@@ -40,7 +40,8 @@ public class UserService {
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			logger.severe(e.getMessage());
-			e.printStackTrace();
+			System.out.println("Error getting user: " + e.getMessage());
+
 		}
 		return user;
 	}
@@ -51,7 +52,7 @@ public class UserService {
 			list = userDAO.getClassDetails(standard);
 		} catch (ClassNotFoundException | SQLException e) {
 			logger.severe(e.getMessage());
-			e.printStackTrace();
+			System.out.println("Error getting class details: " + e.getMessage());
 		}
 		return list;
 	}
@@ -62,7 +63,7 @@ public class UserService {
 			user = userDAO.getUserById(id);
 		} catch (ClassNotFoundException | SQLException e) {
 			logger.severe(e.getMessage());
-			e.printStackTrace();
+			System.out.println("Add user before deleting: " + e.getMessage());
 		}
 		if (user == null) {
 			System.out.println("User not found");
@@ -73,24 +74,17 @@ public class UserService {
 			return false;
 		}
 		try {
-			try {
-				userDAO.deleteUser(id);
-				return true;
-			} catch (ClassNotFoundException e) {
-				logger.severe(e.getMessage());
-				e.printStackTrace();
-			}
-		} catch (SQLException e) {
+			userDAO.deleteUser(id);
+			return true;
+		} catch (ClassNotFoundException | SQLException e) {
 			logger.severe(e.getMessage());
-			e.printStackTrace();
+			System.out.println("Error deleting user: " + e.getMessage());
 		}
 		return false;
 	}
 
 	public User authenticateUser(String username, String password) {
 		User user = null;
-		Logger logger = LoggingUtil.getLogger(UserService.class);
-
 		try {
 			user = userDAO.getUserByUsername(username);
 			if (user.getUserId() == null) {
@@ -115,10 +109,10 @@ public class UserService {
 			}
 		} catch (ClassNotFoundException | SQLException | UnauthenticatedException | NullPointerException e) {
 			logger.severe(e.getMessage());
-			e.printStackTrace();
+			System.out.println("Error authenticating user: " + e.getMessage());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return null;
 	}

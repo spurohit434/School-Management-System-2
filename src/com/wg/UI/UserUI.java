@@ -91,10 +91,8 @@ public class UserUI {
 			System.out.println(" ");
 			System.out.println(StringConstants.MANAGE_FEES_STUDENT);
 			System.out.println(" ");
-			System.out.println("Enter your choice: ");
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// scanner.nextLine();
-
 			switch (choice) {
 			case 1:
 				checkFees(user);
@@ -108,7 +106,7 @@ public class UserUI {
 			case 4:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 	}
@@ -118,10 +116,8 @@ public class UserUI {
 			System.out.println(" ");
 			System.out.println(StringConstants.MANAGE_ISSUES_MENU_STUDENT);
 			System.out.println(" ");
-			System.out.println("Enter your choice: ");
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// scanner.nextLine();
-
 			switch (choice) {
 			case 1:
 				raiseIssue(user);
@@ -132,7 +128,7 @@ public class UserUI {
 			case 3:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 
@@ -143,11 +139,8 @@ public class UserUI {
 			System.out.println(" ");
 			System.out.println(StringConstants.MANAGE_USER);
 			System.out.println(" ");
-			System.out.println("Enter your choice: ");
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// int choice = scanner.nextInt();
-			// scanner.nextLine();
-
 			switch (choice) {
 			case 1:
 				addUser();
@@ -170,7 +163,7 @@ public class UserUI {
 			case 7:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 	}
@@ -180,10 +173,8 @@ public class UserUI {
 			System.out.println(" ");
 			System.out.println(StringConstants.MANAGE_FEES);
 			System.out.println(" ");
-			System.out.println("Enter your choice: ");
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// scanner.nextLine();
-
 			switch (choice) {
 			case 1:
 				addFees();
@@ -194,7 +185,7 @@ public class UserUI {
 			case 3:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 	}
@@ -204,10 +195,8 @@ public class UserUI {
 			System.out.println(" ");
 			System.out.println(StringConstants.MANAGE_LEAVES_MENU);
 			System.out.println(" ");
-			System.out.println("Enter your choice: ");
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// int choice = scanner.nextInt();
-			// scanner.nextLine();
 			switch (choice) {
 			case 1:
 				viewAllLeave();
@@ -221,7 +210,7 @@ public class UserUI {
 			case 4:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 	}
@@ -231,10 +220,8 @@ public class UserUI {
 			System.out.println(" ");
 			System.out.println(StringConstants.MANAGE_ISSUES_MENU);
 			System.out.println(" ");
-			System.out.println("Enter your choice: ");
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// scanner.nextLine();
-
 			switch (choice) {
 			case 1:
 				viewAllIssues();
@@ -245,7 +232,7 @@ public class UserUI {
 			case 3:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 	}
@@ -255,10 +242,8 @@ public class UserUI {
 			System.out.println(" ");
 			System.out.println(StringConstants.MANAGE_LEAVES_MENU_STUDENT);
 			System.out.println(" ");
-			System.out.println("Enter your choice: ");
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// int choice = scanner.nextInt();
-			// scanner.nextLine();
 			switch (choice) {
 			case 1:
 				applyLeave(user);
@@ -269,7 +254,7 @@ public class UserUI {
 			case 3:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 	}
@@ -277,9 +262,8 @@ public class UserUI {
 	public void manageCourse() {
 		while (true) {
 			System.out.println(StringConstants.MANAGE_COURSES_MENU);
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// scanner.nextLine();
-
 			switch (choice) {
 			case 1:
 				addCourse();
@@ -299,7 +283,7 @@ public class UserUI {
 			case 6:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 	}
@@ -307,10 +291,8 @@ public class UserUI {
 	public void manageAttendance() {
 		while (true) {
 			System.out.println(StringConstants.MANAGE_ATTENDANCE_MENU);
-			System.out.println("Enter your choice: ");
+			System.out.println(StringConstants.ENTER_YOUR_CHOICE);
 			int choice = Validator.getUserChoice();
-			// scanner.nextLine();
-
 			switch (choice) {
 			case 1:
 				addAttendance();
@@ -324,7 +306,7 @@ public class UserUI {
 			case 4:
 				return;
 			default:
-				System.out.println("Enter valid choice!");
+				System.out.println(StringConstants.ENTER_VALID_CHOICE);
 			}
 		}
 	}
@@ -337,57 +319,86 @@ public class UserUI {
 		String userId = user.getUserId();
 		List<Attendance> attendance = attendanceController.viewAttendanceById(userId);
 		if (attendance.isEmpty()) {
-			System.out.println("No attendance records available");
+			System.out.println(StringConstants.NO_ATTENDANCE_RECORDS_AVAILABLE);
 			return;
 		}
 		AttendancePrinter.printAttendanceDetails(attendance);
 	}
 
 	public void addUser() {
-		System.out.print("Enter Username: ");
-		String username = scanner.next();
-		System.out.print("Enter name: ");
-		String name = scanner.next();
+		System.out.print(StringConstants.ENTER_USERNAME_ALPHA_NUMERIC_4_30_CHARACTERS);
+		String username = null;
+		boolean validUserName = false;
+		while (!validUserName) {
+			username = scanner.next();
+			if (Validator.isValidUsername(username)) {
+				validUserName = true;
+			} else {
+				System.out.println(StringConstants.ENTER_VALID_USERNAME);
+				username = scanner.next();
+				validUserName = false;
+			}
+		}
+
+		System.out.print(StringConstants.ENTER_NAME);
+		String name = null;
+		Boolean validName = false;
+		while (!validName) {
+			name = scanner.next();
+			if (Validator.isValidName(name)) {
+				validName = true;
+			} else {
+				System.out.println(StringConstants.ENTER_VALID_NAME);
+				name = scanner.next();
+				validName = false;
+			}
+		}
 		int age = 0;
 		boolean validInput = false;
 		while (!validInput) {
-			System.out.print("Enter age: ");
+			System.out.print(StringConstants.ENTER_AGE);
 			try {
 				age = scanner.nextInt();
 				if (Validator.isValidAge(age)) {
 					validInput = true;
 				} else {
+					System.out.println(StringConstants.INVALID_AGE_ENTER_A_VALID_AGE);
 					validInput = false; // If input is valid, exit loop
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("Invalid input. Please enter a valid integer for age.");
+				System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_INTEGER_FOR_AGE);
 				scanner.next(); // Clear invalid input
 			}
 		}
-		System.out
-				.print("Enter password: (Atleast one UpperCase character, one Special character, one Integer digit): ");
-		String password = scanner.next();
+
+		System.out.print(StringConstants.ENTER_PASSWORD);
 		PasswordValidator passwordValidator = new PasswordValidator();
-		boolean isValidPassword = passwordValidator.isValidPassword(password);
-		if (!isValidPassword) {
-			System.out.println("Enter valid password");
-			return;
+		String password = null;
+		boolean isValidPassword = false;
+		while (!isValidPassword) {
+			password = scanner.next();
+			if (passwordValidator.isValidPassword(password)) {
+				isValidPassword = true;
+			} else {
+				System.out.println(StringConstants.ENTER_VALID_PASSWORD);
+				isValidPassword = false;
+			}
 		}
 		String hashedPassword = PasswordUtil.hashPassword(password);
-
 		validInput = false;
 		String email = null;
+		System.out.print(StringConstants.ENTER_EMAIL);
 		while (!validInput) {
-			System.out.print("Enter email: ");
 			try {
 				email = scanner.next();
 				if (Validator.isValid(email)) {
 					validInput = true;
 				} else {
+					System.out.print(StringConstants.ENTER_VALID_EMAIL);
 					validInput = false;
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("Invalid input. Please enter a valid Email");
+				System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_EMAIL);
 				scanner.next(); // Clear invalid input
 			}
 		}
@@ -395,107 +406,170 @@ public class UserUI {
 		String input = "";
 		boolean validInput1 = false;
 		while (!validInput1) {
-			System.out.print("Enter role: ");
+			System.out.print(StringConstants.ENTER_ROLE_STUDENT_FACULTY_CASE_SENSITIVE);
 			try {
 				input = scanner.next().trim();
-				if (input.equals("Admin")) {
-					System.out.println("Role can not be Admin");
+				if (input.equals(StringConstants.ADMIN) || input.equals(StringConstants.ADMIN2)
+						|| input.equals(StringConstants.A_DMIN)) {
+					System.out.println(StringConstants.ROLE_CAN_NOT_BE_ADMIN);
 					validInput1 = false;
 				} else {
 					validInput1 = true;
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("Invalid input. Please enter a valid Role.");
+				System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_ROLE);
 				scanner.next();
 			}
 		}
 		LocalDate date = null;
 		while (date == null) {
-			System.out.println("Enter the date of birth (yyyy-mm-dd):");
+			System.out.println(StringConstants.ENTER_THE_DATE_OF_BIRTH_YYYY_MM_DD);
 			try {
-				String input1 = scanner.next().trim();
-				date = LocalDate.parse(input1);
+				boolean validDate = false;
+				while (!validDate) {
+					String input2 = scanner.next();
+					date = LocalDate.parse(input2);
+					if (date.isBefore(LocalDate.now())) {
+						validDate = true;
+					} else {
+						validDate = false;
+						System.out.println(StringConstants.PLEASE_ENTER_VALID_DOB_DATE);
+					}
+				}
 			} catch (DateTimeParseException e) {
-				System.out.println("Invalid date format. Please enter the date in yyyy-mm-dd format:");
+				System.out.println(StringConstants.INVALID_DATE_FORMAT);
 			}
 		}
 		String contactNumber = null;
+		System.out.println(StringConstants.ENTER_CONTACT_NUMBER);
 		boolean validNumber = false;
 		while (!validNumber) {
-			System.out.println("Enter contact number:");
 			contactNumber = scanner.next();
 			if (Validator.isValidContactNo(contactNumber)) {
 				validNumber = true;
 			} else {
-				System.out.println("Enter valid Mobile Number");
+				System.out.println(StringConstants.ENTER_VALID_MOBILE_NUMBER);
 				validNumber = false;
 			}
 		}
 
 		int standard = 0;
-		if (input.equals("Student")) {
-			while (true) {
-				System.out.println("Enter the standard:");
+		if (input.equals(StringConstants.STUDENT)) {
+			boolean validStandard1 = false;
+			while (!validStandard1) {
+				System.out.println(StringConstants.ENTER_THE_STANDARD);
 				try {
-					standard = scanner.nextInt();
-					break; // If input is valid, exit loop
+					standard = scanner.nextInt(); // Try to read the integer
+					if (standard >= 1 && standard <= 12) {
+						validStandard1 = true; // Input is valid
+					} else {
+						System.out.println(StringConstants.INVALID_INPUT_ENTER_A_NUMBER_BETWEEN_1_AND_12);
+					}
 				} catch (InputMismatchException e) {
-					System.out.println("Invalid input. Please enter a valid integer for standard.");
-					scanner.next(); // Clear invalid input
+					System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_INTEGER_FOR_STANDARD);
+					scanner.next(); // Clear the invalid input
 				}
 			}
 		}
-		System.out.println("Enter the gender:");
-		String gender = scanner.next();
+
+		System.out.println(StringConstants.ENTER_THE_GENDER_M_FOR_MALE_F_FOR_FEMALE);
+		String gender = null;
+		boolean validGender = false;
+		while (!validGender) {
+			try {
+				gender = scanner.next();
+				if (gender.equals("M") || gender.equals("F") || gender.equals("m") || gender.equals("f")) {
+					validGender = true;
+				} else {
+					System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_GENDER_M_F);
+					validGender = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
+			}
+		}
+		gender = gender.toUpperCase();
+
 		String rollNo = null;
-		if (input.equals("Student")) {
-			System.out.println("Enter the roll number:");
-			rollNo = scanner.next();
+		if (input.equals(StringConstants.STUDENT)) {
+			System.out.println(StringConstants.ENTER_THE_ROLL_NUMBER);
+			boolean validRollNo = false;
+			while (!validRollNo) {
+				try {
+					rollNo = scanner.next();
+					if (Validator.isValidRollNumber(rollNo)) {
+						validRollNo = true;
+					} else {
+						System.out.println(StringConstants.ENTER_VALID_ROLL_NUMBER);
+						validRollNo = false;
+					}
+				} catch (InputMismatchException e) {
+					System.out.println(StringConstants.ENTER_VALID_INPUT);
+					scanner.next();
+				}
+			}
 		}
 
 		int mentorOf = 0;
-		if (input.equals("Faculty")) {
-			while (true) {
-				System.out.println("Enter the mentor of field:");
+		if (input.equals(StringConstants.FACULTY)) {
+			boolean validStandard = false;
+			System.out.println(StringConstants.ENTER_THE_MENTOR_OF_FIELD_1_12);
+			while (!validStandard) {
+				mentorOf = scanner.nextInt();
 				try {
-					mentorOf = scanner.nextInt();
-					break; // If input is valid, exit loop
+					if (mentorOf >= 1 && mentorOf <= 12) {
+						validStandard = true;
+					} else {
+						System.out.println(StringConstants.ENTER_VALID_FIELD_1_12);
+						validStandard = false;
+					}
 				} catch (InputMismatchException e) {
-					System.out.println("Invalid input. Please enter a valid integer for mentorOf.");
-					scanner.next(); // Clear invalid input
+					System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_INTEGER_FOR_MENTOR_OF);
+					scanner.next();
 				}
 			}
 		}
+
 		boolean flag = userController.addUser(username, name, age, hashedPassword, email, input, date, contactNumber,
 				standard, gender, rollNo, mentorOf);
 		if (flag) {
-			System.out.println("User added successfully.");
+			System.out.println(StringConstants.USER_ADDED_SUCCESSFULLY);
 		} else {
-			System.out.println("User not added.");
+			System.out.println(StringConstants.USER_NOT_ADDED);
 		}
 	}
 
 	public void getUserById() {
-		System.out.println("List of all Users");
+		System.out.println(StringConstants.LIST_OF_ALL_USERS);
 		List<User> list = userController.getAllUser();
+		if (list.isEmpty()) {
+			System.out.println(StringConstants.NO_USERS_FOUND3);
+			return;
+		}
 		int index = 0;
 		UserPrinter.printUsers(list);
 		boolean validateIndex = false;
 		int limit = list.size();
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String userId = list.get(index - 1).getUserId();
 		User user = userController.getUserById(userId);
 		if (user == null) {
-			System.out.println("User not found");
+			System.out.println(StringConstants.USER_NOT_FOUND);
 			return;
 		}
 		List<User> singleUser = new ArrayList<User>();
@@ -504,11 +578,18 @@ public class UserUI {
 	}
 
 	public void getUserByUsername() {
-		System.out.print("Enter user Username: ");
+		System.out.println(StringConstants.LIST_OF_ALL_USERS);
+		List<User> list = userController.getAllUser();
+		if (list.isEmpty()) {
+			System.out.println(StringConstants.NO_USERS_FOUND4);
+			return;
+		}
+		UserPrinter.printUsers(list);
+		System.out.print(StringConstants.ENTER_USER_USERNAME);
 		String username = scanner.next();
 		User user = userController.getUserByUsername(username);
 		if (user == null) {
-			System.out.println("User not found");
+			System.out.println(StringConstants.USER_NOT_FOUND);
 			return;
 		}
 		List<User> singleUser = new ArrayList<User>();
@@ -517,50 +598,70 @@ public class UserUI {
 	}
 
 	public void getClassDetails() {
-		System.out.println("Enter the standard");
-		int standard = scanner.nextInt();
-		scanner.nextLine(); // Consume newline
+		boolean validStandard1 = false;
+		int standard = 0;
+		while (!validStandard1) {
+			System.out.println(StringConstants.ENTER_THE_STANDARD);
+			try {
+				standard = scanner.nextInt(); // Try to read the integer
+				if (standard >= 1 && standard <= 12) {
+					validStandard1 = true; // Input is valid
+				} else {
+					System.out.println(StringConstants.INVALID_INPUT_ENTER_A_NUMBER_BETWEEN_1_AND_12);
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_INTEGER_FOR_STANDARD);
+				scanner.next(); // Clear the invalid input
+			}
+		}
+
 		List<User> users = userController.getClassDetails(standard);
-		if (users == null) {
-			System.out.println("Users not found!");
+		if (users.isEmpty()) {
+			System.out.println(StringConstants.USERS_NOT_FOUND4);
+			return;
 		}
 		UserPrinter.printUsers(users);
 	}
 
 	public void deleteUser() {
 		List<User> users = userController.getAllUser();
-		if (users == null) {
-			System.out.println("No users found");
+		if (users.isEmpty()) {
+			System.out.println(StringConstants.NO_USERS_FOUND);
 			return;
 		}
-		System.out.println("List of all Users");
+		System.out.println(StringConstants.LIST_OF_ALL_USERS);
 		int index = 0;
 		UserPrinter.printUsers(users);
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		boolean validateIndex = false;
 		int limit = users.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		boolean flag = userController.deleteUser(users.get(index - 1).getUserId());
 		if (flag == true) {
-			System.out.println("User Deleted Successfully!");
+			System.out.println(StringConstants.USER_DELETED_SUCCESSFULLY);
 		} else {
-			System.out.println("User deletion Unsuccessful!");
+			System.out.println(StringConstants.USER_DELETION_UNSUCCESSFUL);
 		}
 	}
 
 	public void getAllUser() {
-		System.out.println("List of all Users");
+		System.out.println(StringConstants.LIST_OF_ALL_USERS);
 		List<User> list = userController.getAllUser();
-		if (list == null) {
-			System.out.println("No users found");
+		if (list.isEmpty()) {
+			System.out.println(StringConstants.NO_USERS_FOUND);
 			return;
 		}
 		UserPrinter.printUsers(list);
@@ -571,24 +672,29 @@ public class UserUI {
 	}
 
 	public void updateUser() {
-		System.out.println("List of all Users");
+		System.out.println(StringConstants.LIST_OF_ALL_USERS);
 		List<User> list = userController.getAllUser();
 		int index = 0;
-		if (list == null) {
-			System.out.println("No users found");
+		if (list.isEmpty()) {
+			System.out.println(StringConstants.NO_USERS_FOUND);
 			return;
 		}
 		UserPrinter.printUsers(list);
 		boolean validateIndex = false;
 		int limit = list.size();
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		userController.updateUser(list.get(index - 1).getUserId());
@@ -601,115 +707,123 @@ public class UserUI {
 
 	public void checkFees(User user) {
 		String userId = user.getUserId();
-		double fees = feeController.checkFees(userId);
-		System.out.println("The fees Amount is: " + fees);
+		feeController.checkFees(userId);
 	}
 
 	public void addFees() {
 		List<User> users = userController.getAllUser();
-		if (users == null) {
-			System.out.println("No users found");
+		if (users.isEmpty()) {
+			System.out.println(StringConstants.NO_USERS_FOUND);
 			return;
 		}
 		int index = 0;
 		UserPrinter.printUsers(users);
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		boolean validateIndex = false;
 		int limit = users.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String userId = users.get(index - 1).getUserId();
 		User user = userController.getUserById(userId);
-		boolean validateUser = false;
-		while (!validateUser) {
-			if (!user.getRole().toString().equals("Student")) {
-				System.out.println("Enter valid Student UserId");
-				validateUser = false;
-			} else {
-				validateUser = true;
-			}
+		if (!user.getRole().toString().equals(StringConstants.STUDENT)) {
+			System.out.println("Enter valid Student UserId");
+			return;
 		}
+		System.out.println(StringConstants.ENTER_THE_FEE_AMOUNT);
 		double feeAmount = 0;
 		while (feeAmount <= 0) {
-			System.out.println("Enter the Fee Amount:");
 			try {
 				feeAmount = scanner.nextDouble();
+				if (feeAmount <= 0) {
+					System.out.println(StringConstants.ENTER_VALID_FEE_AMOUNT);
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_NUMERIC_VALUE);
+				scanner.next();
 			} catch (DateTimeParseException | InvalidFeeAmountException e) {
 				e.printStackTrace();
-				throw new InvalidFeeAmountException("Fee amount must be greater than zero.");
+				throw new InvalidFeeAmountException(StringConstants.FEE_AMOUNT_MUST_BE_GREATER_THAN_ZERO);
 			}
 		}
-		System.out.println("Enter the deadline (yyyy-mm-dd):");
 		LocalDate date = null;
+		LocalDate date1 = LocalDate.of(2050, 12, 31);
 		while (date == null) {
+			System.out.println(StringConstants.ENTER_THE_DEADLINE_YYYY_MM_DD);
 			try {
 				boolean validDate = false;
 				while (!validDate) {
-					String input = scanner.next().trim();
-					date = LocalDate.parse(input);
-					if (date.isAfter(LocalDate.now())) {
+					String input2 = scanner.next();
+					date = LocalDate.parse(input2);
+					if (date.isAfter(LocalDate.now()) && date.isBefore(date1)) {
 						validDate = true;
 					} else {
 						validDate = false;
-						System.out.println("Please Enter valid DeadLine Date");
+						System.out.println(StringConstants.VALID_DEAD_LINE_DATE);
 					}
 				}
 			} catch (DateTimeParseException e) {
-				System.out.println("Invalid date format. Please enter the date in yyyy-mm-dd format:");
+				System.out.println(StringConstants.INVALID_DATE_FORMAT);
 			}
 		}
-		System.out.println("Enter the fine:");
-		double fine = scanner.nextDouble();
-		feeController.addFees(userId, feeAmount, date, fine);
+		double fineAmount = 0;
+		feeController.addFees(userId, feeAmount, date, fineAmount);
 	}
 
 	public void calculateFine() {
 		List<User> users = userController.getAllUser();
 		if (users.isEmpty()) {
-			System.out.println("No users Found");
+			System.out.println(StringConstants.NO_USERS_FOUND5);
 			return;
 		}
 		int index = 0;
 		UserPrinter.printUsers(users);
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		boolean validateIndex = false;
 		int limit = users.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String userId = users.get(index - 1).getUserId();
 		String role = users.get(index - 1).getRole().toString();
-		if (role.equals("Admin") || role.equals("Faculty")) {
-			System.out.println("Enter Valid Id for Student");
+		if (role.equals(StringConstants.ADMIN) || role.equals(StringConstants.FACULTY)) {
+			System.out.println(StringConstants.ENTER_VALID_ID);
 			return;
 		}
-		double fine = feeController.calculateFine(userId);
-		System.out.println("The fine is: " + fine);
+		feeController.calculateFine(userId);
 	}
 
 	public void checkFine(User user) {
 		String userId = user.getUserId();
-		double fine = feeController.calculateFine(userId);
-		System.out.println("The fine is: " + fine);
+		feeController.calculateFine(userId);
 	}
 
 	public void getAllCourses() {
 		List<Course> list = courseController.getAllCourses();
-		if (list == null) {
-			System.out.println("No courses found");
+		if (list.isEmpty()) {
+			System.out.println(StringConstants.NO_COURSES_FOUND);
 			return;
 		}
 		CoursePrinter.printCourseDetails(list);
@@ -717,22 +831,27 @@ public class UserUI {
 
 	public void updateCourse() {
 		List<Course> course = courseController.getAllCourses();
-		if (course == null) {
-			System.out.println("No courses found");
+		if (course.isEmpty()) {
+			System.out.println(StringConstants.NO_COURSES_FOUND);
 			return;
 		}
 		int index = 0;
 		CoursePrinter.printCourseDetails(course);
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		boolean validateIndex = false;
 		int limit = course.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String courseId = course.get(index - 1).getCourseId();
@@ -741,60 +860,99 @@ public class UserUI {
 
 	public void deleteCourse() {
 		List<Course> list = courseController.getAllCourses();
-		if (list == null) {
-			System.out.println("No courses found");
+		if (list.isEmpty()) {
+			System.out.println(StringConstants.NO_COURSES_FOUND);
 			return;
 		}
 		int index = 0;
 		CoursePrinter.printCourseDetails(list);
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		boolean validateIndex = false;
 		int limit = list.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String courseId = list.get(index - 1).getCourseId();
 		boolean flag = courseController.deleteCourse(courseId);
 		if (flag == true) {
-			System.out.println("Course Deleted Successfully!");
+			System.out.println(StringConstants.COURSE_DELETED_SUCCESSFULLY);
 		} else {
-			System.out.println("Course deletion Unsuccessful!");
+			System.out.println(StringConstants.COURSE_DELETION_UNSUCCESSFUL);
 		}
 	}
 
 	public void addCourse() {
-		System.out.println("Enter Course Name");
-		String courseName = scanner.next();
-		scanner.nextLine();
-		System.out.println("Enter standard");
+		System.out.println(StringConstants.ENTER_COURSE_NAME);
+		String courseName = "";
+		while (true) {
+			try {
+				courseName = scanner.nextLine();
+				// scanner.nextLine();
+				courseName.trim();
+				if (courseName.matches("^[a-zA-Z\\s]+$") && !courseName.isEmpty()) {
+					break;
+				} else {
+					System.out.println(StringConstants.INVALID_INPUT);
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.INVALID_INPUT);
+				scanner.next();
+			}
+		}
+		boolean validStandard = false;
+		System.out.println(StringConstants.ENTER_THE_STANDARD_1_12);
 		int standard = scanner.nextInt();
+		while (!validStandard) {
+			try {
+				if (standard >= 1 && standard <= 12) {
+					validStandard = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_STANDARD_1_12);
+					standard = scanner.nextInt();
+					validStandard = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_INTEGER_FOR_STANDARD2);
+				scanner.next();
+			}
+		}
 		courseController.addCourse(courseName, standard);
 	}
 
 	public void getCourse() {
 		List<Course> list = courseController.getAllCourses();
-		if (list == null) {
-			System.out.println("No courses found");
+		if (list.isEmpty()) {
+			System.out.println(StringConstants.NO_COURSES_FOUND);
 			return;
 		}
 		int index = 0;
 		CoursePrinter.printCourseDetails(list);
-		System.out.println("Enter the Course Index:");
+		System.out.println(StringConstants.ENTER_THE_COURSE_INDEX);
 		boolean validateIndex = false;
 		int limit = list.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid Course Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_COURSE_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String courseId = list.get(index - 1).getCourseId();
@@ -806,63 +964,97 @@ public class UserUI {
 
 	public void addAttendance() {
 		List<User> list = userController.getAllUser();
-		if (list == null) {
-			System.out.println("No Users found");
+		if (list.isEmpty()) {
+			System.out.println(StringConstants.NO_USERS_FOUND2);
 			return;
 		}
 		int index = 0;
 		UserPrinter.printUsers(list);
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		boolean validateIndex = false;
 		int limit = list.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String studentId = list.get(index - 1).getUserId();
 		String role = list.get(index - 1).getRole().toString();
-		if (role.equals("Admin") || role.equals("Faculty")) {
-			System.out.println("Enter Valid Id for Student");
+		if (role.equals(StringConstants.ADMIN) || role.equals(StringConstants.FACULTY)) {
+			System.out.println(StringConstants.ENTER_VALID_ID);
 			return;
 		}
-		System.out.println("Enter standard:");
-		int standard = scanner.nextInt();
+		int standard = list.get(index - 1).getStandard();
 
 		LocalDate date = null;
 		boolean validateDate = false;
 		while (!validateDate) {
-			System.out.println("Enter the date (YYYY-MM-DD):");
+			System.out.println(StringConstants.ENTER_THE_DATE_YYYY_MM_DD);
 			try {
 				String dateString = scanner.next();
 				date = LocalDate.parse(dateString);
-				validateDate = true;
+				if (date.isBefore(LocalDate.now())) {
+					validateDate = true;
+				} else {
+					System.out.println("Enter valid date");
+					validateDate = false;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Enter status (P for Present, A for Absent):");
-		String statusInput = scanner.next();
-		Status status = Status.valueOf(statusInput);
-
+		System.out.println(StringConstants.ENTER_STATUS_P_FOR_PRESENT_A_FOR_ABSENT);
+		boolean validateStatus = false;
+		String statusInput = null;
+		Status status = null;
+		while (!validateStatus) {
+			statusInput = scanner.next();
+			if (statusInput.equals("P") || statusInput.equals("A") || statusInput.equals("p")
+					|| statusInput.equals("a")) {
+				status = Status.valueOf(statusInput);
+				validateStatus = true;
+			} else {
+				System.out.println("Enter valid Status");
+				validateStatus = false;
+			}
+		}
 		boolean flag = attendanceController.addAttendance(studentId, standard, date, status);
 		if (flag) {
-			System.out.println("Attendance added successfully");
+			System.out.println(StringConstants.ATTENDANCE_ADDED_SUCCESSFULLY);
 		} else {
-			System.out.println("Attendance not added.");
+			System.out.println(StringConstants.ATTENDANCE_NOT_ADDED);
 		}
 	}
 
 	public void viewAttendanceByStandard() {
-		System.out.println("Enter the standard:");
-		int standard = scanner.nextInt();
+		boolean validStandard = false;
+		int standard = 0;
+		while (!validStandard) {
+			System.out.println(StringConstants.ENTER_THE_STANDARD);
+			try {
+				standard = scanner.nextInt(); // Try to read the integer
+				if (standard >= 1 && standard <= 12) {
+					validStandard = true; // Input is valid
+				} else {
+					System.out.println(StringConstants.INVALID_INPUT_ENTER_A_NUMBER_BETWEEN_1_AND_12);
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_INTEGER_FOR_STANDARD);
+				scanner.next(); // Clear the invalid input
+			}
+		}
 		List<Attendance> list = attendanceController.viewAttendanceByStandard(standard);
 		if (list.isEmpty()) {
-			System.out.println("No attendance Record found");
+			System.out.println(StringConstants.NO_ATTENDANCE_RECORD_FOUND);
 			return;
 		}
 		int index = 1;
@@ -881,30 +1073,39 @@ public class UserUI {
 
 	public void viewAttendanceById() {
 		List<User> users = userController.getAllUser();
-		System.out.println("List of all Users");
+		if (users.isEmpty()) {
+			System.out.println(StringConstants.NO_USERS_FOUND);
+			return;
+		}
+		System.out.println(StringConstants.LIST_OF_ALL_USERS);
 		int index = 0;
 		UserPrinter.printUsers(users);
-		System.out.println("Enter the User Index:");
+		System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 		boolean validateIndex = false;
 		int limit = users.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid User Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String userId = users.get(index - 1).getUserId();
 		String role = users.get(index - 1).getRole().toString();
-		if (role.equals("Admin") || role.equals("Faculty")) {
-			System.out.println("Enter Valid Id for Student");
+		if (role.equals(StringConstants.ADMIN) || role.equals(StringConstants.FACULTY)) {
+			System.out.println(StringConstants.ENTER_VALID_ID);
 			return;
 		}
 		List<Attendance> list = attendanceController.viewAttendanceById(userId);
 		if (list.isEmpty()) {
-			System.out.println("No attendance records available");
+			System.out.println(StringConstants.NO_ATTENDANCE_RECORDS_AVAILABLE);
 		}
 		AttendancePrinter.printAttendanceDetails(list);
 	}
@@ -912,27 +1113,46 @@ public class UserUI {
 	public void approveLeave(String role) {
 		List<Leaves> leaves = leavesController.viewAllLeave();
 		if (leaves.isEmpty()) {
-			System.out.println("No Leaves found");
+			System.out.println(StringConstants.NO_LEAVES_FOUND);
 			return;
 		}
-		int index = 0;
-		LeavesPrinter.printLeaves(leaves);
-		System.out.println("Enter the Leave Index");
+		int index = 1;
+
+		// LeavesPrinter.printLeaves(leaves);
+		LeavesPrinter.extractedHeader();
+		for (Leaves leave : leaves) {
+			List<Leaves> leaveList = new ArrayList<Leaves>();
+			String userId = leave.getUserId();
+			User user = userController.getUserById(userId);
+			String name = user.getName();
+			String username = user.getUsername();
+			leaveList.add(leave);
+			LeavesPrinter.printLeaves1(leaveList, name, username, index);
+			index++;
+		}
+		LeavesPrinter.extractedFooter();
+
+		System.out.println(StringConstants.ENTER_THE_LEAVE_INDEX);
 		boolean validateIndex = false;
 		int limit = leaves.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
-				System.out.println("Enter valid Leave Index:");
-				validateIndex = false;
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_LEAVE_INDEX);
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.ENTER_VALID_INPUT);
+				scanner.next();
 			}
 		}
 		String userId = leaves.get(index - 1).getUserId();
 		String Status = leaves.get(index - 1).getStatus().toString();
-		if (Status.equals("Approved")) {
-			System.out.println("Leave already approved");
+		if (Status.equals(StringConstants.APPROVED)) {
+			System.out.println(StringConstants.LEAVE_ALREADY_APPROVED);
 			return;
 		}
 		leavesController.approveLeave(userId);
@@ -941,12 +1161,24 @@ public class UserUI {
 	public void rejectLeave(String role) {
 		List<Leaves> leaves = leavesController.viewAllLeave();
 		if (leaves.isEmpty()) {
-			System.out.println("No Leaves found");
+			System.out.println(StringConstants.NO_LEAVES_FOUND);
 			return;
 		}
-		int index = 0;
-		LeavesPrinter.printLeaves(leaves);
-		System.out.println("Enter the Leave Index");
+		int index = 1;
+//		LeavesPrinter.printLeaves(leaves);
+		LeavesPrinter.extractedHeader();
+		for (Leaves leave : leaves) {
+			List<Leaves> leaveList = new ArrayList<Leaves>();
+			String userId = leave.getUserId();
+			User user = userController.getUserById(userId);
+			String name = user.getName();
+			String username = user.getUsername();
+			leaveList.add(leave);
+			LeavesPrinter.printLeaves1(leaveList, name, username, index);
+			index++;
+		}
+		LeavesPrinter.extractedFooter();
+		System.out.println(StringConstants.ENTER_THE_LEAVE_INDEX);
 		boolean validateIndex = false;
 		int limit = leaves.size();
 		while (!validateIndex) {
@@ -954,14 +1186,14 @@ public class UserUI {
 			if (Validator.isValidIndex(index, limit)) {
 				validateIndex = true;
 			} else {
-				System.out.println("Enter valid Leave Index:");
+				System.out.println(StringConstants.ENTER_VALID_LEAVE_INDEX);
 				validateIndex = false;
 			}
 		}
 		String userId = leaves.get(index - 1).getUserId();
 		String Status = leaves.get(index - 1).getStatus().toString();
-		if (Status.equals("Rejected")) {
-			System.out.println("Leave already rejected");
+		if (Status.equals(StringConstants.REJECTED)) {
+			System.out.println(StringConstants.LEAVE_ALREADY_REJECTED);
 			return;
 		}
 		leavesController.rejectLeave(userId);
@@ -969,9 +1201,23 @@ public class UserUI {
 
 	public void applyLeave(User user) {
 		String userId = user.getUserId();
-		System.out.println("Enter Leave Content:");
-		String content = scanner.nextLine();
-		String input = "Pending";
+		System.out.println(StringConstants.ENTER_LEAVE_CONTENT);
+		String content = null;
+		while (true) {
+			try {
+				content = scanner.nextLine();
+				if (content.matches(".*[a-zA-Z].*")) {
+					break;
+				} else {
+					System.out.println(StringConstants.INVALID_INPUT);
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.INVALID_INPUT + "Exception");
+				scanner.next();
+			}
+		}
+
+		String input = StringConstants.PENDING;
 		LeavesStatus status = LeavesStatus.valueOf(input);
 		String randomString = UUID.randomUUID().toString();
 		int desiredLength = 7;
@@ -981,8 +1227,27 @@ public class UserUI {
 		String leaveId = randomString.substring(0, desiredLength);
 		leaveId = 'L' + leaveId;
 
-		LocalDate startDate = LocalDate.now();
-		LocalDate endDate = Validator.ValidateDate();
+		LocalDate startDate = null;
+		System.out.println(StringConstants.ENTER_THE_LEAVE_START_DATE_YYYY_MM_DD);
+		while (startDate == null) {
+			try {
+				boolean validDate = false;
+				while (!validDate) {
+					String input2 = scanner.next();
+					startDate = LocalDate.parse(input2);
+					if (startDate.isAfter(LocalDate.now())) {
+						validDate = true;
+					} else {
+						validDate = false;
+						System.out.println(StringConstants.PLEASE_ENTER_VALID_DATE);
+					}
+				}
+			} catch (DateTimeParseException e) {
+				System.out.println(StringConstants.INVALID_DATE_FORMAT);
+			}
+		}
+
+		LocalDate endDate = Validator.ValidateDate(startDate);
 		Leaves leave = new Leaves(leaveId, userId, content, startDate, endDate, status);
 		leavesController.applyLeave(leave);
 	}
@@ -990,36 +1255,66 @@ public class UserUI {
 	public void viewAllLeave() {
 		List<Leaves> leaves = leavesController.viewAllLeave();
 		if (leaves.isEmpty()) {
-			System.out.println("No Leaves found");
+			System.out.println(StringConstants.NO_LEAVES_FOUND);
 			return;
 		}
-		LeavesPrinter.printLeaves(leaves);
+		// LeavesPrinter.printLeaves(leaves);
+		int index = 1;
+		LeavesPrinter.extractedHeader();
+		for (Leaves leave : leaves) {
+			List<Leaves> leaveList = new ArrayList<Leaves>();
+			String userId = leave.getUserId();
+			User user = userController.getUserById(userId);
+			String name = user.getName();
+			String username = user.getUsername();
+			leaveList.add(leave);
+			LeavesPrinter.printLeaves1(leaveList, name, username, index);
+			index++;
+		}
+		LeavesPrinter.extractedFooter();
 	}
 
 	public void checkLeaveStatus(User user) {
 		String userId = user.getUserId();
 		List<Leaves> leaves = leavesController.checkLeaveStatus(userId);
 		if (leaves.isEmpty()) {
-			System.out.println("First Apply for Leave");
+			System.out.println(StringConstants.FIRST_APPLY_FOR_LEAVE);
 			return;
 		}
-		LeavesPrinter.printLeaves(leaves);
+		// LeavesPrinter.printLeaves(leaves);
+		int index = 1;
+		LeavesPrinter.extractedHeader();
+		for (Leaves leave : leaves) {
+			List<Leaves> leaveList = new ArrayList<Leaves>();
+			String userId1 = leave.getUserId();
+			User user1 = userController.getUserById(userId1);
+			String name = user1.getName();
+			String username = user1.getUsername();
+			leaveList.add(leave);
+			LeavesPrinter.printLeaves1(leaveList, name, username, index);
+			index++;
+		}
+		LeavesPrinter.extractedFooter();
 	}
 
 	public void readNotifications(User user) {
 		String userId = user.getUserId();
 		List<Notification> notifications = notificationController.readNotifications(userId);
+		if (notifications.isEmpty()) {
+			System.out.println(StringConstants.NO_NOTIFICATIONS_FOUND);
+			return;
+		}
 		NotificationPrinter.printNotifications(notifications);
 	}
 
 	public void sendNotification() {
 		try {
 			List<User> users = userController.getAllUser();
-			System.out.println("List of all Users");
+			System.out.println(StringConstants.LIST_OF_ALL_USERS);
 			int index = 0;
 			UserPrinter.printUsers(users);
 
-			System.out.println("Enter the User Index");
+			System.out.println(StringConstants.ENTER_THE_USER_INDEX2);
 			boolean validateIndex = false;
 			int limit = users.size();
 			while (!validateIndex) {
@@ -1027,16 +1322,44 @@ public class UserUI {
 				if (Validator.isValidIndex(index, limit)) {
 					validateIndex = true;
 				} else {
-					System.out.println("Enter valid User Index:");
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
 					validateIndex = false;
 				}
 			}
 			String userId = users.get(index - 1).getUserId();
-			System.out.println("Enter title: ");
-			String type = scanner.next();
+			System.out.println(StringConstants.ENTER_TITLE);
+			String type = null;// scanner.next();
 			scanner.nextLine();
-			System.out.println("Enter message: ");
-			String description = scanner.nextLine();
+			while (true) {
+				try {
+					type = scanner.nextLine();
+					// Check if the title is alphabetic only
+					if (type.matches("[a-zA-Z]+")) {
+						break; // Exit the loop if valid
+					} else {
+						System.out.println(StringConstants.INVALID_INPUT);
+					}
+				} catch (InputMismatchException e) {
+					System.out.println(StringConstants.INVALID_INPUT);
+					scanner.next();
+				}
+			}
+			System.out.println(StringConstants.ENTER_MESSAGE);
+			String description = null;// scanner.nextLine();
+			while (true) {
+				try {
+					description = scanner.nextLine();
+					// Check if the title is alphabetic only
+					if (description.matches("[a-zA-Z0-9]+")) {
+						break; // Exit the loop if valid
+					} else {
+						System.out.println(StringConstants.INVALID_INPUT);
+					}
+				} catch (InputMismatchException e) {
+					System.out.println(StringConstants.INVALID_INPUT);
+					scanner.next();
+				}
+			}
 			String randomString = UUID.randomUUID().toString();
 			int desiredLength = 7;
 			if (desiredLength > randomString.length()) {
@@ -1048,22 +1371,35 @@ public class UserUI {
 			Notification notification = new Notification(notificationId, userId, type, description, todayDate);
 			boolean sendStatus = notificationController.sendNotification(notification);
 			if (sendStatus) {
-				System.out.println("Notification sent successfully");
+				System.out.println(StringConstants.NOTIFICATION_SENT_SUCCESSFULLY);
 			} else {
-				System.out.println("Notification not sent");
+				System.out.println(StringConstants.NOTIFICATION_NOT_SENT);
 			}
 		} catch (Exception e) {
 			System.out.println("An error occurred: " + e.getMessage());
-			e.printStackTrace(); // For debugging, logs stack trace
+			// e.printStackTrace();
 		}
 	}
 
 	public void raiseIssue(User user) {
 		String userId = user.getUserId();
-		System.out.println("Enter Issue Content:");
-		String message = scanner.nextLine();
-		scanner.nextLine();
-		String input = "PENDING";
+		System.out.println(StringConstants.ENTER_ISSUE_CONTENT);
+		String message = null;
+		while (true) {
+			try {
+				message = scanner.nextLine();
+				if (message.matches(".*[a-zA-Z].*")) {
+					break;
+				} else {
+					System.out.println(StringConstants.INVALID_INPUT);
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.INVALID_INPUT);
+				scanner.next();
+			}
+		}
+
+		String input = StringConstants.PENDING2;
 		IssuesStatus status = IssuesStatus.valueOf(input);
 		String randomString = UUID.randomUUID().toString();
 		int desiredLength = 7;
@@ -1078,21 +1414,41 @@ public class UserUI {
 
 	public void resolveIssue() {
 		List<Issue> issue = issueController.viewAllIssues();
-		System.out.println("List of all Issues");
-		int index = 0;
-		IssuePrinter.printIssues(issue);
+		if (issue.isEmpty()) {
+			System.out.println(StringConstants.NO_ISSUES_FOUND);
+			return;
+		}
+		int index = 1;
+		IssuePrinter.extractedHeader();
+		for (Issue i : issue) {
+			List<Issue> issueList = new ArrayList<Issue>();
+			String userId = i.getUserId();
+			User user = userController.getUserById(userId);
+			String name = user.getName();
+			String username = user.getUsername();
+			issueList.add(i);
+			IssuePrinter.printIssues1(issueList, name, username, index);
+			index++;
+		}
+		IssuePrinter.extractedFooter();
 		System.out.println("Enter the Issue index");
 		boolean validateIndex = false;
 		int limit = issue.size();
 		while (!validateIndex) {
-			index = scanner.nextInt();
-			if (Validator.isValidIndex(index, limit)) {
-				validateIndex = true;
-			} else {
+			try {
+				index = scanner.nextInt();
+				if (Validator.isValidIndex(index, limit)) {
+					validateIndex = true;
+				} else {
+					System.out.println("Enter valid Issue Index:");
+					validateIndex = false;
+				}
+			} catch (InputMismatchException e) {
 				System.out.println("Enter valid Issue Index:");
-				validateIndex = false;
+				scanner.next();
 			}
 		}
+
 		String userId = issue.get(index - 1).getUserId();
 		String Status = issue.get(index - 1).getStatus().toString();
 		if (Status.equals("RESOLVED")) {
@@ -1106,7 +1462,7 @@ public class UserUI {
 		String userId = user.getUserId();
 		List<Issue> issue = issueController.checkIssueStatus(userId);
 		if (issue.isEmpty()) {
-			System.out.println("No Issues found");
+			System.out.println(StringConstants.NO_ISSUES_FOUND);
 			return;
 		}
 		IssuePrinter.printIssues(issue);
@@ -1115,7 +1471,7 @@ public class UserUI {
 	public void viewAllIssues() {
 		List<Issue> issue = issueController.viewAllIssues();
 		if (issue.isEmpty()) {
-			System.out.println("No Issues found");
+			System.out.println(StringConstants.NO_ISSUES_FOUND);
 			return;
 		}
 		int index = 1;
@@ -1137,7 +1493,7 @@ public class UserUI {
 		String userId = user.getUserId();
 		List<CourseMarks> coursesMarks = courseMarksController.checkMarks(userId);
 		if (coursesMarks.isEmpty()) {
-			System.out.println("No marks added");
+			System.out.println(StringConstants.NO_MARKS_ADDED);
 			return;
 		}
 		int index = 1;
@@ -1161,10 +1517,10 @@ public class UserUI {
 		User user1 = null;
 		while (!validateUser) {
 			List<User> users = userController.getAllUser();
-			System.out.println("List of all Users");
+			System.out.println(StringConstants.LIST_OF_ALL_USERS);
 			int index = 0;
 			UserPrinter.printUsers(users);
-			System.out.println("Enter the User Index:");
+			System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 			boolean validateIndex = false;
 			int limit = users.size();
 			while (!validateIndex) {
@@ -1172,14 +1528,15 @@ public class UserUI {
 				if (Validator.isValidIndex(index, limit)) {
 					validateIndex = true;
 				} else {
-					System.out.println("Enter valid User Index:");
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
 					validateIndex = false;
 				}
 			}
 			user1 = users.get(index - 1);
 			userId = user1.getUserId();
 
-			if (user1.getRole().toString().equals("Admin") || user1.getRole().toString().equals("Faculty")) {
+			if (user1.getRole().toString().equals(StringConstants.ADMIN)
+					|| user1.getRole().toString().equals(StringConstants.FACULTY)) {
 				System.out.println("Marks can only be added to Student, Enter Student User Index");
 				validateUser = false;
 			} else {
@@ -1195,40 +1552,61 @@ public class UserUI {
 			List<Course> filteredCourses = list.stream().filter(course -> course.getStandard() == standard)
 					.collect(Collectors.toList());
 			if (filteredCourses.isEmpty()) {
-				System.out.println("No courses added for this standard");
+				System.out.println(StringConstants.NO_COURSE);
 				return;
 			}
 			int index = 0;
 			if (storeUser.isEmpty()) {
-				System.out.println("No course added for this standard");
+				System.out.println(StringConstants.NO_COURSE);
 				return;
 			} else {
 				CoursePrinter.printCourseDetails(filteredCourses);
 			}
 			boolean validateIndex = false;
 			int limit = filteredCourses.size();
-			System.out.println("Enter the Course Index:");
+			System.out.println(StringConstants.ENTER_THE_COURSE_INDEX);
 			while (!validateIndex) {
-				index = scanner.nextInt();
-				if (Validator.isValidIndex(index, limit)) {
-					validateIndex = true;
-				} else {
-					System.out.println("Enter valid Course Index:");
-					validateIndex = false;
+				try {
+					index = scanner.nextInt();
+					if (Validator.isValidIndex(index, limit)) {
+						validateIndex = true;
+					} else {
+						System.out.println(StringConstants.ENTER_VALID_COURSE_INDEX);
+						validateIndex = false;
+					}
+				} catch (InputMismatchException e) {
+					System.out.println(StringConstants.ENTER_VALID_COURSE_INDEX);
+					scanner.next();
 				}
 			}
 			courseId = filteredCourses.get(index - 1).getCourseId();
 			Course course = courseController.getCourse(courseId);
 			if (course == null) {
-				System.out.println("Enter valid courseId");
+				System.out.println(StringConstants.ENTER_VALID_COURSE_ID);
 				validateUser = false;
 			} else {
 				validateUser = true;
 			}
 		}
-		System.out.println("Enter marks");
-		double marks = scanner.nextDouble();
-		courseMarksController.addMarks(userId, courseId, marks);
+		System.out.println(StringConstants.ENTER_MARKS_0_100);
+		boolean validMarks = false;
+		double marks = 0;
+		while (!validMarks) {
+			try {
+				marks = scanner.nextDouble();
+				if (marks >= 0 && marks <= 100) {
+					validMarks = true;
+				} else {
+					System.out.println(StringConstants.ENTER_VALID_MARKS_0_100);
+					validMarks = false;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println(StringConstants.INVALID_INPUT_FOR_MARKS_TYPE);
+				scanner.next();
+			}
+		}
+		int standard = user1.getStandard();
+		courseMarksController.addMarks(userId, courseId, marks, standard);
 	}
 
 	public void generateMarksheet() {
@@ -1238,24 +1616,30 @@ public class UserUI {
 		User user11 = null;
 		while (!validateUser1) {
 			List<User> users = userController.getAllUser();
-			System.out.println("List of all Users");
+			System.out.println(StringConstants.LIST_OF_ALL_USERS);
 			int index = 0;
 			UserPrinter.printUsers(users);
 			boolean validateIndex = false;
 			int limit = users.size();
-			System.out.println("Enter the User Index:");
+			System.out.println(StringConstants.ENTER_THE_USER_INDEX);
 			while (!validateIndex) {
-				index = scanner.nextInt();
-				if (Validator.isValidIndex(index, limit)) {
-					validateIndex = true;
-				} else {
-					System.out.println("Enter valid User Index:");
-					validateIndex = false;
+				try {
+					index = scanner.nextInt();
+					if (Validator.isValidIndex(index, limit)) {
+						validateIndex = true;
+					} else {
+						System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+						validateIndex = false;
+					}
+				} catch (InputMismatchException e) {
+					System.out.println(StringConstants.ENTER_VALID_USER_INDEX);
+					scanner.next();
 				}
 			}
 			user11 = users.get(index - 1);
 			userId1 = user11.getUserId();
-			if (user11.getRole().toString().equals("Admin") || user11.getRole().toString().equals("Faculty")) {
+			if (user11.getRole().toString().equals(StringConstants.ADMIN)
+					|| user11.getRole().toString().equals(StringConstants.FACULTY)) {
 				System.out.println("Marksheets can only be added to Student, Enter Student UserId");
 				validateUser1 = false;
 			} else {
@@ -1266,7 +1650,7 @@ public class UserUI {
 
 		List<CourseMarks> list = courseMarksController.checkMarks(userId1);
 		if (list.isEmpty()) {
-			System.out.println("Add marks first");
+			System.out.println(StringConstants.ADD_MARKS_FIRST_TO_GENERATE_MARKSHEET);
 			return;
 		}
 		double Totalmarks = 0;
@@ -1275,11 +1659,12 @@ public class UserUI {
 		}
 		int noOfCourses = list.size();
 		double percentage = Totalmarks / noOfCourses;
-		System.out.println("Total marks: " + Totalmarks + " Percentage: " + percentage);
+		System.out.println(StringConstants.TOTAL_MARKS + Totalmarks);
+		System.out.println(StringConstants.PERCENTAGE2 + percentage);
 		if (percentage > 45) {
-			System.out.println("PASS");
+			System.out.println(StringConstants.RESULT_PASS);
 		} else {
-			System.out.println("FAIL");
+			System.out.println(StringConstants.RESULT_FAIL);
 		}
 	}
 
@@ -1287,7 +1672,7 @@ public class UserUI {
 		String userId = user.getUserId();
 		List<CourseMarks> list = courseMarksController.checkMarks(userId);
 		if (list.isEmpty()) {
-			System.out.println("No marks added");
+			System.out.println(StringConstants.NO_MARKS_ADDED);
 			return;
 		}
 		int index = 1;
@@ -1306,12 +1691,12 @@ public class UserUI {
 		}
 		int noOfCourses = list.size();
 		double percentage = Totalmarks / noOfCourses;
-		System.out.println("Total marks: " + Totalmarks);
-		System.out.println(" Percentage: " + percentage);
+		System.out.println(StringConstants.TOTAL_MARKS + Totalmarks);
+		System.out.println(StringConstants.PERCENTAGE2 + percentage);
 		if (percentage > 45) {
-			System.out.println("Result : PASS");
+			System.out.println(StringConstants.RESULT_PASS);
 		} else {
-			System.out.println("Result: FAIL");
+			System.out.println(StringConstants.RESULT_FAIL);
 		}
 	}
 }

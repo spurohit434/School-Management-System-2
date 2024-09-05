@@ -17,12 +17,12 @@ public class CourseMarksController {
 	public CourseMarksController() {
 	}
 
-	public void addMarks(String userId, String courseId, double marks) {
+	public void addMarks(String userId, String courseId, double marks, int standard) {
 		if (marks > 100 || marks < 0) {
 			System.out.println("Enter valid marks");
 			return;
 		}
-		CourseMarks courseMarks = new CourseMarks(userId, courseId, marks);
+		CourseMarks courseMarks = new CourseMarks(userId, courseId, marks, standard);
 		courseMarksService.addMarks(courseMarks);
 	}
 

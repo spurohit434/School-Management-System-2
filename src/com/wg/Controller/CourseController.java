@@ -1,14 +1,19 @@
 package com.wg.Controller;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+import com.wg.Constants.StringConstants;
+import com.wg.Helper.Validator;
 import com.wg.Model.Course;
 import com.wg.Services.CourseService;
 
 public class CourseController {
 
+	public static final String STANDARD = "Standard";
+	public static final String COURSE_NAME = "CourseName";
 	private CourseService courseService;
 	Scanner scanner = new Scanner(System.in);
 
@@ -27,9 +32,6 @@ public class CourseController {
 
 	public void updateCourse(String courseId) {
 		try {
-//			System.out.print("Enter course ID: ");
-//			String courseId = scanner.nextLine();
-
 			Course course = courseService.getCourse(courseId);
 			if (course != null) {
 				boolean continueUpdating = true;
@@ -37,22 +39,52 @@ public class CourseController {
 				while (continueUpdating) {
 					displayUpdateMenu();
 
-					System.out.print("Select an option (1-3): ");
-					int choice = scanner.nextInt();
-					scanner.nextLine();
+					System.out.print("Select an option(1-3): ");
+					int choice = Validator.getUserChoice();
 
 					String columnToUpdate = "";
 
 					switch (choice) {
 					case 1:
-						columnToUpdate = "CourseName";
+						columnToUpdate = COURSE_NAME;
 						System.out.print("Enter new Course name: ");
-						course.setCourseName(scanner.nextLine());
+						String courseName = "";
+						while (true) {
+							try {
+								courseName = scanner.nextLine().trim();
+								if (courseName.matches("^[a-zA-Z\\s]+$") && !courseName.isEmpty()) {
+									break;
+								} else {
+									System.out.println(StringConstants.INVALID_INPUT);
+								}
+							} catch (InputMismatchException e) {
+								System.out.println(StringConstants.INVALID_INPUT);
+								scanner.next();
+							}
+						}
+						course.setCourseName(courseName);
 						break;
 					case 2:
-						columnToUpdate = "Standard";
+						columnToUpdate = STANDARD;
 						System.out.print("Enter new standard: ");
-						course.setStandard(scanner.nextInt());
+						int standard = scanner.nextInt();
+						boolean validStandard = false;
+						while (!validStandard) {
+							try {
+								if (standard >= 1 && standard <= 12) {
+									validStandard = true;
+								} else {
+									System.out.println(StringConstants.ENTER_VALID_STANDARD_1_12);
+									standard = scanner.nextInt();
+									validStandard = false;
+								}
+							} catch (InputMismatchException e) {
+								System.out.println(
+										StringConstants.INVALID_INPUT_PLEASE_ENTER_A_VALID_INTEGER_FOR_STANDARD2);
+								scanner.next();
+							}
+						}
+						course.setStandard(standard);
 						break;
 					case 3:
 						continueUpdating = false;

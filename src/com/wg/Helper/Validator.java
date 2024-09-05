@@ -34,20 +34,14 @@ public class Validator {
 		return gender.equalsIgnoreCase("M") || gender.equalsIgnoreCase("F");
 	}
 
-	public static boolean isValidUsername(String username) {
-		if (username == null || username.length() < 1) {
-			return false;
-		}
-		return !username.contains(" ");
-	}
-
 	public static boolean isValidContactNo(String contactNo) {
 		if (contactNo == null) {
 			return false;
 		}
 		Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^\\d{10}$");
 		Matcher matcher = PHONE_NUMBER_PATTERN.matcher(contactNo);
-		return matcher.matches();
+
+		return matcher.matches() && !contactNo.equals("0000000000");
 	}
 
 	public static boolean isValidRole(String role) {
@@ -77,8 +71,7 @@ public class Validator {
 		return false;
 	}
 
-	public static LocalDate ValidateDate() {
-		LocalDate startDate = LocalDate.now();
+	public static LocalDate ValidateDate(LocalDate startDate) {
 		LocalDate endDate = null;
 		boolean validDate = false;
 
@@ -98,6 +91,51 @@ public class Validator {
 			}
 		}
 		return endDate;
+	}
+
+	private static final Pattern USERNAME_PATTERN = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{4,30}$");
+
+	public static boolean isValidUsername(String username) {
+		if (username == null) {
+			return false;
+		}
+		Matcher matcher = USERNAME_PATTERN.matcher(username);
+		return matcher.matches();
+	}
+
+	public static boolean isValidName(String name) {
+		if (name == null) {
+			return false;
+		}
+		// Trim the name to remove any leading or trailing whitespace
+		String trimmedName = name.trim();
+		// Check if the trimmed name is not empty and contains only alphabetic
+		// characters
+		return !trimmedName.isEmpty() && trimmedName.matches("[a-zA-Z]+");
+	}
+
+	private static final Pattern ROLL_NUMBER_PATTERN = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[A-Za-z\\d]{4}$");
+
+	public static boolean isValidRollNumber(String rollNo) {
+		if (rollNo == null) {
+			return false;
+		}
+		return rollNo.length() == 4 && ROLL_NUMBER_PATTERN.matcher(rollNo).matches();
+	}
+
+	public static boolean isValidAddress(String address) {
+		if (address == null) {
+			return false;
+		}
+		// Trim the address to remove any leading or trailing whitespace
+		String trimmedAddress = address.trim();
+		// Check if the trimmed address is not empty and is within a reasonable length
+		// For example, consider a reasonable length between 5 and 100 characters
+		if (trimmedAddress.isEmpty() || trimmedAddress.length() < 5 || trimmedAddress.length() > 100) {
+			return false;
+		}
+		String addressPattern = "^[a-zA-Z0-9\\s,.-/]+$";
+		return trimmedAddress.matches(addressPattern);
 	}
 
 }

@@ -8,7 +8,7 @@ public class IssuePrinter {
 	private static final String HEADER_FORMAT = "%5s | %-30s | %-15s | %-5s";
 	private static final String ROW_FORMAT = "%5d | %-30s | %-15s | %15s";
 
-	private static final String HEADER_FORMAT1 = "%5s | %-30s | %-15s | %-15s | %-15s | %-5s";
+	private static final String HEADER_FORMAT1 = "%5s | %-30s | %-15s | %-15s | %-15s  | %-5s";
 	private static final String ROW_FORMAT1 = "%5d | %-30s | %-15s | %-15s |  %-15s | %15s";
 
 	private static final String BOX_BORDER = "==================================================================================================================================================";
@@ -69,6 +69,7 @@ public class IssuePrinter {
 		System.out.println(centerTextInBox("Issue DETAILS"));
 		System.out.println(BOX_BORDER);
 		System.out.printf(HEADER_FORMAT1, "S.No.", "Issue", "Name", "Username", "Issue Status", "Date");
+		System.out.println();
 	}
 
 	public static void extractedFooter() {

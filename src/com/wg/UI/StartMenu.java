@@ -35,26 +35,23 @@ public class StartMenu {
 		}
 	}
 
-//	public void login() {
-//		System.out.println("Enter username: ");
-//		String username = scanner.next();
-//		System.out.println("Enter password: ");
-//		String password = scanner.next();
-//
-//		User user = userUI.authenticateUser(username, password);
-//		if (user == null) {
-//			System.out.println("Enter valid Credentials!");
-//			try {
-//				App.main(null);
-//				return;
-//			} catch (ClassNotFoundException | SQLException e) {
-//				e.printStackTrace();
-//			}
-//			return;
-//		} else {
-//			userUI.displayMenu(user);
-//		}
-//	}
+	public void login() {
+		while (true) {
+			System.out.println(StringConstants.Welcome);
+			System.out.println("Enter username: ");
+			String username = scanner.next();
+			System.out.println("Enter password: ");
+			String password = scanner.next();
+
+			User user = userUI.authenticateUser(username, password);
+			if (user == null) {
+				System.out.println("Invalid credentials");
+				System.out.println(" ");
+			} else {
+				displayMenu(user);
+			}
+		}
+	}
 
 	public void displayMenu(User user) {
 		String role = user.getRole().toString();
@@ -128,6 +125,7 @@ public class StartMenu {
 					break;
 				case 7:
 					userUI.viewMarksheet(user);
+					break;
 				case 8:
 					userUI.logout();
 					break;

@@ -27,7 +27,8 @@ public class CourseMarksService {
 				System.out.println("Marks cannot be added");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println("Marks can not be added" + e.getMessage());
+			// e.printStackTrace();
 		}
 	}
 

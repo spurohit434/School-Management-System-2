@@ -1,0 +1,8 @@
+Sep 06, 2024 12:33:38 AM com.wg.Services.UserService authenticateUser
+SEVERE: Cannot invoke "com.wg.Model.User.getUserId()" because "user" is null
+Sep 06, 2024 12:33:56 AM com.wg.Services.UserService authenticateUser
+INFO: User Authentication Success!! 
+ Username: Bhanu123
+Sep 06, 2024 12:35:32 AM com.wg.Services.UserService authenticateUser
+INFO: User Authentication Success!! 
+ Username: Shailesh434

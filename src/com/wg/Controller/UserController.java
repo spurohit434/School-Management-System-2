@@ -1,13 +1,13 @@
 package com.wg.Controller;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+import com.wg.Helper.PasswordUtil;
 import com.wg.Helper.PasswordValidator;
 import com.wg.Helper.Validator;
 import com.wg.Model.Role;
@@ -104,48 +104,95 @@ public class UserController {
 
 					System.out.print("Select an option ");
 					int choice = Validator.getUserChoice();
-					scanner.nextLine();
 
 					String columnToUpdate = "";
 
 					switch (choice) {
 					case 1:
 						columnToUpdate = "name";
-						System.out.print("Enter new name: ");
-						user.setName(scanner.nextLine());
+						System.out.print("Enter name: ");
+						String name = scanner.next();
+						Boolean validName = false;
+						while (!validName) {
+							if (Validator.isValidName(name)) {
+								validName = true;
+							} else {
+								System.out.println("Enter valid Name: ");
+								name = scanner.next();
+								validName = false;
+							}
+						}
+						user.setName(name);
 						break;
 					case 2:
 						columnToUpdate = "email";
-						System.out.print("Enter new email: ");
-						user.setEmail(scanner.nextLine());
+						boolean validInput = false;
+						String email = null;
+						System.out.print("Enter email: ");
+						while (!validInput) {
+							try {
+								email = scanner.next();
+								if (Validator.isValid(email)) {
+									validInput = true;
+								} else {
+									System.out.print("Enter valid email: ");
+									validInput = false;
+								}
+							} catch (InputMismatchException e) {
+								System.out.println("Invalid input. Please enter a valid Email: ");
+								scanner.next();
+							}
+						}
+						user.setEmail(email);
 						break;
 					case 3:
 						columnToUpdate = "username";
-						System.out.print("Enter new username: ");
-						String username = scanner.nextLine();
-						if (Validator.isValidUsername(username)) {
-							System.out.println("Enter valid username");
-							return;
+						System.out.print("Enter new Username (AlphaNumeric(4-30) characters):");
+						String username = scanner.next();
+						boolean validUserName = false;
+						while (!validUserName) {
+							if (Validator.isValidUsername(username)) {
+								validUserName = true;
+							} else {
+								System.out.println("Enter valid username: ");
+								username = scanner.next();
+								validUserName = false;
+							}
 						}
 						user.setUsername(username);
 						break;
 					case 4:
 						columnToUpdate = "password";
-						System.out.print("Enter new password: ");
-						user.setPassword(scanner.nextLine());
+						System.out.print(
+								"Enter new password: (Atleast one UpperCase character, one Special character, one Integer digit, 8 characters): ");
+						PasswordValidator passwordValidator = new PasswordValidator();
+						String password = null;
+						boolean isValidPassword = false;
+						while (!isValidPassword) {
+							password = scanner.next();
+							if (passwordValidator.isValidPassword(password)) {
+								isValidPassword = true;
+							} else {
+								System.out.println("Enter valid password: ");
+								isValidPassword = false;
+							}
+						}
+						password = PasswordUtil.hashPassword(password);
+						user.setPassword(password);
 						break;
 					case 5:
 						columnToUpdate = "age";
-						int age = scanner.nextInt();
-						boolean validInput1 = false;
-						while (!validInput1) {
-							System.out.print("Enter new age: ");
+						int age = 0;
+						boolean validInputAge = false;
+						while (!validInputAge) {
+							System.out.print("Enter age: ");
 							try {
 								age = scanner.nextInt();
 								if (Validator.isValidAge(age)) {
-									validInput1 = true;
+									validInputAge = true;
 								} else {
-									validInput1 = false; // If input is valid, exit loop
+									System.out.println("Invalid Age. Enter a valid Age: ");
+									validInputAge = false; // If input is valid, exit loop
 								}
 							} catch (InputMismatchException e) {
 								System.out.println("Invalid input. Please enter a valid integer for age.");
@@ -153,37 +200,74 @@ public class UserController {
 							}
 						}
 						user.setAge(age);
-						scanner.nextLine();
+						// scanner.nextLine();
 						break;
 					case 6:
 						columnToUpdate = "gender";
-						System.out.print("Enter new gender (M/F): ");
-						user.setGender(scanner.nextLine().toUpperCase());
+						System.out.println("Enter the gender (M for Male, F for Female): ");
+						String gender = null;
+						boolean validGender = false;
+						while (!validGender) {
+							gender = scanner.next();
+							if (gender.equals("M") || gender.equals("F") || gender.equals("m") || gender.equals("f")) {
+								validGender = true;
+							} else {
+								System.out.println("Invalid Input. Please enter a valid gender (M, F): ");
+								validGender = false;
+							}
+						}
+						gender = gender.toUpperCase();
+						user.setGender(gender);
 						break;
 					case 7:
 						columnToUpdate = "contactNumber";
 						System.out.print("Enter new contact number: ");
-						user.setContactNumber(scanner.nextLine());
+						String contactNumber = null;
+						boolean validNumber = false;
+						while (!validNumber) {
+							contactNumber = scanner.next();
+							if (Validator.isValidContactNo(contactNumber)) {
+								validNumber = true;
+							} else {
+								System.out.println("Enter valid Mobile Number: ");
+								validNumber = false;
+							}
+						}
+						user.setContactNumber(contactNumber);
 						break;
 					case 8:
 						columnToUpdate = "address";
 						System.out.print("Enter new address: ");
-						user.setAddress(scanner.nextLine());
+						System.out.println(
+								"Enter your address (5-100 characters, avoid special characters). Example: 123 Main St., Apt 4B/5, New York, NY 10001:");
+						String address = null;
+						boolean validAddress = false;
+						while (!validAddress) {
+							address = scanner.nextLine();
+							if (Validator.isValidAddress(address)) {
+								validAddress = true;
+								break;
+							} else {
+								System.out.println("Invalid address. Please follow the guidelines and try again.");
+								validAddress = false;
+							}
+						}
+						user.setAddress(address);
 						break;
 					case 9:
 						columnToUpdate = "role";
-						String roleInput = ""; // Read and trim the input
-
-						boolean validInput = false;
-						while (!validInput) {
+						String roleInput = "";
+						boolean validInput11 = false;
+						while (!validInput11) {
 							System.out.print("Enter new role (Student, Faculty): ");
 							try {
 								roleInput = scanner.nextLine().trim();
-								if (roleInput.equals("Admin")) {
+								if (roleInput.equals("Admin") || roleInput.equals("admin")
+										|| roleInput.equals("aDMIN")) {
 									System.out.println("Role can not be Admin");
-									validInput = false;
+									validInput11 = false;
 								} else {
-									validInput = true;
+									validInput11 = true;
 								}
 							} catch (InputMismatchException e) {
 								System.out.println("Invalid input. Please enter a valid Role.");
@@ -202,32 +286,94 @@ public class UserController {
 					case 10:
 						columnToUpdate = "dob";
 						System.out.print("Enter new Date of Birth (yyyy-mm-dd): ");
-						String dobInput = scanner.nextLine(); // Read user input
-						LocalDate dob = null;
-						while (dob == null) {
+						LocalDate date = null;
+						while (date == null) {
 							try {
-								dob = LocalDate.parse(dobInput, DateTimeFormatter.ISO_LOCAL_DATE); // Parse the input
+								boolean validDate = false;
+								while (!validDate) {
+									String input2 = scanner.next();
+									date = LocalDate.parse(input2);
+									if (date.isBefore(LocalDate.now())) {
+										validDate = true;
+									} else {
+										validDate = false;
+										System.out.println("Please Enter valid DOB Date");
+									}
+								}
 							} catch (DateTimeParseException e) {
 								System.out.println("Invalid date format. Please enter the date in yyyy-mm-dd format:");
-								dobInput = scanner.nextLine(); // Read user input again if format is invalid
 							}
 						}
-						user.setDOB(dob);
+						user.setDOB(date);
 						break;
 					case 11:
+						if (user.getRole().toString().equals("Admin") || user.getRole().toString().equals("Faculty")) {
+							System.out.println("This field can be updated for Student only");
+							return;
+						}
 						columnToUpdate = "rollNo";
-						System.out.print("Enter new rollNo: ");
-						user.setRollNo(scanner.nextLine());
+						String rollNo = null;
+						System.out.println("Enter new roll number (Alpha Numeric 4 chars only):");
+						boolean validRollNo = false;
+						while (!validRollNo) {
+							rollNo = scanner.next();
+							if (Validator.isValidRollNumber(rollNo)) {
+								validRollNo = true;
+							} else {
+								System.out.println("Enter valid roll number: ");
+								validRollNo = false;
+							}
+						}
+						user.setRollNo(rollNo);
 						break;
 					case 12:
+						if (user.getRole().toString().equals("Admin") || user.getRole().toString().equals("Student")) {
+							System.out.println("This field can be updated for Faculty only");
+							return;
+						}
 						columnToUpdate = "mentorOf";
-						System.out.print("Enter new mentor of standard: ");
-						user.setMentorOf(scanner.nextInt());
+						int mentorOf = 0;
+						boolean validStandard = false;
+						System.out.println("Enter new mentor of field(1-12): ");
+						while (!validStandard) {
+							mentorOf = scanner.nextInt();
+							try {
+								if (mentorOf >= 1 && mentorOf <= 12) {
+									validStandard = true;
+								} else {
+									System.out.println("Enter valid field(1-12): ");
+									validStandard = false;
+								}
+							} catch (InputMismatchException e) {
+								System.out.println("Invalid input. Please enter a valid integer for mentor of: ");
+								scanner.next();
+							}
+						}
+						user.setMentorOf(mentorOf);
 						break;
 					case 13:
+						if (user.getRole().toString().equals("Admin") || user.getRole().toString().equals("Faculty")) {
+							System.out.println("This field can be updated for Student only");
+							return;
+						}
 						columnToUpdate = "standard";
-						System.out.print("Enter new standard: ");
-						user.setStandard(scanner.nextInt());
+						boolean validStandard1 = false;
+						int standard = 0;
+						while (!validStandard1) {
+							System.out.println("Enter the standard (1-12): ");
+							try {
+								standard = scanner.nextInt(); // Try to read the integer
+								if (standard >= 1 && standard <= 12) {
+									validStandard1 = true; // Input is valid
+								} else {
+									System.out.println("Invalid input. Enter a number between 1 and 12.");
+								}
+							} catch (InputMismatchException e) {
+								System.out.println("Invalid input. Please enter a valid integer for standard.");
+								scanner.next(); // Clear the invalid input
+							}
+						}
+						user.setStandard(standard);
 						break;
 					case 14:
 						continueUpdating = false;

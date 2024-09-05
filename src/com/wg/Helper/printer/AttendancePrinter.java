@@ -30,15 +30,12 @@ public class AttendancePrinter {
 		System.out.println(centerTextInBox("ATTENDANCE DETAILS"));
 		System.out.println(BOX_BORDER);
 
-		// Print header
 		System.out.printf(HEADER_FORMAT, "S.No", "Standard", "Date", "Status");
 		System.out.println();
 		extractedFooter();
 		int index = 1;
-		// Print rows
 		for (Attendance attendee : attendance) {
 			try {
-				// Print each account row
 				System.out.printf(ROW_FORMAT, index++, attendee.getStandard(), attendee.getDate(),
 						attendee.getStatus());
 				System.out.println();
